@@ -16,7 +16,7 @@ const Avatar = memo(() => {
   const updateGuideState = useUserStore((s) => s.updateGuideState);
   const content = (
     <UserPanel>
-      <UserAvatar clickable />
+      {/* <UserAvatar clickable /> */}
     </UserPanel>
   );
 
