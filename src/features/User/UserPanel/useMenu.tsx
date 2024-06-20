@@ -163,52 +163,52 @@ export const useMenu = () => {
       ].filter(Boolean) as ItemType[]);
 
   const helps: MenuProps['items'] = [
-    {
-      icon: <Icon icon={DiscordIcon} />,
-      key: 'discord',
-      label: (
-        <Link href={DISCORD} target={'_blank'}>
-          {t('userPanel.discord')}
-        </Link>
-      ),
-    },
-    {
-      children: [
-        {
-          icon: <Icon icon={Book} />,
-          key: 'docs',
-          label: (
-            <Link href={DOCUMENTS} target={'_blank'}>
-              {t('userPanel.docs')}
-            </Link>
-          ),
-        },
-        {
-          icon: <Icon icon={Feather} />,
-          key: 'feedback',
-          label: (
-            <Link href={GITHUB_ISSUES} target={'_blank'}>
-              {t('userPanel.feedback')}
-            </Link>
-          ),
-        },
-        {
-          icon: <Icon icon={Mail} />,
-          key: 'email',
-          label: (
-            <Link href={mailTo(EMAIL_SUPPORT)} target={'_blank'}>
-              {t('userPanel.email')}
-            </Link>
-          ),
-        },
-      ],
-      icon: <Icon icon={LifeBuoy} />,
-      key: 'help',
-      label: t('userPanel.help'),
-    },
-    {
-      type: 'divider',
-    },
+    // {
+    //   icon: <Icon icon={DiscordIcon} />,
+    //   key: 'discord',
+    //   label: (
+    //     <Link href={DISCORD} target={'_blank'}>
+    //       {t('userPanel.discord')}
+    //     </Link>
+    //   ),
+    // },
+    // {
+    //   children: [
+    //     {
+    //       icon: <Icon icon={Book} />,
+    //       key: 'docs',
+    //       label: (
+    //         <Link href={DOCUMENTS} target={'_blank'}>
+    //           {t('userPanel.docs')}
+    //         </Link>
+    //       ),
+    //     },
+    //     {
+    //       icon: <Icon icon={Feather} />,
+    //       key: 'feedback',
+    //       label: (
+    //         <Link href={GITHUB_ISSUES} target={'_blank'}>
+    //           {t('userPanel.feedback')}
+    //         </Link>
+    //       ),
+    //     },
+    //     {
+    //       icon: <Icon icon={Mail} />,
+    //       key: 'email',
+    //       label: (
+    //         <Link href={mailTo(EMAIL_SUPPORT)} target={'_blank'}>
+    //           {t('userPanel.email')}
+    //         </Link>
+    //       ),
+    //     },
+    //   ],
+    //   icon: <Icon icon={LifeBuoy} />,
+    //   key: 'help',
+    //   label: t('userPanel.help'),
+    // },
+    // {
+    //   type: 'divider',
+    // },
   ];
 
   const mainItems = [
@@ -222,7 +222,7 @@ export const useMenu = () => {
     /* ↑ cloud slot ↑ */
     ...(canInstall ? pwa : []),
     ...data,
-    ...helps,
+    // ...helps,
   ].filter(Boolean) as MenuProps['items'];
 
   const logoutItems: MenuProps['items'] = isLoginWithAuth

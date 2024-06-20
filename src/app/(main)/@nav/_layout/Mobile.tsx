@@ -51,14 +51,14 @@ const Nav = memo(() => {
         },
         title: t('tab.market'),
       },
-      // {
-      //   icon: (active) => <Icon className={active ? styles.active : undefined} icon={User} />,
-      //   key: SidebarTabKey.Me,
-      //   onClick: () => {
-      //     router.push('/me');
-      //   },
-      //   title: t('tab.me'),
-      // },
+      {
+        icon: (active) => <Icon className={active ? styles.active : undefined} icon={User} />,
+        key: SidebarTabKey.Me,
+        onClick: () => {
+          router.push('/me');
+        },
+        title: t('tab.me'),
+      },
     ],
     [t],
   );

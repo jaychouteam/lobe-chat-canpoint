@@ -31,7 +31,7 @@ const RootLayout = async ({ children, modal }: RootLayoutProps) => {
           <AuthProvider>
             {children}
             {modal}
-          </AuthProvider>
+          </AuthProvider>  
           <PWAInstall />
         </GlobalProvider>
         <Analytics />

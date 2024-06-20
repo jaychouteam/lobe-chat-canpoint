@@ -11,6 +11,7 @@ const BottomActions = memo(() => {
 
   return (
     <>
+    <div></div>
       {/* <Link aria-label={'GitHub'} href={GITHUB} target={'_blank'}>
         <ActionIcon icon={Github} placement={'right'} title={'GitHub'} />
       </Link>
