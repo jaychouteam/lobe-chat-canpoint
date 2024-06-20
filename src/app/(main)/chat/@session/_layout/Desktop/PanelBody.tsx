@@ -16,7 +16,7 @@ const useStyles = createStyles(
 const PanelBody = memo<PropsWithChildren>(({ children }) => {
   const { styles } = useStyles();
 
-  return <DraggablePanelBody className={styles}>{children}</DraggablePanelBody>;
+  return   <DraggablePanelBody className={styles}>{children}</DraggablePanelBody>;
 });
 
 export default PanelBody;

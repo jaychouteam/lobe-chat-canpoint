@@ -36,7 +36,8 @@ const Footer = memo<PropsWithChildren>(() => {
           padding={16}
           width={'100%'}
         >
-          <div style={{ textAlign: 'center' }}>
+          <div></div>
+          {/* <div style={{ textAlign: 'center' }}>
             <Icon icon={MessageSquareHeart} /> {`${t('footer.title')} `}
             <Link
               aria-label={'star'}
@@ -60,7 +61,7 @@ const Footer = memo<PropsWithChildren>(() => {
               {t('footer.action.feedback')}
             </Link>
             {' !'}
-          </div>
+          </div> */}
         </Center>
       </Flexbox>
       <GuideModal
