@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
-
+import { getAuth } from '@/app/api/request'
 import { USAGE_DOCUMENTS } from '@/const/url';
 import { useSendMessage } from '@/features/ChatInput/useSend';
 import { useChatStore } from '@/store/chat';
@@ -87,7 +87,14 @@ const QuestionSuggest = memo<{ mobile?: boolean }>(({ mobile }) => {
               gap={8}
               horizontal
               key={item}
-              onClick={() => {
+              onClick={async () => {
+                // whm----------校验用户
+                let res = await getAuth()
+                if (!res) {//测试
+                  window.open('http://account.canpoint.cn/', '_blank')
+                  return
+                }
+                // whm----------校验用户
                 updateInputMessage(text);
                 sendMessage({ isWelcomeQuestion: true });
               }}

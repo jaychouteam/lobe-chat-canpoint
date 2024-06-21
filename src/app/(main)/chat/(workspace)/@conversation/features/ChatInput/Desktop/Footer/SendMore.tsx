@@ -6,7 +6,7 @@ import { memo } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
-
+import { getAuth } from '@/app/api/request'
 import HotKeys from '@/components/HotKeys';
 import { ALT_KEY } from '@/const/hotkeys';
 import { useSendMessage } from '@/features/ChatInput/useSend';
@@ -47,7 +47,14 @@ const SendMore = memo<SendMoreProps>(({ disabled }) => {
   const hotKey = [ALT_KEY, 'enter'].join('+');
   useHotkeys(
     hotKey,
-    (keyboardEvent, hotkeysEvent) => {
+    async (keyboardEvent, hotkeysEvent) => {
+      // whm----------校验用户
+      let res = await getAuth()
+      if (!res ) {//测试
+        window.open('http://account.canpoint.cn/', '_blank')
+        return
+      }
+      // whm----------校验用户
       console.log(keyboardEvent, hotkeysEvent);
       sendMessage({ onlyAddUserMessage: true });
     },
@@ -98,7 +105,14 @@ const SendMore = memo<SendMoreProps>(({ disabled }) => {
                 <HotKeys keys={hotKey} />
               </Flexbox>
             ),
-            onClick: () => {
+            onClick: async () => {
+              // whm----------校验用户
+              let res = await getAuth()
+              if (!res ) {//测试
+                window.open('http://account.canpoint.cn/', '_blank')
+                return
+              }
+              // whm----------校验用户 
               sendMessage({ onlyAddUserMessage: true });
             },
           },

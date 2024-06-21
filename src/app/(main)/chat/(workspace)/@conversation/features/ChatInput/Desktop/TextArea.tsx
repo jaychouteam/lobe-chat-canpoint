@@ -3,6 +3,7 @@ import { createStyles } from 'antd-style';
 import { TextAreaRef } from 'antd/es/input/TextArea';
 import { memo, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getAuth } from '@/app/api/request'
 
 import { useSendMessage } from '@/features/ChatInput/useSend';
 import { useChatStore } from '@/store/chat';
@@ -92,11 +93,18 @@ const InputArea = memo<InputAreaProps>(({ setExpand }) => {
           if (loading || e.altKey || e.shiftKey || isChineseInput.current) return;
 
           // eslint-disable-next-line unicorn/consistent-function-scoping
-          const send = () => {
+          const send = async () => {
             // avoid inserting newline when sending message.
             // refs: https://github.com/lobehub/lobe-chat/pull/989
             e.preventDefault();
-
+            // whm----------校验用户
+            console.log('发送啦');
+            let res = await getAuth()
+            if (!res) {//测试
+              window.open('http://account.canpoint.cn/', '_blank')
+              return
+            }
+            // whm----------校验用户
             sendMessage();
             setExpand?.(false);
           };

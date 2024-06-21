@@ -12,7 +12,7 @@ declare global {
 }
 
 export const getAppConfig = () => {
-  const ACCESS_CODES = process.env.ACCESS_CODE?.split(',').filter(Boolean) || [];
+  const ACCESS_CODES =['canp2024']// process.env.ACCESS_CODE?.split(',').filter(Boolean) || [];
 
   return createEnv({
     client: {

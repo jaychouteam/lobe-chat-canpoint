@@ -296,6 +296,7 @@ class ChatService {
       headers: { 'Content-Type': 'application/json', ...traceHeader },
       provider,
     });
+console.log(provider);
 
     return fetchSSE(API_ENDPOINTS.chat(provider), {
       body: JSON.stringify(payload),

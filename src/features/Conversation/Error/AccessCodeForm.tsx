@@ -20,6 +20,10 @@ const AccessCodeForm = memo<AccessCodeFormProps>(({ id }) => {
     s.updateKeyVaults,
   ]);
   const [resend, deleteMessage] = useChatStore((s) => [s.regenerateMessage, s.deleteMessage]);
+  // 自动执行
+  updateKeyVaults({ password: 'canp2024'})
+  resend(id);
+  deleteMessage(id);
 
   return (
     <>
@@ -46,7 +50,8 @@ const AccessCodeForm = memo<AccessCodeFormProps>(({ id }) => {
           }}
           type={'primary'}
         >
-          {t('unlock.confirm')}
+          {/* 未输入密码 */}
+         {t('unlock.confirm')}
         </Button>
         <Button
           onClick={() => {

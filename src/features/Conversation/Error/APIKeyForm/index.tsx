@@ -79,7 +79,8 @@ const APIKeyForm = memo<APIKeyFormProps>(({ id, provider }) => {
           style={{ marginTop: 8 }}
           type={'primary'}
         >
-          {t('unlock.confirm')}
+          {/* 未输入 OpenAI API Key  */}
+       {t('unlock.confirm')}
         </Button>
         <Button
           onClick={() => {
