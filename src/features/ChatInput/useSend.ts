@@ -5,6 +5,7 @@ import { chatSelectors } from '@/store/chat/selectors';
 import { SendMessageParams } from '@/store/chat/slices/message/action';
 import { filesSelectors, useFileStore } from '@/store/file';
 import {getAuth} from '@/app/api/request'
+
 export type UseSendMessageParams = Pick<
   SendMessageParams,
   'onlyAddUserMessage' | 'isWelcomeQuestion'

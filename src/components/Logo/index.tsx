@@ -1,4 +1,6 @@
 import { memo } from 'react';
+import {  Image } from '@lobehub/ui';
+
 import { imageUrl } from '@/const/url';
 // import { number } from 'zod';
 interface ModelTagProps {
@@ -7,7 +9,11 @@ interface ModelTagProps {
   }
 const Logo = memo<ModelTagProps>(({width=150}) => {
     return (
-        <img src={imageUrl('canpoint.svg')} width={width} alt="" />
+      <Image
+        width={width}
+        src={imageUrl('canpoint.svg')}
+      />
+        // <img src={imageUrl('canpoint.svg')} width={width} alt="" />
     );
   });
   

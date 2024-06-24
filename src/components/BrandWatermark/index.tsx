@@ -19,7 +19,7 @@ import {
 //   `,
 // }));
 
-const BrandWatermark = memo<Omit<FlexboxProps, 'children'>>(({ style, ...rest }) => {
+const BrandWatermark = memo<Omit<FlexboxProps, 'children'>>(() => {
   // const { styles, theme } = useStyles();
   return (
     <div></div>

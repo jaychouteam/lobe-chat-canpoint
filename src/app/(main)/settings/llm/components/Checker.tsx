@@ -51,7 +51,6 @@ const Checker = memo<ConnectionCheckerProps>(({ model, provider }) => {
 
   const checkConnection = async () => {
     let isError = false;
-console.log(111111);
 
     await chatService.fetchPresetTaskResult({
       onError: (_, rawError) => {

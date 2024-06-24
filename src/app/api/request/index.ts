@@ -9,6 +9,7 @@ getAuth().then(res=>{
  *  */ 
 // import {getToken} from '@/utils/cookie'
 import cookie from 'react-cookies'
+
 export const getAuth = () => {
     let token=  cookie.load('CANPOINTTOKEN')
     //??'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyR3VpZCI6IlQyTXpiak5uTWpBMWJqUm5aMEZ1UlRkUGJsRTVVVDA5IiwiZXhwIjoxNzE4NjAxMjk4fQ.e2ZVENqgo6ueqieMCp1hMt6_01l5yC9RRhjtOMLvshw'
