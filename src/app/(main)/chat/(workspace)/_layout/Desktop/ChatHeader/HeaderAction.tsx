@@ -25,14 +25,14 @@ const HeaderAction = memo(() => {
 
   return (
     <>
-      <ShareButton />
+      {/* <ShareButton /> */}
       <ActionIcon
         icon={showAgentSettings ? PanelRightClose : PanelRightOpen}
         onClick={() => toggleConfig()}
         size={DESKTOP_HEADER_ICON_SIZE}
         title={t('roleAndArchive')}
       />
-      {isAgentEditable && <SettingButton />}
+      {/* {isAgentEditable && <SettingButton />} */}
     </>
   );
 });

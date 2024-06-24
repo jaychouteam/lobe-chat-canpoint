@@ -101,7 +101,8 @@ const InputArea = memo<InputAreaProps>(({ setExpand }) => {
             console.log('发送啦');
             let res = await getAuth()
             if (!res) {//测试
-              window.open('http://account.canpoint.cn/', '_blank')
+       
+            // window.location.href = 'http://account.canpoint.cn/';
               return
             }
             // whm----------校验用户

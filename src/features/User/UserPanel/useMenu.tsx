@@ -221,7 +221,7 @@ export const useMenu = () => {
 
     /* ↑ cloud slot ↑ */
     ...(canInstall ? pwa : []),
-    ...data,
+    // ...data,
     // ...helps,
   ].filter(Boolean) as MenuProps['items'];
 

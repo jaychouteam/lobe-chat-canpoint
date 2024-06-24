@@ -51,7 +51,7 @@ const SendMore = memo<SendMoreProps>(({ disabled }) => {
       // whm----------校验用户
       let res = await getAuth()
       if (!res ) {//测试
-        window.open('http://account.canpoint.cn/', '_blank')
+       //window.open('http://account.canpoint.cn/', '_blank')
         return
       }
       // whm----------校验用户
@@ -109,7 +109,7 @@ const SendMore = memo<SendMoreProps>(({ disabled }) => {
               // whm----------校验用户
               let res = await getAuth()
               if (!res ) {//测试
-                window.open('http://account.canpoint.cn/', '_blank')
+               //window.open('http://account.canpoint.cn/', '_blank')
                 return
               }
               // whm----------校验用户 

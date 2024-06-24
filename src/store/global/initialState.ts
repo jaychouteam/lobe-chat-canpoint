@@ -58,7 +58,7 @@ export const INITIAL_STATUS = {
   inputHeight: 200,
   mobileShowTopic: false,
   sessionsWidth: 320,
-  showChatSideBar: true,
+  showChatSideBar: false,
   showSessionPanel: true,
   showSystemRole: false,
 } satisfies SystemStatus;

@@ -69,8 +69,7 @@ const PanelContent = memo<{ closePopover: () => void }>(({ closePopover }) => {
         style={isLoginWithAuth ? { paddingRight: 6 } : { padding: '6px 6px 6px 16px' }}
       >
         {isLoginWithAuth ? (
-          // <Menu items={logoutItems} onClick={handleSignOut} />
-          <div></div>
+          <Menu items={logoutItems} onClick={handleSignOut} />
         ) : (
           // <BrandWatermark />
           <div></div>

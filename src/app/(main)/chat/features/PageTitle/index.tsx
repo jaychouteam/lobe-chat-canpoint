@@ -12,6 +12,6 @@ const Title = memo(() => {
     sessionMetaSelectors.currentAgentTitle(s),
   ]);
 
-  return <PageTitle title={[avatar, title].filter(Boolean).join(' ')} />;
+  return <PageTitle title={[ title].filter(Boolean).join(' ')} />;
 });
 export default Title;

@@ -10,9 +10,9 @@ getAuth().then(res=>{
 // import {getToken} from '@/utils/cookie'
 import cookie from 'react-cookies'
 export const getAuth = () => {
-    let token=  cookie.load('CANPOINTTOKEN')??'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyR3VpZCI6IlQyTXpiak5uTWpBMWJqUm5aMEZ1UlRkUGJsRTVVVDA5IiwiZXhwIjoxNzE4NjAxMjk4fQ.e2ZVENqgo6ueqieMCp1hMt6_01l5yC9RRhjtOMLvshw'
+    let token=  cookie.load('CANPOINTTOKEN')//??'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyR3VpZCI6IlQyTXpiak5uTWpBMWJqUm5aMEZ1UlRkUGJsRTVVVDA5IiwiZXhwIjoxNzE4NjAxMjk4fQ.e2ZVENqgo6ueqieMCp1hMt6_01l5yC9RRhjtOMLvshw'
     return new Promise<boolean>((resolve, reject) => {
-        // http://canpoint-cloud-api.canpoint.cn:8080/auth/user/basic/info?nowData=2024-06-20T08:02:33.888Z
+        if(!token) resolve(false)
         fetch('http://123.57.187.93:8080/auth/checkCompanyEmployees', {
             headers: {
                 Canpointtoken:token//getToken//'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyR3VpZCI6IlQyTXpiak5uTWpBMWJqUm5aMEZ1UlRkUGJsRTVVVDA5IiwiZXhwIjoxNzE4NjAxMjk4fQ.e2ZVENqgo6ueqieMCp1hMt6_01l5yC9RRhjtOMLvshw'
@@ -20,12 +20,15 @@ export const getAuth = () => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                
+                console.log(2,data);
                 if(data.code==200){
                     resolve(true)
                 }else{
-                    
+                    let url= encodeURIComponent(window.location.href) //decodeURIComponent(window.location.href)
+                    console.log(window.location.href,url);
+                    cookie.save('URLTOKEN',url ,{path:"/",domain:'.canpoint.cn'})
+                    // window.location.href = 'http://account.canpoint.cn/#/login?isIndex=account';
+                    window.open ( '//account.canpoint.cn/#/login?isIndex=account' , '_blank' ) 
                     resolve(false)
                 }
                 // 处理获取到的数据

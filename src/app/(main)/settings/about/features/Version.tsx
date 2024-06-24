@@ -38,7 +38,7 @@ const Version = memo<{ mobile?: boolean }>(({ mobile }) => {
           </Center>
         </Link>
         <Flexbox>
-          <div style={{ fontSize: 18, fontWeight: 'bolder' }}>LobeChat</div>
+          <div style={{ fontSize: 18, fontWeight: 'bolder' }}></div>
           <div>
             <Tag
               bordered={false}
