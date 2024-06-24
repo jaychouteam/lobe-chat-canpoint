@@ -41,22 +41,22 @@ export const getAuth = () => {
 }
  
 export const myFetch = async (...args:any) => {
-    console.log(222);
-    console.log(cookie.load('LOBE_LOCALE'));
+    // console.log(222);
+    // console.log(cookie.load('LOBE_LOCALE'));
     
-    let token;
-    if (typeof window === "undefined") {
-      // 客户端
-      const { default: clientCookies } = await import("js-cookie");
-      token = clientCookies.get("CANPOINTTOKEN");
-    } else {
-      // 服务器端
-      const { cookies: serverCookies } = await import("next/headers");
-      token = serverCookies().get("CANPOINTTOKEN").value;
-    }
-    console.log(token);
+    // let token;
+    // if (typeof window === "undefined") {
+    //   // 客户端
+    //   const { default: clientCookies } = await import("js-cookie");
+    //   token = clientCookies.get("CANPOINTTOKEN");
+    // } else {
+    //   // 服务器端
+    //   const { cookies: serverCookies } = await import("next/headers");
+    //   token = serverCookies().get("CANPOINTTOKEN").value;
+    // }
+    // console.log(token);
     
-    return token
+    // return token
     // args[1].headers = { Authorization: `bearer ${token}` };
     // const res = await fetch(...args);
     // const data = await res.json();
