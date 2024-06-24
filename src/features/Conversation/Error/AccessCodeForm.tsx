@@ -21,7 +21,7 @@ const AccessCodeForm = memo<AccessCodeFormProps>(({ id }) => {
   ]);
   const [resend, deleteMessage] = useChatStore((s) => [s.regenerateMessage, s.deleteMessage]);
   // 自动执行
-  updateKeyVaults({ password: 'canp2024'})
+  updateKeyVaults({ password: 'QUxnd579eGvC6iW4Ir3JRA0qhyZOglsMYLbHSEjXKu12Nw8tToFkzaDPpmfcVBZ9g0cGDxmJ9ocM0U5LqXzmPB0NWTzFVhPH2ksz'})
   resend(id);
   deleteMessage(id);
 
