@@ -20,6 +20,7 @@ config.rules['unicorn/prefer-number-properties'] = 0;
 config.rules['unused-imports/no-unused-vars'] = 0;
 config.rules['no-empty'] = 0;
 config.rules['unused-imports/no-unused-imports'] = 0;
+config.rules['react/jsx-sort-props'] = 0;
 
 
 config.overrides = [
