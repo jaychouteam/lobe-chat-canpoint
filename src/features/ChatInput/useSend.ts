@@ -22,6 +22,7 @@ export const useSendMessage = () => {
     if (!store.inputMessage) return;
 
     const imageList = filesSelectors.imageUrlOrBase64List(useFileStore.getState());
+    
   // whm----------校验用户
   let res = await getAuth()
   if (!res) {//测试

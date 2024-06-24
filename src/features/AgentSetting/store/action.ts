@@ -76,7 +76,6 @@ export const store: StateCreator<Store, [['zustand/devtools', never]]> = (set, g
     const { config, meta, dispatchMeta } = get();
 
     const systemRole = config.systemRole;
-console.log(2222222);
 
     const emoji = await chatService.fetchPresetTaskResult({
       onLoadingChange: (loading) => {

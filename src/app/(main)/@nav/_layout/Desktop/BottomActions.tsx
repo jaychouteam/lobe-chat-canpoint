@@ -1,13 +1,13 @@
-import { ActionIcon } from '@lobehub/ui';
-import { Book, Github } from 'lucide-react';
-import Link from 'next/link';
+// import { ActionIcon } from '@lobehub/ui';
+// import { Book, Github } from 'lucide-react';
+// import Link from 'next/link';
 import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
-import { DOCUMENTS, GITHUB } from '@/const/url';
+// import { DOCUMENTS, GITHUB } from '@/const/url';
 
 const BottomActions = memo(() => {
-  const { t } = useTranslation('common');
+  // const { t } = useTranslation('common');
 
   return (
     <>

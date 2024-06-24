@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { imageUrl } from '@/const/url';
-import { number } from 'zod';
+// import { number } from 'zod';
 interface ModelTagProps {
-    model: string;
+    // model: string;
     width:number
   }
 const Logo = memo<ModelTagProps>(({width=150}) => {
@@ -12,3 +12,4 @@ const Logo = memo<ModelTagProps>(({width=150}) => {
   });
   
   export default Logo;
+  

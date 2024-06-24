@@ -1,5 +1,7 @@
 import { Tag } from 'antd';
-import { Bot, Brain, Cloudy, Info, Mic2, Settings2 } from 'lucide-react';
+import { Bot, Brain, Cloudy,
+  //  Info, 
+   Mic2, Settings2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
