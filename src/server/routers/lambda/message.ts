@@ -40,7 +40,7 @@ export const messageRouter = router({
     }),
 
   getAllMessages: messageProcedure.query(async ({ ctx }): Promise<ChatMessageList> => {
-    return ctx.messageModel.queryAll();
+    return ctx.messageModel.queryAll() as any ;
   }),
 
   getAllMessagesInSession: messageProcedure
@@ -50,7 +50,7 @@ export const messageRouter = router({
       }),
     )
     .query(async ({ ctx, input }): Promise<ChatMessageList> => {
-      return ctx.messageModel.queryBySessionId(input.sessionId);
+      return ctx.messageModel.queryBySessionId(input.sessionId) as any;
     }),
 
   getMessages: publicProcedure
@@ -67,17 +67,17 @@ export const messageRouter = router({
 
       const messageModel = new MessageModel(ctx.userId);
 
-      return messageModel.query(input);
+      return messageModel.query(input) as any;
     }),
 
   removeAllMessages: messageProcedure.mutation(async ({ ctx }) => {
-    return ctx.messageModel.deleteAllMessages();
+    return ctx.messageModel.deleteAllMessages() as any;
   }),
 
   removeMessage: messageProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      return ctx.messageModel.deleteMessage(input.id);
+      return ctx.messageModel.deleteMessage(input.id) as any;
     }),
 
   removeMessages: messageProcedure
@@ -88,13 +88,13 @@ export const messageRouter = router({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      return ctx.messageModel.deleteMessages(input.sessionId, input.topicId);
+      return ctx.messageModel.deleteMessages(input.sessionId, input.topicId) as any;
     }),
 
   searchMessages: messageProcedure
     .input(z.object({ keywords: z.string() }))
     .query(async ({ input, ctx }) => {
-      return ctx.messageModel.queryByKeyword(input.keywords);
+      return ctx.messageModel.queryByKeyword(input.keywords) as  any;
     }),
 
   update: messageProcedure
@@ -105,7 +105,7 @@ export const messageRouter = router({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      return ctx.messageModel.update(input.id, input.value);
+      return ctx.messageModel.update(input.id, input.value) as any;
     }),
 
   updatePluginState: messageProcedure
@@ -116,7 +116,7 @@ export const messageRouter = router({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      return ctx.messageModel.updatePluginState(input.id, input.value);
+      return ctx.messageModel.updatePluginState(input.id, input.value) as any;
     }),
 
   updateTTS: messageProcedure
@@ -134,10 +134,10 @@ export const messageRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       if (input.value === false) {
-        return ctx.messageModel.deleteMessageTTS(input.id);
+        return ctx.messageModel.deleteMessageTTS(input.id) as any;
       }
 
-      return ctx.messageModel.updateTTS(input.id, input.value);
+      return ctx.messageModel.updateTTS(input.id, input.value) as any;
     }),
 
   updateTranslate: messageProcedure
@@ -155,10 +155,10 @@ export const messageRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       if (input.value === false) {
-        return ctx.messageModel.deleteMessageTranslate(input.id);
+        return ctx.messageModel.deleteMessageTranslate(input.id) as any;
       }
 
-      return ctx.messageModel.updateTranslate(input.id, input.value);
+      return ctx.messageModel.updateTranslate(input.id, input.value) as any;
     }),
 });
 

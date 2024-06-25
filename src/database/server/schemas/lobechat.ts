@@ -363,7 +363,7 @@ export const messages = pgTable(
     sessionId: text('session_id').references(() => sessions.id, { onDelete: 'cascade' }),
     topicId: text('topic_id').references(() => topics.id, { onDelete: 'cascade' }),
     parentId: text('parent_id').references(():any => messages.id, { onDelete: 'set null' }) as any,
-    quotaId: text('quota_id').references(() => messages.id, { onDelete: 'set null' }),
+    quotaId: text('quota_id').references(():any => messages.id, { onDelete: 'set null' })as any,
 
     // used for group chat
     agentId: text('agent_id').references(() => agents.id, { onDelete: 'set null' }),

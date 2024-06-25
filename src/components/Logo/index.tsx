@@ -7,7 +7,7 @@ interface ModelTagProps {
   // model: string;
   width: number
 }
-const Logo = memo<ModelTagProps>(({ width = 150 }) => {
+const Logo = memo<ModelTagProps>(() => {
   return (
     <div style={{ fontSize: '18px' }} >CANPOINT</div>
     // <Image
