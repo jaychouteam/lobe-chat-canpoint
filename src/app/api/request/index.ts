@@ -15,7 +15,7 @@ export const getAuth = () => {
     //??'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyR3VpZCI6IlQyTXpiak5uTWpBMWJqUm5aMEZ1UlRkUGJsRTVVVDA5IiwiZXhwIjoxNzE4NjAxMjk4fQ.e2ZVENqgo6ueqieMCp1hMt6_01l5yC9RRhjtOMLvshw'
     return new Promise<boolean>((resolve) => {
         if(!token) resolve(false)
-        fetch('http://123.57.187.93:8080/auth/checkCompanyEmployees', {
+        fetch('http://canpoint-cloud-api.canpoint.cn/auth/checkCompanyEmployees', {
             headers: {
                 Canpointtoken:token//getToken//'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyR3VpZCI6IlQyTXpiak5uTWpBMWJqUm5aMEZ1UlRkUGJsRTVVVDA5IiwiZXhwIjoxNzE4NjAxMjk4fQ.e2ZVENqgo6ueqieMCp1hMt6_01l5yC9RRhjtOMLvshw'
             }
