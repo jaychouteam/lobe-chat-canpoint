@@ -1,13 +1,13 @@
-import { Icon } from '@lobehub/ui';
+// import { Icon } from '@lobehub/ui';
 import { Dropdown } from 'antd';
 import { createStyles } from 'antd-style';
 import type { ItemType } from 'antd/es/menu/interface';
 import isEqual from 'fast-deep-equal';
-import { LucideArrowRight } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+// import { LucideArrowRight } from 'lucide-react';
+// import { useRouter } from 'next/navigation';
 import { PropsWithChildren, memo, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Flexbox } from 'react-layout-kit';
+// import { useTranslation } from 'react-i18next';
+// import { Flexbox } from 'react-layout-kit';
 
 import { ModelItemRender, ProviderItemRender } from '@/components/ModelSelect';
 import { useAgentStore } from '@/store/agent';
@@ -15,7 +15,7 @@ import { agentSelectors } from '@/store/agent/slices/chat';
 import { useUserStore } from '@/store/user';
 import { modelProviderSelectors } from '@/store/user/selectors';
 import { ModelProviderCard } from '@/types/llm';
-import { withBasePath } from '@/utils/basePath';
+// import { withBasePath } from '@/utils/basePath';
 
 const useStyles = createStyles(({ css, prefixCls }) => ({
   menu: css`
@@ -41,16 +41,18 @@ const useStyles = createStyles(({ css, prefixCls }) => ({
 const menuKey = (provider: string, model: string) => `${provider}-${model}`;
 
 const ModelSwitchPanel = memo<PropsWithChildren>(({ children }) => {
-  const { t } = useTranslation('components');
-  const { styles, theme } = useStyles();
+  // const { t } = useTranslation('components');
+  const { styles, 
+    // theme
+   } = useStyles();
   const [model, provider, updateAgentConfig] = useAgentStore((s) => [
     agentSelectors.currentAgentModel(s),
     agentSelectors.currentAgentModelProvider(s),
     s.updateAgentConfig,
   ]);
 
-  const router = useRouter();
-  const enabledList = useUserStore(modelProviderSelectors.modelProviderListForModelSelect, isEqual);
+  // const router = useRouter();
+  let enabledList = useUserStore(modelProviderSelectors.modelProviderListForModelSelect, isEqual);
 
   const items = useMemo<ItemType[]>(() => {
     const getModelItems = (provider: ModelProviderCard) => {
@@ -63,21 +65,21 @@ const ModelSwitchPanel = memo<PropsWithChildren>(({ children }) => {
       }));
 
       // if there is empty items, add a placeholder guide
-      if (items.length === 0)
-        return [
-          {
-            key: 'empty',
-            label: (
-              <Flexbox gap={8} horizontal style={{ color: theme.colorTextTertiary }}>
-                {t('ModelSwitchPanel.emptyModel')}
-                <Icon icon={LucideArrowRight} />
-              </Flexbox>
-            ),
-            onClick: () => {
-              router.push(withBasePath('/settings/llm'));
-            },
-          },
-        ];
+      // if (items.length === 0)
+      //   return [
+      //     {
+      //       key: 'empty',
+      //       label: (
+      //         <Flexbox gap={8} horizontal style={{ color: theme.colorTextTertiary }}>
+      //           {t('ModelSwitchPanel.emptyModel')}
+      //           <Icon icon={LucideArrowRight} />
+      //         </Flexbox>
+      //       ),
+      //       onClick: () => {
+      //         router.push(withBasePath('/settings/llm'));
+      //       },
+      //     },
+      //   ];
 
       return items;
     };
