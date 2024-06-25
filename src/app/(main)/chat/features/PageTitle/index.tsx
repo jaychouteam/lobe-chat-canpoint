@@ -10,7 +10,7 @@ const Title = memo(() => {
   const [
     // avatar,
      title] = useSessionStore((s) => [
-    sessionMetaSelectors.currentAgentAvatar(s),
+    // sessionMetaSelectors.currentAgentAvatar(s),
     sessionMetaSelectors.currentAgentTitle(s),
   ]);
 
