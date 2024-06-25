@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import { Image } from '@lobehub/ui';
+// import { Image } from '@lobehub/ui';
 
-import { imageUrl } from '@/const/url';
+// import { imageUrl } from '@/const/url';
 // import { number } from 'zod';
 interface ModelTagProps {
   // model: string;
@@ -9,10 +9,12 @@ interface ModelTagProps {
 }
 const Logo = memo<ModelTagProps>(({ width = 150 }) => {
   return (
-    <Image
-      style={{ width: width }}
-      src={imageUrl('canpoint.svg')}
-    />
+    <div style={{ fontSize: '18px' }} >CANPOINT</div>
+    // <Image
+    //   alwaysShowActions={false}
+    //   style={{ width: width }}
+    //   src={imageUrl('canpoint.svg')}
+    // />
     // <img src={imageUrl('canpoint.svg')} width={width} alt="" />
   );
 });
