@@ -1,7 +1,7 @@
 <div align="center"><a name="readme-top"></a>
 
 [![][image-banner]][vercel-link]
-1
+2
 # Lobe Chat
 
 An open-source, modern-design ChatGPT/LLMs UI/Framework.<br/>
