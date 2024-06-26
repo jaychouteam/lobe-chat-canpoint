@@ -1,6 +1,6 @@
 export default {
   chat: {
-    description: 'LobeChat 带给你最好的 ChatGPT, OLLaMA, Gemini, Claude WebUI 使用体验',
+    description: 'AiChat 带给你最好的 ChatGPT, OLLaMA, Gemini, Claude WebUI 使用体验',
     title: '个人效能工具，给自己一个更聪明的大脑',
   },
   market: {
@@ -14,7 +14,7 @@ export default {
     title: '插件市场',
   },
   welcome: {
-    description: 'LobeChat 带给你最好的 ChatGPT, OLLaMA, Gemini, Claude WebUI 使用体验',
+    description: 'AiChat 带给你最好的 ChatGPT, OLLaMA, Gemini, Claude WebUI 使用体验',
     title: '欢迎使用个人效能工具，给自己一个更聪明的大脑',
   },
 };
