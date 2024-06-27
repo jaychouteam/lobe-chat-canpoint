@@ -6,7 +6,7 @@ import { Badge } from 'antd';
 import {
   // Book,
   CircleUserRound,
-  Download,
+  // Download,
   // Feather,
   // HardDriveDownload,
   // HardDriveUpload,
@@ -27,7 +27,7 @@ import type { MenuProps } from '@/components/Menu';
 // import { isServerMode } from '@/const/version';
 // import DataImporter from '@/features/DataImporter';
 import { useOpenSettings } from '@/hooks/useInterceptingRoutes';
-import { usePWAInstall } from '@/hooks/usePWAInstall';
+// import { usePWAInstall } from '@/hooks/usePWAInstall';
 import { useQueryRoute } from '@/hooks/useQueryRoute';
 // import { configService } from '@/services/config';
 import { SettingsTabs } from '@/store/global/initialState';
@@ -60,7 +60,7 @@ const NewVersionBadge = memo(
 
 export const useMenu = () => {
   const router = useQueryRoute();
-  const { canInstall, install } = usePWAInstall();
+  // const { canInstall, install } = usePWAInstall();
   const hasNewVersion = useNewVersion();
   const openSettings = useOpenSettings();
   const { t } = useTranslation(['common', 'setting', 'auth']);
@@ -107,17 +107,17 @@ export const useMenu = () => {
 
   /* ↑ cloud slot ↑ */
 
-  const pwa: MenuProps['items'] = [
-    {
-      icon: <Icon icon={Download} />,
-      key: 'pwa',
-      label: t('installPWA'),
-      onClick: () => install(),
-    },
-    {
-      type: 'divider',
-    },
-  ];
+  // const pwa: MenuProps['items'] = [
+  //   {
+  //     icon: <Icon icon={Download} />,
+  //     key: 'pwa',
+  //     label: t('installPWA'),
+  //     onClick: () => install(),
+  //   },
+  //   {
+  //     type: 'divider',
+  //   },
+  // ];
 
   // const data = !isLogin
   //   ? []
@@ -222,7 +222,7 @@ export const useMenu = () => {
     /* ↓ cloud slot ↓ */
 
     /* ↑ cloud slot ↑ */
-    ...(canInstall ? pwa : []),
+    // ...(canInstall ? pwa : []),
     // ...data,
     // ...helps,
   ].filter(Boolean) as MenuProps['items'];
