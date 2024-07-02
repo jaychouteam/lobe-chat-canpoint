@@ -1,5 +1,7 @@
 import { Icon } from '@lobehub/ui';
-import { Blocks, Bot, BrainCog, MessagesSquare, Mic2, UserCircle } from 'lucide-react';
+import {
+  //  Blocks,
+  Bot, BrainCog, MessagesSquare, Mic2, UserCircle } from 'lucide-react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -41,11 +43,11 @@ export const useCategory = ({ mobile }: UseCategoryOptions = {}) => {
         key: ChatSettingsTabs.TTS,
         label: t('agentTab.tts'),
       },
-      {
-        icon: <Icon icon={Blocks} size={iconSize} />,
-        key: ChatSettingsTabs.Plugin,
-        label: t('agentTab.plugin'),
-      },
+      // {
+      //   icon: <Icon icon={Blocks} size={iconSize} />,
+      //   key: ChatSettingsTabs.Plugin,
+      //   label: t('agentTab.plugin'),
+      // },
     ],
     [t],
   );
