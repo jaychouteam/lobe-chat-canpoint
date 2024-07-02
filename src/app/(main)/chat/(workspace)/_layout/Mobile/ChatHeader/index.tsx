@@ -7,9 +7,9 @@ import { memo,
 
 import { useInitAgentConfig } from '@/app/(main)/chat/(workspace)/_layout/useInitAgentConfig';
 import { useQueryRoute } from '@/hooks/useQueryRoute';
-// import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfig';
+import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfig';
 
-// import SettingButton from '../../../features/SettingButton';
+import SettingButton from '../../../features/SettingButton';
 // import ShareButton from '../../../features/ShareButton';
 import ChatHeaderTitle from './ChatHeaderTitle';
 
@@ -17,7 +17,7 @@ const MobileHeader = memo(() => {
   const router = useQueryRoute();
   // const [open, setOpen] = useState(false);
 
-  // const { isAgentEditable } = useServerConfigStore(featureFlagsSelectors);
+  const { isAgentEditable } = useServerConfigStore(featureFlagsSelectors);
   useInitAgentConfig();
 
   return (
@@ -26,9 +26,8 @@ const MobileHeader = memo(() => {
       onBackClick={() => router.push('/chat', { query: { session: '' }, replace: true })}
       right={
         <>
-        <div></div>
-          {/* <ShareButton mobile open={open} setOpen={setOpen} />
-          {isAgentEditable && <SettingButton mobile />} */}
+          {/* <ShareButton mobile open={open} setOpen={setOpen} /> */}
+          {isAgentEditable && <SettingButton mobile />}
         </>
       }
       showBackButton
