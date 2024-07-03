@@ -11,15 +11,15 @@ import { ErrorActionContainer } from '@/features/Conversation/Error/style';
 
 const useStyles = createStyles(({ css, prefixCls, token }) => ({
   steps: css`
-    margin-block-start: 32px;
+    margin-top: 32px;
     &.${prefixCls}-steps-small .${prefixCls}-steps-item-title {
-      margin-block-end: 16px;
+      margin-bottom: 16px;
       font-size: 16px;
       font-weight: bold;
     }
 
     .${prefixCls}-steps-item-description {
-      margin-block-end: 24px;
+      margin-bottom: 24px;
     }
 
     .${prefixCls}-steps-icon {

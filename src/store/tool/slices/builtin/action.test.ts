@@ -23,7 +23,7 @@ describe('createBuiltinToolSlice', () => {
 
       await act(async () => {
         // When
-        const data = await result.current.transformApiArgumentsToAiState(key, params);
+        const data = await result.current.invokeBuiltinTool(key, params);
         expect(data).toBeUndefined();
       });
 
@@ -53,7 +53,7 @@ describe('createBuiltinToolSlice', () => {
       });
       // When
       await act(async () => {
-        await result.current.transformApiArgumentsToAiState(key, params);
+        await result.current.invokeBuiltinTool(key, params);
       });
 
       expect(mockFn).toBeCalledWith({
@@ -70,12 +70,15 @@ describe('createBuiltinToolSlice', () => {
       // When
       const { result } = renderHook(() => useToolStore());
 
-      const data = result.current.text2image({
-        prompts: ['prompt1', 'prompt2'],
-        size: '1024x1024',
-        quality: 'standard',
-        style: 'vivid',
-      });
+      const data = result.current.text2image(
+        {
+          prompts: ['prompt1', 'prompt2'],
+          size: '1024x1024',
+          quality: 'standard',
+          style: 'vivid',
+        },
+        'a',
+      );
 
       // Then
       expect(data).toEqual([

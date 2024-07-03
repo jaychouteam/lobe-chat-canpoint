@@ -3,21 +3,21 @@ import { useLayoutEffect } from 'react';
 
 import { useUserStore } from '@/store/user';
 
-export const useSyncSystemAgent = (form: FormInstance, settings: any) => {
+export const useSyncSystemAgent = (form: FormInstance) => {
   useLayoutEffect(() => {
-    // Set initial form values
-    form.setFieldsValue(settings);
+    // set the first time
+    form.setFieldsValue(useUserStore.getState().settings.systemAgent);
 
-    // Sync form values with updated settings
+    // sync with later updated settings
     const unsubscribe = useUserStore.subscribe(
       (s) => s.settings.systemAgent,
-      (newSettings) => {
-        form.setFieldsValue(newSettings);
+      (settings) => {
+        form.setFieldsValue(settings);
       },
     );
 
     return () => {
       unsubscribe();
     };
-  }, [form, settings]);
+  }, []);
 };

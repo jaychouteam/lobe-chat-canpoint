@@ -20,7 +20,7 @@ vi.mock('@/features/User/DataStatistics', () => ({
   default: vi.fn(() => <div>Mocked DataStatistics</div>),
 }));
 
-vi.mock('@/features/User/UserLoginOrSignup/Community', () => ({
+vi.mock('@/features/User/UserLoginOrSignup', () => ({
   default: vi.fn(() => <div>Mocked UserLoginOrSignup</div>),
 }));
 

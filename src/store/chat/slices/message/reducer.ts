@@ -2,12 +2,19 @@ import isEqual from 'fast-deep-equal';
 import { produce } from 'immer';
 
 import { CreateMessageParams } from '@/services/message';
-import { ChatMessage, ChatPluginPayload } from '@/types/message';
+import { ChatMessage } from '@/types/message';
 import { merge } from '@/utils/merge';
+
+interface UpdateMessage {
+  id: string;
+  key: keyof ChatMessage;
+  type: 'updateMessage';
+  value: ChatMessage[keyof ChatMessage];
+}
 
 interface UpdateMessages {
   id: string;
-  type: 'updateMessage';
+  type: 'updateMessages';
   value: Partial<ChatMessage>;
 }
 
@@ -27,20 +34,6 @@ interface UpdatePluginState {
   type: 'updatePluginState';
   value: any;
 }
-
-interface UpdateMessagePlugin {
-  id: string;
-  type: 'updateMessagePlugin';
-  value: Partial<ChatPluginPayload>;
-}
-
-interface UpdateMessageTools {
-  id: string;
-  tool_call_id: string;
-  type: 'updateMessageTools';
-  value: Partial<ChatPluginPayload>;
-}
-
 interface UpdateMessageExtra {
   id: string;
   key: string;
@@ -50,16 +43,26 @@ interface UpdateMessageExtra {
 
 export type MessageDispatch =
   | CreateMessage
+  | UpdateMessage
   | UpdateMessages
   | UpdatePluginState
   | UpdateMessageExtra
-  | DeleteMessage
-  | UpdateMessagePlugin
-  | UpdateMessageTools;
+  | DeleteMessage;
 
 export const messagesReducer = (state: ChatMessage[], payload: MessageDispatch): ChatMessage[] => {
   switch (payload.type) {
     case 'updateMessage': {
+      return produce(state, (draftState) => {
+        const { id, key, value } = payload;
+        const message = draftState.find((i) => i.id === id);
+        if (!message) return;
+
+        // @ts-ignore
+        message[key] = value;
+        message.updatedAt = Date.now();
+      });
+    }
+    case 'updateMessages': {
       return produce(state, (draftState) => {
         const { id, value } = payload;
         const index = draftState.findIndex((i) => i.id === id);
@@ -101,32 +104,6 @@ export const messagesReducer = (state: ChatMessage[], payload: MessageDispatch):
         if (isEqual(message.pluginState, newState)) return;
 
         message.pluginState = newState;
-        message.updatedAt = Date.now();
-      });
-    }
-
-    case 'updateMessagePlugin': {
-      return produce(state, (draftState) => {
-        const { id, value } = payload;
-        const message = draftState.find((i) => i.id === id);
-        if (!message || message.role !== 'tool') return;
-
-        message.plugin = merge(message.plugin, value);
-        message.updatedAt = Date.now();
-      });
-    }
-
-    case 'updateMessageTools': {
-      return produce(state, (draftState) => {
-        const { id, value, tool_call_id } = payload;
-        const message = draftState.find((i) => i.id === id);
-        if (!message || message.role !== 'assistant' || !message.tools) return;
-
-        const index = message.tools.findIndex((tool) => tool.id === tool_call_id);
-
-        if (index < 0) return;
-        message.tools[index] = merge(message.tools[index], value);
-
         message.updatedAt = Date.now();
       });
     }

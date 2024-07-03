@@ -10,9 +10,8 @@ export const useStyles = createStyles(({ css, token, prefixCls }) => ({
   `,
   container: css`
     position: relative;
-    padding-block: 16px 24px;
-    padding-inline: 16px;
-    border-block-end: 1px solid ${token.colorBorderSecondary};
+    padding: 16px 16px 24px;
+    border-bottom: 1px solid ${token.colorBorderSecondary};
   `,
   date: css`
     font-size: 12px;
@@ -29,7 +28,7 @@ export const useStyles = createStyles(({ css, token, prefixCls }) => ({
     }
   `,
   nav: css`
-    padding-block-start: 4px;
+    padding-top: 4px;
 
     .${prefixCls}-tabs-tab {
       margin: 4px !important;

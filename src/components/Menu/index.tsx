@@ -18,11 +18,11 @@ const useStyles = createStyles(({ css, token, prefixCls }) => ({
       border-color: ${token.colorFillTertiary};
 
       &:first-child {
-        margin-block-start: 0;
+        margin-top: 0;
       }
 
       &:last-child {
-        margin-block-end: 0;
+        margin-bottom: 0;
       }
     }
 
@@ -33,8 +33,7 @@ const useStyles = createStyles(({ css, token, prefixCls }) => ({
 
       height: unset;
       min-height: 2rem;
-      padding-block: 0.375rem;
-      padding-inline: 0.75rem;
+      padding: 0.375rem 0.75rem;
 
       line-height: 2;
 

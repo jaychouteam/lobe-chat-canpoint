@@ -11,7 +11,7 @@ import { systemStatusSelectors } from '@/store/global/selectors';
 import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfig';
 
 import SettingButton from '../../../features/SettingButton';
-import ShareButton from '../../../features/ShareButton';
+// import ShareButton from '../../../features/ShareButton';
 
 const HeaderAction = memo(() => {
   const { t } = useTranslation('chat');
@@ -25,7 +25,7 @@ const HeaderAction = memo(() => {
 
   return (
     <>
-      <ShareButton />
+      {/* <ShareButton /> */}
       <ActionIcon
         icon={showAgentSettings ? PanelRightClose : PanelRightOpen}
         onClick={() => toggleConfig()}

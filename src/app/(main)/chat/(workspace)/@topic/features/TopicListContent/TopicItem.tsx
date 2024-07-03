@@ -35,7 +35,7 @@ const useStyles = createStyles(({ css, token, isDarkMode }) => ({
     }
   `,
   split: css`
-    border-block-end: 1px solid ${token.colorSplit};
+    border-bottom: 1px solid ${token.colorSplit};
   `,
 }));
 

@@ -16,7 +16,7 @@ const useStyles = createStyles(({ css, token }) => {
       text-wrap: balance;
     `,
     title: css`
-      margin-block-end: 0;
+      margin-bottom: 0;
 
       font-size: min(56px, 7vw);
       font-weight: 800;
@@ -43,7 +43,7 @@ const Hero = memo(() => {
         justify={'center'}
         wrap={'wrap'}
       >
-        <strong style={{ fontSize: 'min(56px, 8vw)' }}>LobeChat</strong>
+        <strong style={{ fontSize: 'min(56px, 8vw)' }}></strong>
         <span>{t('slogan.title')}</span>
       </Flexbox>
       <Flexbox

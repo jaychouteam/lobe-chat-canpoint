@@ -45,7 +45,7 @@ const useStyles = createStyles(({ css, token }) => {
       border-radius: ${token.borderRadiusLG}px;
     `,
     iconGroup: css`
-      margin-block-start: -44px;
+      margin-top: -44px;
     `,
     title: css`
       font-size: 20px;

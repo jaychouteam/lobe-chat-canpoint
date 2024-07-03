@@ -390,18 +390,21 @@ describe('MessageModel', () => {
       expect(updatedMessage.pluginState).toHaveProperty('testKey', 'testValue');
     });
   });
+  describe('clearTable', () => {
+    it('should clear the table', async () => {
+      await MessageModel.create(messageData);
+      await MessageModel.clearTable();
+      const messages = await MessageModel.queryAll();
+      expect(messages).toHaveLength(0);
+    });
+  });
 
-  describe('updatePlugin', () => {
-    it('should update plugin', async () => {
-      const value = {
-        identifier: 'testValue',
-        arguments: 'abc',
-        apiName: 'abc',
-      };
+  describe('updatePluginState', () => {
+    it('should update plugin state', async () => {
       const createdMessage = await MessageModel.create(messageData);
-      await MessageModel.updatePlugin(createdMessage.id, value);
+      await MessageModel.updatePluginState(createdMessage.id, { testKey: 'testValue' });
       const updatedMessage = await MessageModel.findById(createdMessage.id);
-      expect(updatedMessage.plugin).toEqual(value);
+      expect(updatedMessage.pluginState).toHaveProperty('testKey', 'testValue');
     });
   });
 

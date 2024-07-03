@@ -2,7 +2,7 @@ import { TRPCError } from '@trpc/server';
 import { eq } from 'drizzle-orm';
 import { DeepPartial } from 'utility-types';
 
-import { serverDB } from '@/database/server/core/db';
+import { serverDB } from '@/database/server';
 import { KeyVaultsGateKeeper } from '@/server/keyVaultsEncrypt';
 import { UserPreference } from '@/types/user';
 import { UserSettings } from '@/types/user/settings';
@@ -11,14 +11,8 @@ import { merge } from '@/utils/merge';
 import { NewUser, UserItem, userSettings, users } from '../schemas/lobechat';
 import { SessionModel } from './session';
 
-export class UserNotFoundError extends TRPCError {
-  constructor() {
-    super({ code: 'UNAUTHORIZED', message: 'user not found' });
-  }
-}
-
 export class UserModel {
-  static createUser = async (params: NewUser) => {
+  createUser = async (params: NewUser) => {
     const [user] = await serverDB
       .insert(users)
       .values({ ...params })
@@ -30,11 +24,11 @@ export class UserModel {
     await model.createInbox();
   };
 
-  static deleteUser = async (id: string) => {
+  deleteUser = async (id: string) => {
     return serverDB.delete(users).where(eq(users.id, id));
   };
 
-  static findById = async (id: string) => {
+  findById = async (id: string) => {
     return serverDB.query.users.findFirst({ where: eq(users.id, id) });
   };
 
@@ -57,7 +51,7 @@ export class UserModel {
       .leftJoin(userSettings, eq(users.id, userSettings.id));
 
     if (!result || !result[0]) {
-      throw new UserNotFoundError();
+      throw new TRPCError({ code: 'UNAUTHORIZED', message: 'user not found' });
     }
 
     const state = result[0];

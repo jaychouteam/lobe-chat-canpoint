@@ -10,7 +10,6 @@ import metadata from './metadata';
 import migration from './migration';
 import modelProvider from './modelProvider';
 import plugin from './plugin';
-import portal from './portal';
 import setting from './setting';
 import welcome from './welcome';
 
@@ -26,7 +25,6 @@ const resources = {
   migration,
   modelProvider,
   plugin,
-  portal,
   setting,
   tool,
   welcome,

@@ -6,9 +6,8 @@ export const useStyles = createStyles(({ css, token, prefixCls }) => ({
   `,
   container: css`
     position: relative;
-    padding-block: 16px 24px;
-    padding-inline: 16px;
-    border-block-end: 1px solid ${token.colorBorderSecondary};
+    padding: 16px 16px 24px;
+    border-bottom: 1px solid ${token.colorBorderSecondary};
   `,
   desc: css`
     color: ${token.colorTextSecondary};
@@ -25,7 +24,7 @@ export const useStyles = createStyles(({ css, token, prefixCls }) => ({
     color: ${token.colorTextDescription};
   `,
   title: css`
-    margin-block-end: 0;
+    margin-bottom: 0;
     font-weight: bold;
     text-align: center;
   `,

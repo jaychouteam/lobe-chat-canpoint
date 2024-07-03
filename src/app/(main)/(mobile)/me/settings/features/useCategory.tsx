@@ -1,5 +1,7 @@
 import { Tag } from 'antd';
-import { Bot, Brain, Cloudy, Info, Mic2, Settings2, Sparkles } from 'lucide-react';
+import { Bot, Brain, Cloudy,
+  //  Info, 
+   Mic2, Settings2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
@@ -19,11 +21,6 @@ export const useCategory = () => {
       icon: Settings2,
       key: SettingsTabs.Common,
       label: t('tab.common'),
-    },
-    {
-      icon: Sparkles,
-      key: SettingsTabs.SystemAgent,
-      label: t('tab.system-agent'),
     },
     enableWebrtc && {
       icon: Cloudy,
@@ -48,11 +45,11 @@ export const useCategory = () => {
       key: SettingsTabs.Agent,
       label: t('tab.agent'),
     },
-    {
-      icon: Info,
-      key: SettingsTabs.About,
-      label: t('tab.about'),
-    },
+    // {
+    //   icon: Info,
+    //   key: SettingsTabs.About,
+    //   label: t('tab.about'),
+    // },
   ].filter(Boolean) as CellProps[];
 
   return items.map((item) => ({

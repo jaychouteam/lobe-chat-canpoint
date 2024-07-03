@@ -20,7 +20,7 @@ const useStyles = createStyles(({ css, responsive }) => ({
     min-height: 332px;
   `,
   title: css`
-    margin-block-start: 0.5em;
+    margin-top: 0.5em;
     font-size: 24px;
     font-weight: 600;
     ${responsive.mobile} {

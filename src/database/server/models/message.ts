@@ -10,7 +10,6 @@ import { merge } from '@/utils/merge';
 
 import {
   MessageItem,
-  MessagePluginItem,
   filesToMessages,
   messagePlugins,
   messageTTS,
@@ -33,6 +32,7 @@ export class MessageModel {
   }
 
   // **************** Query *************** //
+  /* eslint-disable no-multi-spaces */
   async query({
     current = 0,
     pageSize = 1000,
@@ -99,8 +99,7 @@ export class MessageModel {
       .offset(offset);
 
     const messageIds = result.map((message) => message.id as string);
-
-    if (messageIds.length === 0) return result;
+    if (messageIds.length === 0) return result as any;
 
     const fileIds = await serverDB
       .select({
@@ -109,7 +108,6 @@ export class MessageModel {
       })
       .from(filesToMessages)
       .where(inArray(filesToMessages.messageId, messageIds));
-
     return result.map(
       ({
         model,
@@ -126,16 +124,17 @@ export class MessageModel {
           translate,
           tts: ttsId
             ? {
-                // contentMd5: ttsContentMd5,
-                // file: ttsFile,
-                // voice: ttsVoice,
-              }
+              // contentMd5: ttsContentMd5,
+              // file: ttsFile,
+              // voice: ttsVoice,
+            }
             : undefined,
         },
         files: fileIds.filter((relation) => relation.messageId === item.id).map((r) => r.fileId),
       }),
-    );
+    ) as any;
   }
+  /* eslint-enable no-multi-spaces */
 
   async findById(id: string) {
     return serverDB.query.messages.findFirst({
@@ -209,17 +208,16 @@ export class MessageModel {
     { fromModel, fromProvider, files, ...message }: CreateMessageParams,
     id: string = this.genId(),
   ): Promise<MessageItem> {
-    return serverDB.transaction(async (trx) => {
+    return serverDB.transaction(async (trx:any) => {
       const [item] = (await trx
-        .insert(messages)
-        .values({
+        .insert(messages)?.values({
           ...message,
           id,
           model: fromModel,
           provider: fromProvider,
           userId: this.userId,
         })
-        .returning()) as MessageItem[];
+          .returning()) as MessageItem[];
 
       // Insert the plugin data if the message is a tool
       if (message.role === 'tool') {
@@ -272,15 +270,6 @@ export class MessageModel {
       .where(eq(messagePlugins.id, id));
   }
 
-  async updateMessagePlugin(id: string, value: Partial<MessagePluginItem>) {
-    const item = await serverDB.query.messagePlugins.findFirst({
-      where: eq(messagePlugins.id, id),
-    });
-    if (!item) throw new Error('Plugin not found');
-
-    return serverDB.update(messagePlugins).set(value).where(eq(messagePlugins.id, id));
-  }
-
   async updateTranslate(id: string, translate: Partial<MessageItem>) {
     const result = await serverDB.query.messageTranslates.findFirst({
       where: and(eq(messageTranslates.id, id)),
@@ -317,7 +306,7 @@ export class MessageModel {
   // **************** Delete *************** //
 
   async deleteMessage(id: string) {
-    return serverDB.transaction(async (tx) => {
+    return serverDB.transaction(async (tx:any) => {
       // 1. 查询要删除的 message 的完整信息
       const message = await tx
         .select()
@@ -341,7 +330,7 @@ export class MessageModel {
           .where(inArray(messagePlugins.toolCallId, toolCallIds))
           .execute();
 
-        relatedMessageIds = res.map((row) => row.id);
+        relatedMessageIds = res.map((row:any) => row.id);
       }
 
       // 4. 合并要删除的 message id 列表

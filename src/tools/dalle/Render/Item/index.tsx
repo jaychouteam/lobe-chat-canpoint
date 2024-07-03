@@ -18,8 +18,8 @@ const useStyles = createStyles(({ css, token, prefixCls }) => ({
   action: css`
     position: absolute;
     z-index: 100;
-    inset-block-start: 4px;
-    inset-inline-end: 4px;
+    top: 4px;
+    right: 4px;
   `,
   container: css`
     overflow: scroll;

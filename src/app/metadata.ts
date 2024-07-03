@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 
 import { appEnv, getAppConfig } from '@/config/app';
-import { OFFICIAL_URL, OG_URL } from '@/const/url';
+import { OFFICIAL_URL } from '@/const/url';
 import { translation } from '@/server/translation';
 
-const title = 'LobeChat';
+const title = '';
 
 const { SITE_URL = OFFICIAL_URL } = getAppConfig();
 const BASE_PATH = appEnv.NEXT_PUBLIC_BASE_PATH;
@@ -14,7 +14,6 @@ const noManifest = !!BASE_PATH;
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const { t } = await translation('metadata');
-
   return {
     appleWebApp: {
       statusBarStyle: 'black-translucent',
@@ -34,7 +33,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
         {
           alt: t('chat.title'),
           height: 640,
-          url: OG_URL,
+          url: '/og/cover.png?v=1',
           width: 1200,
         },
       ],
@@ -46,12 +45,12 @@ export const generateMetadata = async (): Promise<Metadata> => {
     },
     title: {
       default: t('chat.title'),
-      template: '%s · LobeChat',
+      template: '%s ',
     },
     twitter: {
       card: 'summary_large_image',
       description: t('chat.description'),
-      images: [OG_URL],
+      images: ['/og/cover.png?v=1'],
       site: '@lobehub',
       title: t('chat.title'),
     },

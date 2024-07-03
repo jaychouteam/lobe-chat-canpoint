@@ -246,7 +246,6 @@ export class SessionModel {
         avatar: agent?.avatar ?? avatar ?? undefined,
         backgroundColor: agent?.backgroundColor ?? backgroundColor ?? undefined,
         description: agent?.description ?? description ?? undefined,
-        tags: agent?.tags ?? undefined,
         title: agent?.title ?? title ?? undefined,
       },
       model: agent?.model,

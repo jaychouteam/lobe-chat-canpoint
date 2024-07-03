@@ -9,8 +9,7 @@ const useStyles = createStyles(({ css, token, isDarkMode }) => ({
   card: css`
     cursor: pointer;
 
-    padding-block: 12px;
-    padding-inline: 16px;
+    padding: 12px 16px;
 
     background: ${isDarkMode ? token.colorFillTertiary : token.colorBgContainer};
     border: 1px solid ${token.colorFillSecondary};

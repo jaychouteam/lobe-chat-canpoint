@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation';
 import { memo } from 'react';
 import { Flexbox } from 'react-layout-kit';
 
-import BrandWatermark from '@/components/BrandWatermark';
+// import BrandWatermark from '@/components/BrandWatermark';
 import Menu from '@/components/Menu';
 import { useUserStore } from '@/store/user';
 import { authSelectors } from '@/store/user/selectors';
@@ -71,7 +71,8 @@ const PanelContent = memo<{ closePopover: () => void }>(({ closePopover }) => {
         {isLoginWithAuth ? (
           <Menu items={logoutItems} onClick={handleSignOut} />
         ) : (
-          <BrandWatermark />
+          // <BrandWatermark />
+          <div></div>
         )}
         <Flexbox align={'center'} flex={'none'} gap={6} horizontal>
           <LangButton />

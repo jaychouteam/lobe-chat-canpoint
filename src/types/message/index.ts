@@ -32,7 +32,7 @@ export * from './tools';
 
 export interface ChatMessage extends BaseDataModel {
   content: string;
-  error?: ChatMessageError | null;
+  error?: ChatMessageError;
   // 扩展字段
   extra?: {
     fromModel?: string;

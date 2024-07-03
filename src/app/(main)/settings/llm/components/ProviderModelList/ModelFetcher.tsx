@@ -18,12 +18,8 @@ import { GlobalLLMProviderKey } from '@/types/user/settings';
 const useStyles = createStyles(({ css, token }) => ({
   hover: css`
     cursor: pointer;
-
-    padding-block: 4px;
-    padding-inline: 8px;
-
+    padding: 4px 8px;
     border-radius: ${token.borderRadius}px;
-
     transition: all 0.2s ease-in-out;
 
     &:hover {

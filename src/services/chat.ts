@@ -140,10 +140,6 @@ export function initializeWithClientStore(provider: string, payload: any) {
       break;
     }
     case ModelProvider.Groq: {
-      providerOptions = {
-        apikey: providerAuthPayload?.apiKey,
-        baseURL: providerAuthPayload?.endpoint,
-      };
       break;
     }
     case ModelProvider.DeepSeek: {
@@ -300,6 +296,7 @@ class ChatService {
       headers: { 'Content-Type': 'application/json', ...traceHeader },
       provider,
     });
+console.log(provider);
 
     return fetchSSE(API_ENDPOINTS.chat(provider), {
       body: JSON.stringify(payload),

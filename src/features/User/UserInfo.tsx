@@ -4,7 +4,7 @@ import { createStyles } from 'antd-style';
 import { memo } from 'react';
 import { Flexbox, FlexboxProps } from 'react-layout-kit';
 
-import PlanTag from '@/features/User/PlanTag';
+// import PlanTag from '@/features/User/PlanTag';
 import { useUserStore } from '@/store/user';
 import { userProfileSelectors } from '@/store/user/selectors';
 
@@ -51,7 +51,7 @@ const UserInfo = memo<UserInfoProps>(({ avatarProps, ...rest }) => {
           <div className={styles.username}>{username}</div>
         </Flexbox>
       </Flexbox>
-      <PlanTag />
+      {/* <PlanTag /> */}
     </Flexbox>
   );
 });

@@ -11,13 +11,16 @@ const useStyles = createStyles(({ css, token }) => {
   return {
     container: css`
       position: relative;
+
       margin-block: 2px;
-      padding-inline: 8px 16px;
+      padding-right: 16px;
+      padding-left: 8px;
+
       border-radius: ${token.borderRadius}px;
     `,
     mobile: css`
       margin-block: 0;
-      padding-inline-start: 12px;
+      padding-left: 12px;
       border-radius: 0;
     `,
     title: css`
@@ -53,7 +56,7 @@ const ListItem = memo<ListItemProps & { avatar: string; avatarBackground?: strin
         avatar={avatarRender}
         className={cx(styles.container, mobile && styles.mobile)}
         ref={ref}
-        showAction={actions && (isHovering || showAction || mobile)}
+        showAction={actions && (isHovering || showAction)}
         title={<span className={styles.title}>{title}</span>}
         {...(props as any)}
       />

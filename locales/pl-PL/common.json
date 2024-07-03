@@ -1,7 +1,7 @@
 {
   "about": "O nas",
   "advanceSettings": "Zaawansowane ustawienia",
-  "appInitializing": "Inicjowanie aplikacji, prosimy o cierpliwość...",
+  "appInitializing": "LobeChat inicjuje, proszę czekać...",
   "autoGenerate": "Automatyczne generowanie",
   "autoGenerateTooltip": "Automatyczne uzupełnianie opisu asystenta na podstawie sugestii",
   "autoGenerateTooltipDisabled": "Proszę wprowadzić słowo kluczowe przed użyciem funkcji automatycznego uzupełniania",
@@ -129,7 +129,6 @@
   },
   "layoutInitializing": "Inicjowanie układu...",
   "legal": "Oświadczenie prawne",
-  "loading": "Ładowanie...",
   "mail": {
     "business": "Współpraca biznesowa",
     "support": "Wsparcie mailowe"

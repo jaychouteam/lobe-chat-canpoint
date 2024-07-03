@@ -4,7 +4,7 @@ import { Avatar, type AvatarProps } from '@lobehub/ui';
 import { createStyles } from 'antd-style';
 import { forwardRef } from 'react';
 
-import { DEFAULT_USER_AVATAR_URL } from '@/const/meta';
+// import { DEFAULT_USER_AVATAR_URL } from '@/const/meta';
 import { useUserStore } from '@/store/user';
 import { authSelectors, userProfileSelectors } from '@/store/user/selectors';
 
@@ -56,8 +56,10 @@ const UserAvatar = forwardRef<HTMLDivElement, UserAvatarProps>(
 
     return (
       <Avatar
-        alt={isSignedIn ? (username as string) : 'LobeChat'}
-        avatar={isSignedIn ? avatar || DEFAULT_USER_AVATAR_URL : DEFAULT_USER_AVATAR_URL}
+        alt={isSignedIn ? (username as string) : 'Canpoint'}
+        // avatar={isSignedIn ? avatar || DEFAULT_USER_AVATAR_URL : DEFAULT_USER_AVATAR_URL}
+        avatar={'https://cp-cloud-files-tiku.oss-cn-hangzhou.aliyuncs.com/full-score-applets/user/nickImgs.png'}
+        // avatar={'https://cp-cloud-files-tiku.oss-cn-hangzhou.aliyuncs.com/png/f6dc3cce-fe59-4e7d-aa8f-5d03b9718517.png'}
         background={isSignedIn && avatar ? background : undefined}
         className={cx(clickable && styles.clickable, className)}
         ref={ref}

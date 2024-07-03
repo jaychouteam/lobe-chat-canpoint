@@ -1,7 +1,7 @@
 {
   "about": "Hakkında",
   "advanceSettings": "Gelişmiş Ayarlar",
-  "appInitializing": "Uygulama başlatılıyor, lütfen bekleyin...",
+  "appInitializing": "LobeChat başlatılıyor, lütfen bekleyin...",
   "autoGenerate": "Otomatik Oluştur",
   "autoGenerateTooltip": "Auto-generate agent description based on prompts",
   "autoGenerateTooltipDisabled": "Otomatik tamamlama işlevini kullanmadan önce ipucu kelimesini girin",
@@ -129,7 +129,6 @@
   },
   "layoutInitializing": "Başlatılıyor...",
   "legal": "Hukuki Bildirim",
-  "loading": "Yükleniyor...",
   "mail": {
     "business": "İşbirliği",
     "support": "E-posta Desteği"

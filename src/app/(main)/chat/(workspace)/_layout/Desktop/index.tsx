@@ -3,10 +3,9 @@ import { Flexbox } from 'react-layout-kit';
 import { LayoutProps } from '../type';
 import ChatHeader from './ChatHeader';
 import HotKeys from './HotKeys';
-import Portal from './Portal';
 import TopicPanel from './TopicPanel';
 
-const Layout = ({ children, topic, conversation, portal }: LayoutProps) => {
+const Layout = ({ children, topic, conversation }: LayoutProps) => {
   return (
     <>
       <ChatHeader />
@@ -24,7 +23,6 @@ const Layout = ({ children, topic, conversation, portal }: LayoutProps) => {
           {conversation}
         </Flexbox>
         {children}
-        <Portal>{portal}</Portal>
         <TopicPanel>{topic}</TopicPanel>
       </Flexbox>
       <HotKeys />

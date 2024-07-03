@@ -1,6 +1,5 @@
 import {
   AnthropicProviderCard,
-  BaichuanProviderCard,
   BedrockProviderCard,
   DeepSeekProviderCard,
   GoogleProviderCard,
@@ -29,10 +28,6 @@ export const DEFAULT_LLM_CONFIG: UserModelProviderConfig = {
   },
   azure: {
     enabled: false,
-  },
-  baichuan: {
-    enabled: false,
-    enabledModels: filterEnabledModels(BaichuanProviderCard),
   },
   bedrock: {
     enabled: false,

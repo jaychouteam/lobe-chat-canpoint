@@ -17,7 +17,7 @@ describe('featureFlagsSelectors', () => {
     const result = featureFlagsSelectors(store.getState());
 
     expect(result).toEqual({
-      enableWebrtc: false,
+      enableWebrtc: true,
       isAgentEditable: false,
       showCreateSession: true,
       showDalle: true,

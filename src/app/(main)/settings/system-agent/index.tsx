@@ -1,11 +1,11 @@
-import SystemAgentForm from './features/createForm';
+import Topic from './features/Topic';
+import Translation from './features/Translation';
 
 const Page = () => {
   return (
     <>
-      <SystemAgentForm systemAgentKey="topic" />
-      <SystemAgentForm systemAgentKey="translation" />
-      <SystemAgentForm systemAgentKey="agentMeta" />
+      <Topic />
+      <Translation />
     </>
   );
 };

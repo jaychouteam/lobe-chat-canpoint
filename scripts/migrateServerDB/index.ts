@@ -27,6 +27,4 @@ if (connectionString) {
     // eslint-disable-next-line unicorn/no-process-exit
     process.exit(1);
   });
-} else {
-  console.log('🟢 not find database env, migration skipped');
 }
