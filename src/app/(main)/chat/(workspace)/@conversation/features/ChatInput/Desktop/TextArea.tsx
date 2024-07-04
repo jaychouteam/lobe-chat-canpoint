@@ -20,7 +20,8 @@ const useStyles = createStyles(({ css }) => {
       resize: none !important;
 
       height: 100% !important;
-      padding: 0 24px;
+      padding-block: 0;
+      padding-inline: 24px;
 
       line-height: 1.5;
 
@@ -93,8 +94,8 @@ const InputArea = memo<InputAreaProps>(({ setExpand }) => {
           if (loading || e.altKey || e.shiftKey || isChineseInput.current) return;
 
           // eslint-disable-next-line unicorn/consistent-function-scoping
-          const send = async () => {
-            // avoid inserting newline when sending message.
+          const send =async () => {
+               // avoid inserting newline when sending message.
             // refs: https://github.com/lobehub/lobe-chat/pull/989
             e.preventDefault();
             // whm----------校验用户

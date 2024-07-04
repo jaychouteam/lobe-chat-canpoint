@@ -1,7 +1,7 @@
 import { Tag } from 'antd';
-import { Bot, Brain, Cloudy,
-  //  Info, 
-   Mic2, Settings2 } from 'lucide-react';
+import { Bot, Brain, Cloudy, 
+  // Info,
+   Mic2, Settings2, Sparkles } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
@@ -21,6 +21,11 @@ export const useCategory = () => {
       icon: Settings2,
       key: SettingsTabs.Common,
       label: t('tab.common'),
+    },
+    {
+      icon: Sparkles,
+      key: SettingsTabs.SystemAgent,
+      label: t('tab.system-agent'),
     },
     enableWebrtc && {
       icon: Cloudy,

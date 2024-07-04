@@ -1,6 +1,6 @@
 'use client';
 
-// import { Logo } from '@lobehub/ui';
+// import { LobeHub } from '@lobehub/ui/brand';
 // import { createStyles } from 'antd-style';
 // import Link from 'next/link';
 import { memo } from 'react';
@@ -23,7 +23,6 @@ const BrandWatermark = memo<Omit<FlexboxProps, 'children'>>(() => {
   // const { styles, theme } = useStyles();
   return (
     <div></div>
-
     // <Flexbox
     //   align={'center'}
     //   flex={'none'}
@@ -34,8 +33,7 @@ const BrandWatermark = memo<Omit<FlexboxProps, 'children'>>(() => {
     // >
     //   <span>Powered by</span>
     //   <Link className={styles.logoLink} href={'https://lobehub.com'} target={'_blank'}>
-    //   CANPOINT
-    //     {/* <Logo size={20} type={'text'} /> */}
+    //     <LobeHub size={20} type={'text'} />
     //   </Link>
     // </Flexbox>
   );

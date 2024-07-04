@@ -2,11 +2,8 @@
 import { 
   // Book, 
   CircleUserRound, 
-  // Database, 
-  // Download,
-  //  Feather,
-    Settings2 
-  } from 'lucide-react';
+  // Database,   Download, Feather,
+   Settings2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 
@@ -25,9 +22,9 @@ export const useCategory = () => {
   // const { canInstall, install } = usePWAInstall();
   const { t } = useTranslation(['common', 'setting', 'auth']);
   const [
-    // isLogin,
-     isLoginWithAuth, isLoginWithClerk] = useUserStore((s) => [
-    authSelectors.isLogin(s),
+    // isLogin, 
+    isLoginWithAuth, isLoginWithClerk] = useUserStore((s) => [
+    // authSelectors.isLogin(s),
     authSelectors.isLoginWithAuth(s),
     authSelectors.isLoginWithClerk(s),
   ]);
@@ -89,24 +86,24 @@ export const useCategory = () => {
   // ];
 
   // const helps: CellProps[] = [
-  //   // {
-  //   //   icon: Book,
-  //   //   key: 'docs',
-  //   //   label: t('document'),
-  //   //   onClick: () => window.open(DOCUMENTS, '__blank'),
-  //   // },
-  //   // {
-  //   //   icon: Feather,
-  //   //   key: 'feedback',
-  //   //   label: t('feedback'),
-  //   //   onClick: () => window.open(FEEDBACK, '__blank'),
-  //   // },
-  //   // {
-  //   //   icon: DiscordIcon,
-  //   //   key: 'discord',
-  //   //   label: 'Discord',
-  //   //   onClick: () => window.open(DISCORD, '__blank'),
-  //   // },
+  //   {
+  //     icon: Book,
+  //     key: 'docs',
+  //     label: t('document'),
+  //     onClick: () => window.open(DOCUMENTS, '__blank'),
+  //   },
+  //   {
+  //     icon: Feather,
+  //     key: 'feedback',
+  //     label: t('feedback'),
+  //     onClick: () => window.open(FEEDBACK, '__blank'),
+  //   },
+  //   {
+  //     icon: DiscordIcon,
+  //     key: 'discord',
+  //     label: 'Discord',
+  //     onClick: () => window.open(DISCORD, '__blank'),
+  //   },
   // ];
 
   const mainItems = [

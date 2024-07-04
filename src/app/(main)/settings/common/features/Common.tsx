@@ -1,9 +1,9 @@
 'use client';
 
 import { Form, type ItemGroup } from '@lobehub/ui';
-import { App, Button,
-  //  Input
-   } from 'antd';
+import { App, Button, 
+  // Input
+ } from 'antd';
 import isEqual from 'fast-deep-equal';
 import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -137,8 +137,8 @@ const Common = memo(() => {
             {t('danger.reset.action')}
           </Button>
         ),
-        desc: t('danger.reset.title'),
-        label: t('danger.reset.desc'),
+        desc: t('danger.reset.desc'),
+        label: t('danger.reset.title'),
         minWidth: undefined,
       },
       {

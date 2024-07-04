@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { MessageModel } from '@/database/server/models/message';
+import { updateMessagePluginSchema } from '@/database/server/schemas/lobechat';
 import { authedProcedure, publicProcedure, router } from '@/libs/trpc';
 import { ChatMessage } from '@/types/message';
 import { BatchTaskResult } from '@/types/service';
@@ -40,7 +41,7 @@ export const messageRouter = router({
     }),
 
   getAllMessages: messageProcedure.query(async ({ ctx }): Promise<ChatMessageList> => {
-    return ctx.messageModel.queryAll() as any ;
+    return ctx.messageModel.queryAll();
   }),
 
   getAllMessagesInSession: messageProcedure
@@ -50,7 +51,7 @@ export const messageRouter = router({
       }),
     )
     .query(async ({ ctx, input }): Promise<ChatMessageList> => {
-      return ctx.messageModel.queryBySessionId(input.sessionId) as any;
+      return ctx.messageModel.queryBySessionId(input.sessionId);
     }),
 
   getMessages: publicProcedure
@@ -67,17 +68,17 @@ export const messageRouter = router({
 
       const messageModel = new MessageModel(ctx.userId);
 
-      return messageModel.query(input) as any;
+      return messageModel.query(input);
     }),
 
   removeAllMessages: messageProcedure.mutation(async ({ ctx }) => {
-    return ctx.messageModel.deleteAllMessages() as any;
+    return ctx.messageModel.deleteAllMessages();
   }),
 
   removeMessage: messageProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      return ctx.messageModel.deleteMessage(input.id) as any;
+      return ctx.messageModel.deleteMessage(input.id);
     }),
 
   removeMessages: messageProcedure
@@ -88,13 +89,13 @@ export const messageRouter = router({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      return ctx.messageModel.deleteMessages(input.sessionId, input.topicId) as any;
+      return ctx.messageModel.deleteMessages(input.sessionId, input.topicId);
     }),
 
   searchMessages: messageProcedure
     .input(z.object({ keywords: z.string() }))
     .query(async ({ input, ctx }) => {
-      return ctx.messageModel.queryByKeyword(input.keywords) as  any;
+      return ctx.messageModel.queryByKeyword(input.keywords);
     }),
 
   update: messageProcedure
@@ -105,7 +106,18 @@ export const messageRouter = router({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      return ctx.messageModel.update(input.id, input.value) as any;
+      return ctx.messageModel.update(input.id, input.value);
+    }),
+
+  updateMessagePlugin: messageProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        value: updateMessagePluginSchema.partial(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      return ctx.messageModel.updateMessagePlugin(input.id, input.value);
     }),
 
   updatePluginState: messageProcedure
@@ -116,7 +128,7 @@ export const messageRouter = router({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      return ctx.messageModel.updatePluginState(input.id, input.value) as any;
+      return ctx.messageModel.updatePluginState(input.id, input.value);
     }),
 
   updateTTS: messageProcedure
@@ -134,10 +146,10 @@ export const messageRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       if (input.value === false) {
-        return ctx.messageModel.deleteMessageTTS(input.id) as any;
+        return ctx.messageModel.deleteMessageTTS(input.id);
       }
 
-      return ctx.messageModel.updateTTS(input.id, input.value) as any;
+      return ctx.messageModel.updateTTS(input.id, input.value);
     }),
 
   updateTranslate: messageProcedure
@@ -155,10 +167,10 @@ export const messageRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       if (input.value === false) {
-        return ctx.messageModel.deleteMessageTranslate(input.id) as any;
+        return ctx.messageModel.deleteMessageTranslate(input.id);
       }
 
-      return ctx.messageModel.updateTranslate(input.id, input.value) as any;
+      return ctx.messageModel.updateTranslate(input.id, input.value);
     }),
 });
 

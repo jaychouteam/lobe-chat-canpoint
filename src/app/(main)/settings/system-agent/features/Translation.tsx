@@ -40,7 +40,7 @@ const Translation = memo(() => {
     title: t('systemAgent.translation.title'),
   };
 
-  useSyncSystemAgent(form);
+  useSyncSystemAgent(form,settings);
 
   return (
     <Form

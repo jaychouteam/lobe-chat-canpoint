@@ -9,14 +9,16 @@ const useStyles = createStyles(
     display: flex;
     flex-direction: column;
     gap: 2px;
-    padding: 8px 8px 0;
+
+    padding-block: 8px 0;
+    padding-inline: 8px;
   `,
 );
 
 const PanelBody = memo<PropsWithChildren>(({ children }) => {
   const { styles } = useStyles();
 
-  return   <DraggablePanelBody className={styles}>{children}</DraggablePanelBody>;
+  return <DraggablePanelBody className={styles}>{children}</DraggablePanelBody>;
 });
 
 export default PanelBody;

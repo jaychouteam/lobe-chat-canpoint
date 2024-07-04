@@ -1,14 +1,13 @@
 'use client';
 
-import { ActionIcon,  } from '@lobehub/ui';
+import { ActionIcon } from '@lobehub/ui';
 import Logo from '@/components/Logo'
+// import { LobeChat } from '@lobehub/ui/brand';
 import { createStyles } from 'antd-style';
 import { MessageSquarePlus } from 'lucide-react';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
-// import { imageUrl } from '@/const/url';
-
 
 import { DESKTOP_HEADER_ICON_SIZE } from '@/const/layoutTokens';
 import SyncStatusTag from '@/features/SyncStatusInspector';
@@ -24,7 +23,7 @@ export const useStyles = createStyles(({ css, token }) => ({
   `,
   top: css`
     position: sticky;
-    top: 0;
+    inset-block-start: 0;
   `,
 }));
 
@@ -40,7 +39,7 @@ const Header = memo(() => {
     <Flexbox className={styles.top} gap={16} padding={16}>
       <Flexbox distribution={'space-between'} horizontal>
         <Flexbox align={'center'} gap={4} horizontal>
-          <Logo width={120}></Logo>
+        <Logo width={120}></Logo>
           {/* <img src={imageUrl('canpoint.svg')} width={150} alt="" /> */}
           {/* <Logo className={styles.logo} size={36} type={'text'} /> */}
           {enableWebrtc && <SyncStatusTag />}

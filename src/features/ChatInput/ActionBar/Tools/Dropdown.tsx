@@ -16,11 +16,11 @@ import { useAgentStore } from '@/store/agent';
 import { agentSelectors } from '@/store/agent/selectors';
 import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfig';
 import { 
-  // pluginHelpers, 
-  useToolStore } from '@/store/tool';
-import { builtinToolSelectors,
-  //  pluginSelectors
-   } from '@/store/tool/selectors';
+  // pluginHelpers,
+   useToolStore } from '@/store/tool';
+import { builtinToolSelectors, 
+  // pluginSelectors 
+} from '@/store/tool/selectors';
 
 import ToolItem from './ToolItem';
 

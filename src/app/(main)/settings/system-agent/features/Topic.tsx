@@ -40,7 +40,7 @@ const Topic = memo(() => {
     title: t('systemAgent.topic.title'),
   };
 
-  useSyncSystemAgent(form);
+  useSyncSystemAgent(form,settings);
 
   return (
     <Form
