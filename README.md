@@ -3,7 +3,7 @@
 
 [![][image-banner]][vercel-link]
 2
-# Lobe Chat  升级4-o-mini-1
+# Lobe Chat  升级4-o-mini-1-2
 
 An open-source, modern-design ChatGPT/LLMs UI/Framework.<br/>
 Supports speech-synthesis, multi-modal, and extensible ([function call][docs-functionc-call]) plugin system.<br/>
