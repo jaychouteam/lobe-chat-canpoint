@@ -1,8 +1,9 @@
 <div align="center"><a name="readme-top"></a>
 
+
 [![][image-banner]][vercel-link]
 2
-# Lobe Chat
+# Lobe Chat  升级4-o-mini
 
 An open-source, modern-design ChatGPT/LLMs UI/Framework.<br/>
 Supports speech-synthesis, multi-modal, and extensible ([function call][docs-functionc-call]) plugin system.<br/>
