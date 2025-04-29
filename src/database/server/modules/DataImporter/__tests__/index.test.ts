@@ -1,8 +1,8 @@
 // @vitest-environment node
-import { eq, inArray } from 'drizzle-orm';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { eq, inArray } from 'drizzle-orm/expressions';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { getTestDBInstance } from '@/database/server/core/dbForTest';
+import { getTestDBInstance } from '@/database/core/dbForTest';
 import {
   agents,
   agentsToSessions,
@@ -11,24 +11,17 @@ import {
   sessions,
   topics,
   users,
-} from '@/database/server/schemas/lobechat';
+} from '@/database/schemas';
 import { CURRENT_CONFIG_VERSION } from '@/migrations';
-import { ImportResult } from '@/services/config';
 import { ImporterEntryData } from '@/types/importer';
 
-import { DataImporter } from '../index';
+import { DeprecatedDataImporterRepos as DataImporterRepos } from '../index';
 import mockImportData from './fixtures/messages.json';
 
-let serverDB = await getTestDBInstance();
-
-vi.mock('@/database/server/core/db', async () => ({
-  get serverDB() {
-    return serverDB;
-  },
-}));
+const serverDB = await getTestDBInstance();
 
 const userId = 'test-user-id';
-let importer: DataImporter;
+let importer: DataImporterRepos;
 
 beforeEach(async () => {
   await serverDB.delete(users);
@@ -38,7 +31,7 @@ beforeEach(async () => {
     await tx.insert(users).values({ id: userId });
   });
 
-  importer = new DataImporter(userId);
+  importer = new DataImporterRepos(serverDB, userId);
 });
 
 describe('DataImporter', () => {
@@ -67,8 +60,7 @@ describe('DataImporter', () => {
     it('should skip existing session groups and return correct result', async () => {
       await serverDB
         .insert(sessionGroups)
-        .values({ clientId: 'group1', name: 'Existing Group', userId })
-        .execute();
+        .values({ clientId: 'group1', name: 'Existing Group', userId });
 
       const data: ImporterEntryData = {
         version: CURRENT_CONFIG_VERSION,
@@ -102,6 +94,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 1',
@@ -118,6 +111,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 2',
@@ -148,7 +142,7 @@ describe('DataImporter', () => {
     });
 
     it('should skip existing sessions and return correct result', async () => {
-      await serverDB.insert(sessions).values({ clientId: 'session1', userId }).execute();
+      await serverDB.insert(sessions).values({ clientId: 'session1', userId });
 
       const data: ImporterEntryData = {
         version: CURRENT_CONFIG_VERSION,
@@ -164,6 +158,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 1',
@@ -180,6 +175,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 2',
@@ -215,6 +211,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 1',
@@ -232,6 +229,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 2',
@@ -249,6 +247,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 3',
@@ -295,6 +294,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'Test Agent 1',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 1',
@@ -311,6 +311,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'Test Agent 2',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 2',
@@ -375,6 +376,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'Test Agent 1',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 1',
@@ -398,6 +400,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'Test Agent 1',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 1',
@@ -447,6 +450,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 1',
@@ -463,6 +467,8 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
+              openingMessage: `Hello, I'm Agent 2, learn more from [xxx](https://xxx.com)`,
             },
             meta: {
               title: 'Session 2',
@@ -484,10 +490,7 @@ describe('DataImporter', () => {
     });
 
     it('should skip existing topics and return correct result', async () => {
-      await serverDB
-        .insert(topics)
-        .values({ clientId: 'topic1', title: 'Existing Topic', userId })
-        .execute();
+      await serverDB.insert(topics).values({ clientId: 'topic1', title: 'Existing Topic', userId });
 
       const data: ImporterEntryData = {
         version: CURRENT_CONFIG_VERSION,
@@ -518,6 +521,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 1',
@@ -593,6 +597,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 1',
@@ -623,15 +628,12 @@ describe('DataImporter', () => {
     });
 
     it('should skip existing messages and return correct result', async () => {
-      await serverDB
-        .insert(messages)
-        .values({
-          clientId: 'msg1',
-          content: 'Existing Message',
-          role: 'user',
-          userId,
-        })
-        .execute();
+      await serverDB.insert(messages).values({
+        clientId: 'msg1',
+        content: 'Existing Message',
+        role: 'user',
+        userId,
+      });
 
       const data: ImporterEntryData = {
         version: CURRENT_CONFIG_VERSION,
@@ -675,6 +677,7 @@ describe('DataImporter', () => {
               params: {},
               systemRole: 'abc',
               tts: {} as any,
+              openingQuestions: [],
             },
             meta: {
               title: 'Session 1',
@@ -886,6 +889,8 @@ describe('DataImporter', () => {
                   enableAutoCreateTopic: true,
                   historyCount: 1,
                 },
+                openingQuestions: ['Question 1', 'Question 2'],
+                openingMessage: `Hello, I'm Agent 1, learn more from [xxx](https://xxx.com)`,
               },
               group: 'XlUbvOvL',
               meta: {

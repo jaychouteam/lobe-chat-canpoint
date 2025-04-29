@@ -5,7 +5,11 @@ import { createStyles } from 'antd-style';
 import { forwardRef } from 'react';
 
 import { BRANDING_NAME } from '@/const/branding';
+<<<<<<< HEAD
 // import { DEFAULT_USER_AVATAR_URL } from '@/const/meta';
+=======
+import { DEFAULT_USER_AVATAR_URL } from '@/const/meta';
+>>>>>>> e9362a250a923c53e05fe85b032b8abc337be1f9
 import { useUserStore } from '@/store/user';
 import { authSelectors, userProfileSelectors } from '@/store/user/selectors';
 

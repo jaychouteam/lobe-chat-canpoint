@@ -4,6 +4,7 @@ import { useChatStore } from '@/store/chat';
 import { chatSelectors } from '@/store/chat/selectors';
 import { fileChatSelectors, useFileStore } from '@/store/file';
 import { SendMessageParams } from '@/types/message';
+import { getAuth } from '@/app/api/request'
 
 export type UseSendMessageParams = Pick<
   SendMessageParams,
@@ -23,7 +24,7 @@ export const useSendMessage = () => {
 
   const canSend = !isUploadingFiles && !isSendButtonDisabledByMessage;
 
-  const send = useCallback((params: UseSendMessageParams = {}) => {
+  const send = useCallback(async (params: UseSendMessageParams = {}) => {
     const store = useChatStore.getState();
     if (chatSelectors.isAIGenerating(store)) return;
 

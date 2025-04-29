@@ -1,7 +1,6 @@
-import { eq, inArray, sql } from 'drizzle-orm';
-import { and } from 'drizzle-orm/expressions';
+import { sql } from 'drizzle-orm';
+import { and, eq, inArray } from 'drizzle-orm/expressions';
 
-import { serverDB } from '@/database/server';
 import {
   agents,
   agentsToSessions,
@@ -11,20 +10,24 @@ import {
   sessionGroups,
   sessions,
   topics,
-} from '@/database/server/schemas/lobechat';
-import { ImportResult } from '@/services/config';
+} from '@/database/schemas';
+import { LobeChatDatabase } from '@/database/type';
+import { ImportResult } from '@/services/import/_deprecated';
 import { ImporterEntryData } from '@/types/importer';
+import { sanitizeUTF8 } from '@/utils/sanitizeUTF8';
 
-export class DataImporter {
+export class DeprecatedDataImporterRepos {
   private userId: string;
+  private db: LobeChatDatabase;
 
   /**
    * The version of the importer that this module supports
    */
   supportVersion = 7;
 
-  constructor(userId: string) {
+  constructor(db: LobeChatDatabase, userId: string) {
     this.userId = userId;
+    this.db = db;
   }
 
   importData = async (data: ImporterEntryData) => {
@@ -39,8 +42,8 @@ export class DataImporter {
     let sessionIdMap: Record<string, string> = {};
     let topicIdMap: Record<string, string> = {};
 
-    // import sessionGroups
-    await serverDB.transaction(async (trx) => {
+    await this.db.transaction(async (trx) => {
+      // import sessionGroups
       if (data.sessionGroups && data.sessionGroups.length > 0) {
         const query = await trx.query.sessionGroups.findMany({
           where: and(
@@ -69,8 +72,7 @@ export class DataImporter {
             set: { updatedAt: new Date() },
             target: [sessionGroups.clientId, sessionGroups.userId],
           })
-          .returning({ clientId: sessionGroups.clientId, id: sessionGroups.id })
-          .execute();
+          .returning({ clientId: sessionGroups.clientId, id: sessionGroups.id });
 
         sessionGroupResult.added = mapArray.length - query.length;
 
@@ -107,8 +109,7 @@ export class DataImporter {
             set: { updatedAt: new Date() },
             target: [sessions.clientId, sessions.userId],
           })
-          .returning({ clientId: sessions.clientId, id: sessions.id })
-          .execute();
+          .returning({ clientId: sessions.clientId, id: sessions.id });
 
         // get the session client-server id map
         sessionIdMap = Object.fromEntries(mapArray.map(({ clientId, id }) => [clientId, id]));
@@ -131,18 +132,15 @@ export class DataImporter {
                 userId: this.userId,
               })),
             )
-            .returning({ id: agents.id })
-            .execute();
+            .returning({ id: agents.id });
 
-          await trx
-            .insert(agentsToSessions)
-            .values(
-              shouldInsertSessionAgents.map(({ id }, index) => ({
-                agentId: agentMapArray[index].id,
-                sessionId: sessionIdMap[id],
-              })),
-            )
-            .execute();
+          await trx.insert(agentsToSessions).values(
+            shouldInsertSessionAgents.map(({ id }, index) => ({
+              agentId: agentMapArray[index].id,
+              sessionId: sessionIdMap[id],
+              userId: this.userId,
+            })),
+          );
         }
       }
 
@@ -162,10 +160,11 @@ export class DataImporter {
         const mapArray = await trx
           .insert(topics)
           .values(
-            data.topics.map(({ id, createdAt, updatedAt, sessionId, ...res }) => ({
+            data.topics.map(({ id, createdAt, updatedAt, sessionId, favorite, ...res }) => ({
               ...res,
               clientId: id,
               createdAt: new Date(createdAt),
+              favorite: Boolean(favorite),
               sessionId: sessionId ? sessionIdMap[sessionId] : null,
               updatedAt: new Date(updatedAt),
               userId: this.userId,
@@ -175,8 +174,7 @@ export class DataImporter {
             set: { updatedAt: new Date() },
             target: [topics.clientId, topics.userId],
           })
-          .returning({ clientId: topics.clientId, id: topics.id })
-          .execute();
+          .returning({ clientId: topics.clientId, id: topics.id });
 
         topicIdMap = Object.fromEntries(mapArray.map(({ clientId, id }) => [clientId, id]));
 
@@ -208,9 +206,10 @@ export class DataImporter {
         // 2. insert messages
         if (shouldInsertMessages.length > 0) {
           const inertValues = shouldInsertMessages.map(
-            ({ id, extra, createdAt, updatedAt, sessionId, topicId, ...res }) => ({
+            ({ id, extra, createdAt, updatedAt, sessionId, topicId, content, ...res }) => ({
               ...res,
               clientId: id,
+              content: sanitizeUTF8(content),
               createdAt: new Date(createdAt),
               model: extra?.fromModel,
               parentId: null,
@@ -227,7 +226,7 @@ export class DataImporter {
 
           for (let i = 0; i < inertValues.length; i += BATCH_SIZE) {
             const batch = inertValues.slice(i, i + BATCH_SIZE);
-            await trx.insert(messages).values(batch).execute();
+            await trx.insert(messages).values(batch);
           }
 
           console.timeEnd('insert messages');
@@ -262,7 +261,7 @@ export class DataImporter {
             .filter(Boolean);
 
           if (parentIdUpdates.length > 0) {
-            const updateQuery = trx
+            await trx
               .update(messages)
               .set({
                 parentId: sql`CASE ${sql.join(parentIdUpdates)} END`,
@@ -278,42 +277,36 @@ export class DataImporter {
             // const SQL = updateQuery.toSQL();
             // console.log('sql:', SQL.sql);
             // console.log('params:', SQL.params);
-
-            await updateQuery.execute();
           }
           console.timeEnd('execute updates parentId');
 
           // 4. insert message plugins
           const pluginInserts = shouldInsertMessages.filter((msg) => msg.plugin);
           if (pluginInserts.length > 0) {
-            await trx
-              .insert(messagePlugins)
-              .values(
-                pluginInserts.map((msg) => ({
-                  apiName: msg.plugin?.apiName,
-                  arguments: msg.plugin?.arguments,
-                  id: messageIdMap[msg.id],
-                  identifier: msg.plugin?.identifier,
-                  state: msg.pluginState,
-                  toolCallId: msg.tool_call_id,
-                  type: msg.plugin?.type,
-                })),
-              )
-              .execute();
+            await trx.insert(messagePlugins).values(
+              pluginInserts.map((msg) => ({
+                apiName: msg.plugin?.apiName,
+                arguments: msg.plugin?.arguments,
+                id: messageIdMap[msg.id],
+                identifier: msg.plugin?.identifier,
+                state: msg.pluginState,
+                toolCallId: msg.tool_call_id,
+                type: msg.plugin?.type,
+                userId: this.userId,
+              })),
+            );
           }
 
           // 5. insert message translate
           const translateInserts = shouldInsertMessages.filter((msg) => msg.extra?.translate);
           if (translateInserts.length > 0) {
-            await trx
-              .insert(messageTranslates)
-              .values(
-                translateInserts.map((msg) => ({
-                  id: messageIdMap[msg.id],
-                  ...msg.extra?.translate,
-                })),
-              )
-              .execute();
+            await trx.insert(messageTranslates).values(
+              translateInserts.map((msg) => ({
+                id: messageIdMap[msg.id],
+                ...msg.extra?.translate,
+                userId: this.userId,
+              })),
+            );
           }
 
           // TODO: 未来需要处理 TTS 和图片的插入 （目前存在 file 的部分，不方便处理）

@@ -83,17 +83,17 @@ export const useCategory = () => {
 
   /* ↑ cloud slot ↑ */
 
-  // const data: CellProps[] = [
-  //   {
-  //     icon: Database,
-  //     key: 'data',
-  //     label: t('userPanel.data'),
-  //     onClick: () => router.push('/me/data'),
-  //   },
-  //   {
-  //     type: 'divider',
-  //   },
-  // ];
+  const data: CellProps[] = [
+    {
+      icon: Database,
+      key: 'data',
+      label: t('userPanel.data'),
+      onClick: () => router.push('/me/data'),
+    },
+    {
+      type: 'divider',
+    },
+  ];
 
   const helps: CellProps[] = [
     showCloudPromotion && {

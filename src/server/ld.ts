@@ -278,15 +278,15 @@ export class Ld {
   }
 
   private fixTitle(title: string) {
-<<<<<<< HEAD
     return title.includes('LobeChat') ? title : `${title}`;
   }
 
   private fixUrl(url: string) {
-    return urlJoin(SITE_URL, url);
-=======
-    return title.includes(BRANDING_NAME) ? title : `${title} · ${BRANDING_NAME}`;
->>>>>>> e9362a250a923c53e05fe85b032b8abc337be1f9
+    // return  '' //urlJoin(SITE_URL, url);
+
+    return  'Lobe chat' //title.includes(BRANDING_NAME) ? title : `${title} · ${BRANDING_NAME}`;
+
+
   }
 }
 

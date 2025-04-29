@@ -406,6 +406,12 @@
     "unSaved": "Unsaved Changes",
     "unSavedWarning": "There are currently unsaved changes"
   },
+  "submitFooter": {
+    "reset": "Reset",
+    "submit": "Save",
+    "unSaved": "Unsaved Changes",
+    "unSavedWarning": "There are currently unsaved changes"
+  },
   "sync": {
     "device": {
       "deviceName": {

@@ -1,10 +1,10 @@
 {
   "changelog": {
-    "description": "仅限内部使用",
+     "description": "仅限内部使用",
     "title": "欢迎使用Ai助手"
   },
   "chat": {
-      "description": "仅限内部使用",
+     "description": "仅限内部使用",
     "title": "欢迎使用Ai助手"
   },
   "discover": {
@@ -29,10 +29,20 @@
     "title": "发现"
   },
   "plugins": {
+<<<<<<< HEAD
  "description": "仅限内部使用",
     "title": "欢迎使用Ai助手"
   },
   "welcome": {
     "description": "仅限内部使用",
     "title": "欢迎使用Ai助手"  }
+=======
+    "description": "搜素、图表生成、学术、图像生成、视频生成、语音生成、自动化工作流，定制 ChatGPT / Claude 专属的 ToolCall 插件能力",
+    "title": "插件市场"
+  },
+  "welcome": {
+    "description": "{{appName}} 带给你最好的 ChatGPT, Claude , Gemini, OLLaMA WebUI 使用体验",
+    "title": "欢迎使用 {{appName}}：个人 AI 效能工具，给自己一个更聪明的大脑"
+  }
+>>>>>>> e9362a250a923c53e05fe85b032b8abc337be1f9
 }
