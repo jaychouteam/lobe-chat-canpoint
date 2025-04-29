@@ -95,17 +95,19 @@ const InputArea = memo<InputAreaProps>(({ setExpand }) => {
 
           // eslint-disable-next-line unicorn/consistent-function-scoping
           const send =async () => {
+            console.log('去掉了');
+            
                // avoid inserting newline when sending message.
             // refs: https://github.com/lobehub/lobe-chat/pull/989
             e.preventDefault();
-            // whm----------校验用户
-            console.log('发送啦');
-            let res = await getAuth()
-            if (!res) {//测试
+            // // whm----------校验用户
+            // console.log('发送啦');
+            // let res = await getAuth()
+            // if (!res) {//测试
        
-            // window.location.href = 'http://account.canpoint.cn/';
-              return
-            }
+            // // window.location.href = 'http://account.canpoint.cn/';
+            //   return
+            // }
             // whm----------校验用户
             sendMessage();
             setExpand?.(false);

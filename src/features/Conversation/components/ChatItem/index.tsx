@@ -54,6 +54,7 @@ const Item = memo<ChatListItemProps>(({ index, id }) => {
 
     return chatSelectors.currentChatsWithGuideMessage(meta)(s)[index];
   }, isEqual);
+  console.log(item);
 
   const historyLength = useChatStore((s) => chatSelectors.currentChats(s).length);
 

@@ -26,11 +26,11 @@ export const useSendMessage = () => {
     if (!store.inputMessage && imageList.length === 0) return;
 
     // whm----------校验用户
-    let res = await getAuth()
-    if (!res) {//测试
-      //window.open('http://account.canpoint.cn/', '_blank')
-      return
-    }
+    // let res = await getAuth()
+    // if (!res) {//测试
+    //   //window.open('http://account.canpoint.cn/', '_blank')
+    //   return
+    // }
     // whm----------校验用户
     sendMessage({
       files: imageList,

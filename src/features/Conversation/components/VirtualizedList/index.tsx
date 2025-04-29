@@ -56,6 +56,7 @@ const VirtualizedList = memo<VirtualizedListProps>(({ mobile }) => {
   }, [id]);
 
   const prevDataLengthRef = useRef(data.length);
+console.log('data',data);
 
   const getFollowOutput = useCallback(() => {
     const newFollowOutput = data.length > prevDataLengthRef.current ? 'auto' : false;
@@ -79,6 +80,8 @@ const VirtualizedList = memo<VirtualizedListProps>(({ mobile }) => {
     },
     [mobile],
   );
+  console.log(itemContent);
+  
 
   // first time loading or not loaded
   if (isFirstLoading) return <SkeletonList mobile={mobile} />;
@@ -100,6 +103,7 @@ const VirtualizedList = memo<VirtualizedListProps>(({ mobile }) => {
     );
 
   return (
+    
     <Flexbox height={'100%'}>
       <Virtuoso
         atBottomStateChange={setAtBottom}
