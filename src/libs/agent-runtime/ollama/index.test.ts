@@ -29,7 +29,10 @@ describe('LobeOllamaAI', () => {
       try {
         new LobeOllamaAI({ baseURL: 'invalid-url' });
       } catch (e) {
-        expect(e).toEqual(AgentRuntimeError.createError(AgentRuntimeErrorType.InvalidOllamaArgs));
+        expect(e).toMatchObject({
+          error: new TypeError('Invalid URL'),
+          errorType: 'InvalidOllamaArgs',
+        });
       }
     });
   });
@@ -103,6 +106,33 @@ describe('LobeOllamaAI', () => {
 
       expect(abortMock).toHaveBeenCalled();
     });
+
+    it('temperature should be divided by two', async () => {
+      const chatMock = vi.fn().mockResolvedValue({});
+      vi.mocked(Ollama.prototype.chat).mockImplementation(chatMock);
+
+      const payload = {
+        messages: [{ content: 'Hello', role: 'user' }],
+        model: 'model-id',
+        temperature: 0.7,
+      };
+      const options = { signal: new AbortController().signal };
+
+      const response = await ollamaAI.chat(payload as any, options);
+
+      expect(chatMock).toHaveBeenCalledWith({
+        messages: [{ content: 'Hello', role: 'user' }],
+        model: 'model-id',
+        options: {
+          frequency_penalty: undefined,
+          presence_penalty: undefined,
+          temperature: 0.35,
+          top_p: undefined,
+        },
+        stream: true,
+      });
+      expect(response).toBeInstanceOf(Response);
+    });
   });
 
   describe('models', () => {
@@ -115,7 +145,26 @@ describe('LobeOllamaAI', () => {
       const models = await ollamaAI.models();
 
       expect(listMock).toHaveBeenCalled();
-      expect(models).toEqual([{ id: 'model-1' }, { id: 'model-2' }]);
+      expect(models).toEqual([
+        {
+          contextWindowTokens: undefined,
+          displayName: undefined,
+          enabled: false,
+          functionCall: false,
+          id: 'model-1',
+          reasoning: false,
+          vision: false,
+        },
+        {
+          contextWindowTokens: undefined,
+          displayName: undefined,
+          enabled: false,
+          functionCall: false,
+          id: 'model-2',
+          reasoning: false,
+          vision: false,
+        },
+      ]);
     });
   });
 

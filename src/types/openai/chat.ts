@@ -43,6 +43,10 @@ export interface OpenAIChatMessage {
  */
 export interface ChatStreamPayload {
   /**
+   * 是否开启搜索
+   */
+  enabledSearch?: boolean;
+  /**
    * @title 控制生成文本中的惩罚系数，用于减少重复性
    * @default 0
    */
@@ -83,7 +87,7 @@ export interface ChatStreamPayload {
   stream?: boolean;
   /**
    * @title 生成文本的随机度量，用于控制文本的创造性和多样性
-   * @default 0.5
+   * @default 1
    */
   temperature: number;
   tool_choice?: string;

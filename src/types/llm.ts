@@ -1,6 +1,15 @@
 import { ReactNode } from 'react';
 
+import { ChatModelPricing } from '@/types/aiModel';
+import { AiProviderSettings } from '@/types/aiProvider';
+
+export type ModelPriceCurrency = 'CNY' | 'USD';
+
 export interface ChatModelCard {
+  /**
+   * the context window (or input + output tokens limit)
+   */
+  contextWindowTokens?: number;
   /**
    * only used in azure
    */
@@ -10,7 +19,6 @@ export interface ChatModelCard {
    * the name show for end user
    */
   displayName?: string;
-
   /**
    * whether model is enabled by default
    */
@@ -33,17 +41,34 @@ export interface ChatModelCard {
    */
   legacy?: boolean;
   maxOutput?: number;
+  pricing?: ChatModelPricing;
+
   /**
-   * the context window (or input + output tokens limit)
+   *  whether model supports reasoning
    */
-  tokens?: number;
+  reasoning?: boolean;
+
+  /**
+   * the date when model is released
+   */
+  releasedAt?: string;
+
   /**
    *  whether model supports vision
    */
   vision?: boolean;
 }
 
+export interface SmoothingParams {
+  speed?: number;
+  text?: boolean;
+  toolsCalling?: boolean;
+}
+
 export interface ModelProviderCard {
+  /**
+   * @deprecated
+   */
   chatModels: ChatModelCard[];
   /**
    * the default model that used for connection check
@@ -51,14 +76,15 @@ export interface ModelProviderCard {
   checkModel?: string;
   /**
    * whether provider show browser request option by default
-   *
+   * @deprecated
    * @default false
    */
   defaultShowBrowserRequest?: boolean;
+  description?: string;
   /**
    * some provider server like stepfun and aliyun don't support browser request,
    * So we should disable it
-   *
+   * @deprecated
    * @default false
    */
   disableBrowserRequest?: boolean;
@@ -67,6 +93,9 @@ export interface ModelProviderCard {
    */
   enabled?: boolean;
   id: string;
+  /**
+   * @deprecated
+   */
   modelList?: {
     azureDeployName?: boolean;
     notFoundContent?: ReactNode;
@@ -74,9 +103,16 @@ export interface ModelProviderCard {
     showModelFetcher?: boolean;
   };
   /**
+   * the url show the all models in the provider
+   */
+  modelsUrl?: string;
+  /**
    * the name show for end user
    */
   name: string;
+  /**
+   * @deprecated
+   */
   proxyUrl?:
     | {
         desc?: string;
@@ -84,11 +120,32 @@ export interface ModelProviderCard {
         title?: string;
       }
     | false;
+
+  settings: AiProviderSettings;
   /**
    * whether show api key in the provider config
    * so provider like ollama don't need api key field
+   * @deprecated
    */
   showApiKey?: boolean;
+  /**
+   * whether show checker in the provider config
+   * @deprecated
+   */
+  showChecker?: boolean;
+  /**
+   * whether to show the provider config
+   */
+  showConfig?: boolean;
+  /**
+   * whether to smoothing the output
+   * @deprecated
+   */
+  smoothing?: SmoothingParams;
+  /**
+   * provider's website url
+   */
+  url: string;
 }
 
 // 语言模型的设置参数
@@ -109,7 +166,12 @@ export interface LLMParams {
   presence_penalty?: number;
   /**
    * 生成文本的随机度量，用于控制文本的创造性和多样性
-   * @default 0.6
+   * @default 1
+   */
+  reasoning_effort?: string;
+  /**
+   * 控制模型推理能力
+   * @default medium
    */
   temperature?: number;
   /**

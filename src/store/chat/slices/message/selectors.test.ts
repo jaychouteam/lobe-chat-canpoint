@@ -6,7 +6,8 @@ import { INBOX_SESSION_ID } from '@/const/session';
 import { useAgentStore } from '@/store/agent';
 import { ChatStore } from '@/store/chat';
 import { initialState } from '@/store/chat/initialState';
-import { messageMapKey } from '@/store/chat/slices/message/utils';
+import { messageMapKey } from '@/store/chat/utils/messageMapKey';
+import { createServerConfigStore } from '@/store/serverConfig/store';
 import { LobeAgentConfig } from '@/types/agent';
 import { ChatMessage } from '@/types/message';
 import { MetaData } from '@/types/meta';
@@ -44,6 +45,27 @@ const mockMessages = [
         id: 'abc',
       },
     ],
+  },
+] as ChatMessage[];
+
+const mockReasoningMessages = [
+  {
+    id: 'msg1',
+    content: 'Hello World',
+    role: 'user',
+  },
+  {
+    id: 'msg2',
+    content: 'Goodbye World',
+    role: 'user',
+  },
+  {
+    id: 'msg3',
+    content: 'Content Message',
+    role: 'assistant',
+    reasoning: {
+      content: 'Reasoning Content',
+    },
   },
 ] as ChatMessage[];
 
@@ -93,6 +115,14 @@ const mockChatStore = {
   activeId: 'abc',
 } as ChatStore;
 
+beforeAll(() => {
+  createServerConfigStore();
+});
+
+afterEach(() => {
+  createServerConfigStore().setState({ featureFlags: { edit_agent: true } });
+});
+
 describe('chatSelectors', () => {
   describe('getMessageById', () => {
     it('should return undefined if the message with the given id does not exist', () => {
@@ -122,6 +152,36 @@ describe('chatSelectors', () => {
     });
   });
 
+  describe('getMessageByToolCallId', () => {
+    it('should return undefined if the message with the given id does not exist', () => {
+      const message = chatSelectors.getMessageByToolCallId('non-existent-id')(initialStore);
+      expect(message).toBeUndefined();
+    });
+
+    it('should return the message object with the matching tool_call_id', () => {
+      const toolMessage = {
+        id: 'msg3',
+        content: 'Function Message',
+        role: 'tool',
+        tool_call_id: 'ttt',
+        plugin: {
+          arguments: 'arg1',
+          identifier: 'func1',
+          apiName: 'ttt',
+          type: 'default',
+        },
+      } as ChatMessage;
+      const state = merge(initialStore, {
+        messagesMap: {
+          [messageMapKey('abc')]: [...mockMessages, toolMessage],
+        },
+        activeId: 'abc',
+      });
+      const message = chatSelectors.getMessageByToolCallId('ttt')(state);
+      expect(message).toMatchObject(toolMessage);
+    });
+  });
+
   describe('currentChatsWithHistoryConfig', () => {
     it('should slice the messages according to the current agent config', () => {
       const state = merge(initialStore, {
@@ -131,7 +191,7 @@ describe('chatSelectors', () => {
         activeId: 'abc',
       });
 
-      const chats = chatSelectors.currentChatsWithHistoryConfig(state);
+      const chats = chatSelectors.mainAIChatsWithHistoryConfig(state);
       expect(chats).toHaveLength(3);
       expect(chats).toEqual(mockedChats);
     });
@@ -157,7 +217,7 @@ describe('chatSelectors', () => {
         });
       });
 
-      const chats = chatSelectors.currentChatsWithHistoryConfig(state);
+      const chats = chatSelectors.mainAIChatsWithHistoryConfig(state);
 
       expect(chats).toHaveLength(2);
       expect(chats).toEqual([
@@ -193,46 +253,16 @@ describe('chatSelectors', () => {
     });
   });
 
-  describe('currentChatsWithGuideMessage', () => {
-    it('should return existing messages if there are any', () => {
+  describe('mainDisplayChats', () => {
+    it('should return existing messages except tool message', () => {
       const state = merge(initialStore, {
         messagesMap: {
           [messageMapKey('someActiveId')]: mockMessages,
         },
         activeId: 'someActiveId',
       });
-      const chats = chatSelectors.currentChatsWithGuideMessage({} as MetaData)(state);
-      expect(chats).toEqual(mockedChats);
-    });
-
-    it('should add a guide message if the chat is brand new', () => {
-      const state = merge(initialStore, { messages: [], activeId: 'someActiveId' });
-      const metaData = { title: 'Mock Agent', description: 'Mock Description' };
-
-      const chats = chatSelectors.currentChatsWithGuideMessage(metaData)(state);
-
-      expect(chats).toHaveLength(1);
-      expect(chats[0].content).toBeDefined();
-      expect(chats[0].meta.avatar).toEqual(DEFAULT_INBOX_AVATAR);
-      expect(chats[0].meta).toEqual(expect.objectContaining(metaData));
-    });
-
-    it('should use inbox message for INBOX_SESSION_ID', () => {
-      const state = merge(initialStore, { messages: [], activeId: INBOX_SESSION_ID });
-      const metaData = { title: 'Mock Agent', description: 'Mock Description' };
-
-      const chats = chatSelectors.currentChatsWithGuideMessage(metaData)(state);
-
-      expect(chats[0].content).toEqual(''); // Assuming translation returns a string containing this
-    });
-
-    it('should use agent default message for non-inbox sessions', () => {
-      const state = merge(initialStore, { messages: [], activeId: 'someActiveId' });
-      const metaData = { title: 'Mock Agent' };
-
-      const chats = chatSelectors.currentChatsWithGuideMessage(metaData)(state);
-
-      expect(chats[0].content).toMatch('agentDefaultMessage'); // Assuming translation returns a string containing this
+      const chats = chatSelectors.mainDisplayChats(state);
+      expect(chats).toEqual(mockedChats.slice(0, 2));
     });
   });
 
@@ -253,8 +283,29 @@ describe('chatSelectors', () => {
         .join('');
 
       // Call the selector and verify the result
-      const concatenatedString = chatSelectors.chatsMessageString(state);
+      const concatenatedString = chatSelectors.mainAIChatsMessageString(state);
       expect(concatenatedString).toBe(expectedString);
+
+      // Restore the mocks after the test
+      vi.restoreAllMocks();
+    });
+  });
+
+  describe('latestMessageReasoningContent', () => {
+    it('should return the reasoning content of the latest message', () => {
+      // Prepare a state with a few messages
+      const state = merge(initialStore, {
+        messagesMap: {
+          [messageMapKey('active-session')]: mockReasoningMessages,
+        },
+        activeId: 'active-session',
+      });
+
+      const expectedString = mockReasoningMessages.at(-1)?.reasoning?.content;
+
+      // Call the selector and verify the result
+      const reasoningContent = chatSelectors.mainAILatestMessageReasoningContent(state);
+      expect(reasoningContent).toBe(expectedString);
 
       // Restore the mocks after the test
       vi.restoreAllMocks();
@@ -360,36 +411,6 @@ describe('chatSelectors', () => {
       };
       const result = chatSelectors.currentChatKey(state as ChatStore);
       expect(result).toBe(messageMapKey('', undefined));
-    });
-  });
-
-  describe('currentChatIDsWithGuideMessage', () => {
-    it('should return message IDs including guide message for empty chat', () => {
-      const state: Partial<ChatStore> = {
-        activeId: 'test-id',
-        messagesMap: {
-          [messageMapKey('test-id')]: [],
-        },
-      };
-      const result = chatSelectors.currentChatIDsWithGuideMessage(state as ChatStore);
-      expect(result).toHaveLength(1);
-      expect(result[0]).toBe('default');
-    });
-
-    it('should return existing message IDs for non-empty chat', () => {
-      const messages = [
-        { id: '1', role: 'user', content: 'Hello' },
-        { id: '2', role: 'assistant', content: 'Hi' },
-      ] as ChatMessage[];
-      const state: Partial<ChatStore> = {
-        activeId: 'test-id',
-        messagesMap: {
-          [messageMapKey('test-id')]: messages,
-        },
-      };
-      const result = chatSelectors.currentChatIDsWithGuideMessage(state as ChatStore);
-      expect(result).toHaveLength(2);
-      expect(result).toEqual(['1', '2']);
     });
   });
 

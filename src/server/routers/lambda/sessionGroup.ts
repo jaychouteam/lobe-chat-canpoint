@@ -1,16 +1,17 @@
 import { z } from 'zod';
 
-import { SessionGroupModel } from '@/database/server/models/sessionGroup';
-import { insertSessionGroupSchema } from '@/database/server/schemas/lobechat';
-import { authedProcedure, router } from '@/libs/trpc';
+import { SessionGroupModel } from '@/database/models/sessionGroup';
+import { insertSessionGroupSchema } from '@/database/schemas';
+import { authedProcedure, router } from '@/libs/trpc/lambda';
+import { serverDatabase } from '@/libs/trpc/lambda/middleware';
 import { SessionGroupItem } from '@/types/session';
 
-const sessionProcedure = authedProcedure.use(async (opts) => {
+const sessionProcedure = authedProcedure.use(serverDatabase).use(async (opts) => {
   const { ctx } = opts;
 
   return opts.next({
     ctx: {
-      sessionGroupModel: new SessionGroupModel(ctx.userId),
+      sessionGroupModel: new SessionGroupModel(ctx.serverDB, ctx.userId),
     },
   });
 });

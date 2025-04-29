@@ -1,32 +1,71 @@
-import OpenAI from 'openai';
+import type { ChatModelCard } from '@/types/llm';
 
 import { ChatStreamPayload, ModelProvider } from '../types';
 import { LobeOpenAICompatibleFactory } from '../utils/openaiCompatibleFactory';
+
+export interface BaichuanModelCard {
+  function_call: boolean;
+  max_input_length: number;
+  max_tokens: number;
+  model: string;
+  model_show_name: string;
+}
 
 export const LobeBaichuanAI = LobeOpenAICompatibleFactory({
   baseURL: 'https://api.baichuan-ai.com/v1',
   chatCompletion: {
     handlePayload: (payload: ChatStreamPayload) => {
-      const { frequency_penalty, ...rest } = payload;
+      const { enabledSearch, temperature, tools, ...rest } = payload;
 
-      let adjustedFrequencyPenalty = frequency_penalty ?? 1;
+      const baichuanTools = enabledSearch
+        ? [
+            ...(tools || []),
+            {
+              type: 'web_search',
+              web_search: {
+                enable: true,
+                search_mode: process.env.BAICHUAN_SEARCH_MODE || 'performance_first', // performance_first or quality_first
+              },
+            },
+          ]
+        : tools;
 
-      if (frequency_penalty !== undefined) {
-        if (frequency_penalty < 1) {
-          // If less than 1 (including negative values), add 1 to bring it into the 1-2 range
-          adjustedFrequencyPenalty = Math.min(Math.max(frequency_penalty + 1, 1), 2);
-        } else if (frequency_penalty > 2) {
-          // If greater than 2, cap it at 2
-          adjustedFrequencyPenalty = 2;
-        }
-        // If between 1 and 2, keep the original value
-      }
-
-      return { ...rest, frequency_penalty: adjustedFrequencyPenalty } as OpenAI.ChatCompletionCreateParamsStreaming;
+      return {
+        ...rest,
+        // [baichuan] frequency_penalty must be between 1 and 2.
+        frequency_penalty: undefined,
+        temperature: temperature !== undefined ? temperature / 2 : undefined,
+        tools: baichuanTools,
+      } as any;
     },
   },
   debug: {
     chatCompletion: () => process.env.DEBUG_BAICHUAN_CHAT_COMPLETION === '1',
+  },
+  models: async ({ client }) => {
+    const { LOBE_DEFAULT_MODEL_LIST } = await import('@/config/aiModels');
+
+    const modelsPage = (await client.models.list()) as any;
+    const modelList: BaichuanModelCard[] = modelsPage.data;
+
+    return modelList
+      .map((model) => {
+        const knownModel = LOBE_DEFAULT_MODEL_LIST.find(
+          (m) => model.model.toLowerCase() === m.id.toLowerCase(),
+        );
+
+        return {
+          contextWindowTokens: model.max_input_length,
+          displayName: model.model_show_name,
+          enabled: knownModel?.enabled || false,
+          functionCall: model.function_call,
+          id: model.model,
+          maxTokens: model.max_tokens,
+          reasoning: knownModel?.abilities?.reasoning || false,
+          vision: knownModel?.abilities?.vision || false,
+        };
+      })
+      .filter(Boolean) as ChatModelCard[];
   },
   provider: ModelProvider.Baichuan,
 });
