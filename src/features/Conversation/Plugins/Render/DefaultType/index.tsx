@@ -17,8 +17,20 @@ export interface PluginDefaultTypeProps {
   name?: string;
 }
 
+// 先定义 manifest 的类型
+interface PluginManifest {
+  [key: string]: unknown; // 允许任意属性
+  ui?: {
+    height?: number;
+    mode?: string;
+    // 这里定义 ui 的具体结构
+    url?: string;
+    width?: number;
+    // 其他可能的属性...
+  };
+}
 const PluginDefaultType = memo<PluginDefaultTypeProps>(({ content, name, loading }) => {
-  const manifest = useToolStore(pluginSelectors.getPluginManifestById(name || ''));
+  const manifest = useToolStore(pluginSelectors.getPluginManifestById(name || '') as any) as PluginManifest ;
 
   const { isJSON, data } = useParseContent(content);
 

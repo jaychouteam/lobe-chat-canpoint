@@ -1,6 +1,6 @@
 'use client';
 
-import { Form, type Group  } from '@lobehub/ui';
+import { Form  } from '@lobehub/ui';
 import { Form as AntForm } from 'antd';
 import isEqual from 'fast-deep-equal';
 import { memo } from 'react';
@@ -13,7 +13,7 @@ import { settingsSelectors } from '@/store/user/selectors';
 
 import { useSyncSystemAgent } from './useSync';
 
-type SettingItemGroup = Group;
+type SettingItemGroup = any;
 
 const Topic = memo(() => {
   const { t } = useTranslation('setting');
@@ -47,7 +47,7 @@ const Topic = memo(() => {
       form={form}
       initialValues={settings}
       items={[systemAgentSettings]}
-      variant={'pure'}
+      variant={'pure' as any}
       {...FORM_STYLE}
     />
   );

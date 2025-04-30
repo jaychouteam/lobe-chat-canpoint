@@ -13,7 +13,7 @@ const isPluginInstalled = (id: string) => (s: ToolStoreState) =>
 const getInstalledPluginById = (id: string) => (s: ToolStoreState) =>
   installedPlugins(s).find((p) => p.identifier === id);
 
-const getPluginMetaById = (id: string) => (s: ToolStoreState) => {
+export const getPluginMetaById = (id: string) => (s: ToolStoreState) => {
   // first try to find meta from store
   const storeMeta = s.pluginStoreList.find((i) => i.identifier === id)?.meta;
   if (storeMeta) return storeMeta;
@@ -63,10 +63,15 @@ const isPluginHasUI = (id: string) => (s: ToolStoreState) => {
 
   return !!plugin?.ui;
 };
+const getPluginManifestById = (name: string) => {
+if(!name)return
+  return name;
+};
 
 export const pluginSelectors = {
   getCustomPluginById,
   getInstalledPluginById,
+  getPluginManifestById,
   getPluginMetaById,
   getPluginSettingsById,
   getToolManifestById,
@@ -76,5 +81,5 @@ export const pluginSelectors = {
   installedPlugins,
   isPluginHasUI,
   isPluginInstalled,
-  storeAndInstallPluginsIdList,
+  storeAndInstallPluginsIdList
 };

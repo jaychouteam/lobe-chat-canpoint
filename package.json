@@ -155,6 +155,7 @@
     "@trpc/next": "^11.0.1",
     "@trpc/react-query": "^11.0.1",
     "@trpc/server": "^11.0.1",
+    "@types/react-cookies": "^0.1.4",
     "@vercel/analytics": "^1.5.0",
     "@vercel/edge-config": "^1.4.0",
     "@vercel/functions": "^2.0.0",

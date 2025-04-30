@@ -11,7 +11,6 @@ describe('testFunctionMessageAtEnd', () => {
       valid: true,
     });
   });
-
   it('should extract tool_calls JSON when there are space at end', () => {
     const content =
       'Some content before {"tool_calls": [{"tool": "example", "args": ["arg1"]}]}     ';

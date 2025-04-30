@@ -11,9 +11,19 @@ export interface PluginStandaloneTypeProps {
   name?: string;
   payload?: PluginRequestPayload;
 }
-
+interface PluginManifest {
+  [key: string]: unknown; // 允许任意属性
+  ui?: {
+    height?: number;
+    mode?: string;
+    // 这里定义 ui 的具体结构
+    url?: string;
+    width?: number;
+    // 其他可能的属性...
+  };
+}
 const PluginDefaultType = memo<PluginStandaloneTypeProps>(({ payload, id, name = 'unknown' }) => {
-  const manifest = useToolStore(pluginSelectors.getPluginManifestById(name));
+  const manifest = useToolStore(pluginSelectors.getPluginManifestById(name) as  any)  as PluginManifest;
 
   if (!manifest?.ui) return;
 

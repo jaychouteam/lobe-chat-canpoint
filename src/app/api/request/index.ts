@@ -8,7 +8,7 @@ getAuth().then(res=>{
  * 
  *  */
 // import {getToken} from '@/utils/cookie'
-import cookie from 'react-cookies'
+    import cookie from 'react-cookies'
 
 export const jumpLogin =()=> {
     let url = encodeURIComponent(window.location.href) //decodeURIComponent(window.location.href)
