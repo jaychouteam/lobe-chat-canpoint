@@ -1,7 +1,9 @@
 import dynamic from 'next/dynamic';
 
 import { analyticsEnv } from '@/config/analytics';
+import { isDesktop } from '@/const/version';
 
+import Desktop from './Desktop';
 import Google from './Google';
 import Vercel from './Vercel';
 
@@ -9,6 +11,7 @@ const Plausible = dynamic(() => import('./Plausible'));
 const Posthog = dynamic(() => import('./Posthog'));
 const Umami = dynamic(() => import('./Umami'));
 const Clarity = dynamic(() => import('./Clarity'));
+const ReactScan = dynamic(() => import('./ReactScan'));
 
 const Analytics = () => {
   return (
@@ -37,6 +40,10 @@ const Analytics = () => {
       {analyticsEnv.ENABLED_CLARITY_ANALYTICS && (
         <Clarity projectId={analyticsEnv.CLARITY_PROJECT_ID} />
       )}
+      {!!analyticsEnv.REACT_SCAN_MONITOR_API_KEY && (
+        <ReactScan apiKey={analyticsEnv.REACT_SCAN_MONITOR_API_KEY} />
+      )}
+      {isDesktop && <Desktop />}
     </>
   );
 };

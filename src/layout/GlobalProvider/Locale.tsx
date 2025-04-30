@@ -1,6 +1,7 @@
 'use client';
 
 import { ConfigProvider } from 'antd';
+import { useTheme } from 'antd-style';
 import dayjs from 'dayjs';
 import { PropsWithChildren, memo, useEffect, useState } from 'react';
 import { isRtlLang } from 'rtl-detect';
@@ -8,6 +9,23 @@ import { isRtlLang } from 'rtl-detect';
 import { createI18nNext } from '@/locales/create';
 import { isOnServerSide } from '@/utils/env';
 import { getAntdLocale } from '@/utils/locale';
+
+const updateDayjs = async (lang: string) => {
+  // load default lang
+  let dayJSLocale;
+  try {
+    // dayjs locale is using `en` instead of `en-US`
+    // refs: https://github.com/lobehub/lobe-chat/issues/3396
+    const locale = lang!.toLowerCase() === 'en-us' ? 'en' : lang!.toLowerCase();
+
+    dayJSLocale = await import(`dayjs/locale/${locale}.js`);
+  } catch {
+    console.warn(`dayjs locale for ${lang} not found, fallback to en`);
+    dayJSLocale = await import(`dayjs/locale/en.js`);
+  }
+
+  dayjs.locale(dayJSLocale.default);
+};
 
 interface LocaleLayoutProps extends PropsWithChildren {
   antdLocale?: any;
@@ -18,6 +36,7 @@ const Locale = memo<LocaleLayoutProps>(({ children, defaultLang, antdLocale }) =
   const [i18n] = useState(createI18nNext(defaultLang));
   const [lang, setLang] = useState(defaultLang);
   const [locale, setLocale] = useState(antdLocale);
+  const theme = useTheme();
 
   // if run on server side, init i18n instance everytime
   if (isOnServerSide) {
@@ -36,10 +55,7 @@ const Locale = memo<LocaleLayoutProps>(({ children, defaultLang, antdLocale }) =
       i18n.init().then(async () => {
         if (!lang) return;
 
-        // load default lang
-        const dayJSLocale = await import(`dayjs/locale/${lang!.toLowerCase()}.js`);
-
-        dayjs.locale(dayJSLocale.default);
+        await updateDayjs(lang);
       });
   }
 
@@ -53,9 +69,7 @@ const Locale = memo<LocaleLayoutProps>(({ children, defaultLang, antdLocale }) =
       const newLocale = await getAntdLocale(lng);
       setLocale(newLocale);
 
-      const dayJSLocale = await import(`dayjs/locale/${lng.toLowerCase()}.js`);
-
-      dayjs.locale(dayJSLocale.default);
+      await updateDayjs(lng);
     };
 
     i18n.instance.on('languageChanged', handleLang);
@@ -68,7 +82,45 @@ const Locale = memo<LocaleLayoutProps>(({ children, defaultLang, antdLocale }) =
   const documentDir = isRtlLang(lang!) ? 'rtl' : 'ltr';
 
   return (
-    <ConfigProvider direction={documentDir} locale={locale}>
+    <ConfigProvider
+      direction={documentDir}
+      locale={locale}
+      theme={{
+        components: {
+          Button: {
+            borderRadiusSM: 6,
+            contentFontSizeSM: 12,
+            defaultActiveBorderColor: theme.colorBorder,
+            defaultActiveColor: theme.colorText,
+            groupBorderColor: theme.colorBorder,
+          },
+          DatePicker: {
+            activeBorderColor: theme.colorBorder,
+            hoverBorderColor: theme.colorBorder,
+          },
+          Input: {
+            activeBorderColor: theme.colorBorder,
+            hoverBorderColor: theme.colorBorder,
+          },
+          InputNumber: {
+            activeBorderColor: theme.colorBorder,
+            hoverBorderColor: theme.colorBorder,
+          },
+          Mentions: {
+            activeBorderColor: theme.colorBorder,
+            hoverBorderColor: theme.colorBorder,
+          },
+          Select: {
+            activeBorderColor: theme.colorBorder,
+            hoverBorderColor: theme.colorBorder,
+          },
+          Typography: {
+            titleMarginBottom: 0,
+            titleMarginTop: 0,
+          },
+        },
+      }}
+    >
       {children}
     </ConfigProvider>
   );

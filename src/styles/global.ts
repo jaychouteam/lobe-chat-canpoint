@@ -1,4 +1,7 @@
 import { Theme, css } from 'antd-style';
+import { rgba } from 'polished';
+
+import { isDesktop } from '@/const/version';
 
 // fix ios input keyboard
 // overflow: hidden;
@@ -22,6 +25,17 @@ export default ({ token }: { prefixCls: string; token: Theme }) => css`
     }
   }
 
+  html {
+    background: ${isDesktop ? 'none' : token.colorBgLayout};
+  }
+
+  body {
+    /* 提高合成层级，强制硬件加速，否则会有渲染黑边出现 */
+    will-change: opacity;
+    transform: translateZ(0);
+    background: ${isDesktop ? rgba(token.colorBgLayout, 0.66) : token.colorBgLayout};
+  }
+
   * {
     scrollbar-color: ${token.colorFill} transparent;
     scrollbar-width: thin;
@@ -36,9 +50,9 @@ export default ({ token }: { prefixCls: string; token: Theme }) => css`
     }
 
     :hover::-webkit-scrollbar-thumb {
+      border: 3px solid transparent;
       background-color: ${token.colorText};
       background-clip: content-box;
-      border: 3px solid transparent;
     }
 
     ::-webkit-scrollbar-track {

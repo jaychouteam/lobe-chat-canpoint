@@ -1,8 +1,7 @@
 'use client';
 
-import { Icon } from '@lobehub/ui';
+import { Button, Icon } from '@lobehub/ui';
 import { useSize } from 'ahooks';
-import { Button } from 'antd';
 import { createStyles } from 'antd-style';
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
@@ -11,6 +10,7 @@ import Marquee from 'react-fast-marquee';
 import { useTranslation } from 'react-i18next';
 import { Center, Flexbox } from 'react-layout-kit';
 
+import { LOBE_CHAT_CLOUD } from '@/const/branding';
 import { OFFICIAL_URL, UTM_SOURCE } from '@/const/url';
 import { isOnServerSide } from '@/utils/env';
 
@@ -57,11 +57,11 @@ const CloudBanner = memo<{ mobile?: boolean }>(({ mobile }) => {
 
   const content = (
     <Flexbox align={'center'} flex={'none'} gap={8} horizontal ref={contentRef}>
-      <b>{t('alert.cloud.title', { name: 'LobeChat Cloud' })}:</b>
+      <b>{t('alert.cloud.title', { name: LOBE_CHAT_CLOUD })}:</b>
       <span>
         {t(mobile ? 'alert.cloud.descOnMobile' : 'alert.cloud.desc', {
-          credit: new Intl.NumberFormat('en-US').format(450_000),
-          name: 'LobeChat Cloud',
+          credit: new Intl.NumberFormat('en-US').format(500_000),
+          name: LOBE_CHAT_CLOUD,
         })}
       </span>
     </Flexbox>

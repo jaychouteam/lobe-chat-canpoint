@@ -6,13 +6,14 @@
     "chat": "Preferências de bate-papo",
     "meta": "Informações do assistente",
     "modal": "Configurações do modelo",
+    "opening": "Configuração de Abertura",
     "plugin": "Configurações do plug-in",
     "prompt": "Configuração de personagem",
     "tts": "Serviço de voz"
   },
   "analytics": {
     "telemetry": {
-      "desc": "Ao optar por enviar dados de telemetria, você pode nos ajudar a melhorar a experiência do usuário do LobeChat como um todo",
+      "desc": "Ao escolher enviar dados de telemetria, você pode nos ajudar a melhorar a experiência geral do usuário no {{appName}}",
       "title": "Enviar dados de uso anônimo"
     },
     "title": "Análise de dados"
@@ -42,6 +43,17 @@
     "sessionWithName": "Configurações de Sessão · {{name}}",
     "title": "Configurações"
   },
+  "hotkey": {
+    "conflicts": "Conflito com teclas de atalho existentes",
+    "group": {
+      "conversation": "Conversa",
+      "essential": "Essencial"
+    },
+    "invalidCombination": "A combinação de teclas de atalho deve incluir pelo menos uma tecla modificadora (Ctrl, Alt, Shift) e uma tecla comum",
+    "record": "Pressione a tecla para gravar o atalho",
+    "reset": "Redefinir para os atalhos padrão",
+    "title": "Atalhos"
+  },
   "llm": {
     "apiKey": {
       "desc": "Por favor, insira sua chave de API {{name}}",
@@ -50,7 +62,7 @@
     },
     "checker": {
       "button": "Verificar",
-      "desc": "Verifica se a Api Key e o endereço do proxy estão preenchidos corretamente",
+      "desc": "Verifica se a API Key e o endereço do proxy estão preenchidos corretamente",
       "pass": "Verificação aprovada",
       "title": "Verificação de Conectividade"
     },
@@ -69,11 +81,11 @@
           "title": "Nome de Exibição do Modelo"
         },
         "files": {
-          "extra": "A implementação atual de upload de arquivos do LobeChat é apenas uma solução temporária. Aguarde a implementação completa de capacidade de upload de arquivos no futuro.",
+          "extra": "A implementação atual de upload de arquivos é apenas uma solução alternativa, limitada a tentativas pessoais. A capacidade completa de upload de arquivos deve ser aguardada em implementações futuras.",
           "title": "Suporte a Upload de Arquivos"
         },
         "functionCall": {
-          "extra": "Esta configuração ativará apenas a capacidade de chamada de função no LobeChat. A capacidade de suporte à chamada de função depende inteiramente do modelo em si. Por favor, teste a disponibilidade da capacidade de chamada de função deste modelo.",
+          "extra": "Esta configuração ativará apenas a capacidade de chamada de funções dentro do aplicativo; a possibilidade de suporte a chamadas de funções depende totalmente do modelo em si. Por favor, teste a disponibilidade da capacidade de chamada de funções desse modelo.",
           "title": "Suporte a Chamada de Função"
         },
         "id": {
@@ -83,11 +95,10 @@
         },
         "modalTitle": "Configuração de Modelo Personalizado",
         "tokens": {
-          "title": "Número Máximo de Tokens",
-          "unlimited": "ilimitado"
+          "title": "Número Máximo de Tokens"
         },
         "vision": {
-          "extra": "Esta configuração ativará apenas a configuração de upload de imagens no LobeChat. A capacidade de reconhecimento depende inteiramente do modelo em si. Por favor, teste a disponibilidade da capacidade de reconhecimento visual deste modelo.",
+          "extra": "Esta configuração ativará apenas a configuração de upload de imagens dentro do aplicativo; a capacidade de reconhecimento depende totalmente do modelo em si. Por favor, teste a disponibilidade da capacidade de reconhecimento visual desse modelo.",
           "title": "Suporte a Reconhecimento Visual"
         }
       }
@@ -97,6 +108,7 @@
       "title": "Usar o modo de solicitação do cliente"
     },
     "fetcher": {
+      "clear": "Limpar o modelo obtido",
       "fetch": "Obter lista de modelos",
       "fetching": "Obtendo lista de modelos...",
       "latestTime": "Última atualização: {{time}}",
@@ -136,6 +148,7 @@
       "title": "Cor de fundo"
     },
     "description": {
+      "desc": "Uma breve introdução ao seu assistente, não como uma definição de personagem",
       "placeholder": "Digite a descrição do assistente",
       "title": "Descrição do assistente"
     },
@@ -147,7 +160,9 @@
       "placeholder": "Digite a palavra de prompt do papel",
       "title": "Configuração do papel"
     },
+    "submit": "Atualizar informações do assistente",
     "tag": {
+      "desc": "As etiquetas do assistente serão exibidas no mercado de assistentes",
       "placeholder": "Digite a etiqueta",
       "title": "Etiqueta"
     },
@@ -173,8 +188,8 @@
       "desc": "Se deve criar automaticamente um tópico durante a conversa, apenas válido em tópicos temporários",
       "title": "Criar tópico automaticamente"
     },
-    "enableCompressThreshold": {
-      "title": "Ativar limite de compactação de mensagens"
+    "enableCompressHistory": {
+      "title": "Ativar resumo automático de mensagens históricas"
     },
     "enableHistoryCount": {
       "alias": "Sem limite",
@@ -192,15 +207,19 @@
       "placeholder": "O modelo de pré-processamento {{text}} será substituído pela entrada em tempo real",
       "title": "Pré-processamento de entrada do usuário"
     },
+    "submit": "Atualizar preferências de chat",
     "title": "Configurações de chat"
   },
   "settingModel": {
     "enableMaxTokens": {
       "title": "Ativar limite de resposta única"
     },
+    "enableReasoningEffort": {
+      "title": "Ativar ajuste de intensidade de raciocínio"
+    },
     "frequencyPenalty": {
-      "desc": "Quanto maior o valor, maior a probabilidade de reduzir palavras repetidas",
-      "title": "Penalidade de frequência"
+      "desc": "Quanto maior o valor, mais rica e variada será a escolha de palavras; quanto menor o valor, mais simples e direta será a escolha de palavras.",
+      "title": "Riqueza do Vocabulário"
     },
     "maxTokens": {
       "desc": "Número máximo de tokens a serem usados em uma interação única",
@@ -210,20 +229,48 @@
       "desc": "{{provider}} modelo",
       "title": "Modelo"
     },
+    "params": {
+      "title": "Parâmetros Avançados"
+    },
     "presencePenalty": {
-      "desc": "Quanto maior o valor, maior a probabilidade de expandir para novos tópicos",
-      "title": "Penalidade de novidade do tópico"
+      "desc": "Quanto maior o valor, mais inclinado a diferentes formas de expressão, evitando repetições de conceitos; quanto menor o valor, mais inclinado a usar conceitos ou narrativas repetidas, resultando em uma expressão mais consistente.",
+      "title": "Diversidade de Expressão"
     },
+    "reasoningEffort": {
+      "desc": "Quanto maior o valor, mais forte será a capacidade de raciocínio, mas isso pode aumentar o tempo de resposta e o consumo de tokens",
+      "options": {
+        "high": "Alto",
+        "low": "Baixo",
+        "medium": "Médio"
+      },
+      "title": "Intensidade de raciocínio"
+    },
+    "submit": "Atualizar configurações do modelo",
     "temperature": {
-      "desc": "Quanto maior o valor, mais aleatória será a resposta",
-      "title": "Aleatoriedade",
-      "titleWithValue": "Aleatoriedade {{value}}"
+      "desc": "Quanto maior o valor, mais criativas e imaginativas serão as respostas; quanto menor o valor, mais rigorosas serão as respostas",
+      "title": "Atividade Criativa",
+      "warning": "Valor de atividade criativa muito alto pode resultar em saídas confusas"
     },
-    "title": "Configurações do modelo",
+    "title": "Configurações do Modelo",
     "topP": {
-      "desc": "Semelhante à aleatoriedade, mas não deve ser alterado junto com a aleatoriedade",
-      "title": "Amostragem principal"
+      "desc": "Quantas possibilidades considerar; quanto maior o valor, mais respostas possíveis serão aceitas; quanto menor o valor, mais se tende a escolher a resposta mais provável. Não é recomendado alterar junto com a atividade criativa",
+      "title": "Abertura Mental"
     }
+  },
+  "settingOpening": {
+    "openingMessage": {
+      "desc": "Mensagem de abertura exibida ao iniciar a conversa, usada para apresentar as funcionalidades do assistente",
+      "placeholder": "Olá, eu sou o Assistente Personalizado, você pode começar a conversar comigo imediatamente ou ir para Configurações do Assistente para completar minhas informações.",
+      "title": "Mensagem de Abertura"
+    },
+    "openingQuestions": {
+      "desc": "Perguntas orientadoras exibidas no início da conversa",
+      "empty": "Nenhuma pergunta disponível",
+      "placeholder": "Digite uma pergunta",
+      "repeat": "A pergunta já existe",
+      "title": "Perguntas de Abertura"
+    },
+    "title": "Configuração de Abertura"
   },
   "settingPlugin": {
     "title": "Lista de plugins"
@@ -275,6 +322,7 @@
       "desc": "Onde 'browser' é o serviço nativo de reconhecimento de fala do navegador",
       "title": "Serviço de reconhecimento de fala"
     },
+    "submit": "Atualizar serviço de voz",
     "title": "Serviço de fala",
     "tts": "Configurações de síntese de fala",
     "ttsService": {
@@ -318,12 +366,45 @@
     },
     "title": "Configurações de Tema"
   },
+  "storage": {
+    "actions": {
+      "export": {
+        "button": "Exportar",
+        "exportType": {
+          "agent": "Exportar configurações do assistente",
+          "agentWithMessage": "Exportar assistente e mensagens",
+          "all": "Exportar configurações globais e todos os dados do assistente",
+          "allAgent": "Exportar todas as configurações do assistente",
+          "allAgentWithMessage": "Exportar todos os assistentes e mensagens",
+          "globalSetting": "Exportar configurações globais"
+        },
+        "title": "Exportar dados"
+      },
+      "import": {
+        "button": "Importar",
+        "title": "Importar dados"
+      },
+      "title": "Operações Avançadas"
+    },
+    "desc": "Uso de armazenamento no navegador atual",
+    "embeddings": {
+      "used": "Armazenamento de vetores"
+    },
+    "title": "Armazenamento de Dados",
+    "used": "Uso de armazenamento"
+  },
   "submitAgentModal": {
     "button": "Enviar Assistente",
     "identifier": "Identificador do assistente",
     "metaMiss": "Por favor, complete as informações do assistente antes de enviar, incluindo nome, descrição e etiqueta",
     "placeholder": "Insira o identificador único do assistente, como por exemplo, desenvolvimento-web",
     "tooltips": "Compartilhar no mercado de assistentes"
+  },
+  "submitFooter": {
+    "reset": "Redefinir",
+    "submit": "Salvar",
+    "unSaved": "Alterações não salvas",
+    "unSavedWarning": "Atualmente há alterações não salvas"
   },
   "sync": {
     "device": {
@@ -365,6 +446,33 @@
     }
   },
   "systemAgent": {
+    "agentMeta": {
+      "label": "Modelo de Geração de Metadados do Assistente",
+      "modelDesc": "Especifica o modelo usado para gerar o nome, descrição, avatar e tags do assistente",
+      "title": "Geração Automática de Informações do Assistente"
+    },
+    "customPrompt": {
+      "addPrompt": "Adicionar prompt personalizado",
+      "desc": "Após preenchido, o assistente do sistema usará o prompt personalizado ao gerar conteúdo",
+      "placeholder": "Digite a palavra-chave personalizada",
+      "title": "Palavra-chave personalizada"
+    },
+    "helpInfo": "Ao criar um novo assistente, as configurações padrão do assistente serão usadas como valores predefinidos.",
+    "historyCompress": {
+      "label": "Modelo de Histórico de Conversa",
+      "modelDesc": "Especifica o modelo usado para comprimir o histórico de conversa",
+      "title": "Resumo Automático do Histórico de Conversa"
+    },
+    "queryRewrite": {
+      "label": "Modelo de Reescrita de Perguntas",
+      "modelDesc": "Modelo designado para otimizar as perguntas dos usuários",
+      "title": "Reescrita de perguntas do banco de dados"
+    },
+    "thread": {
+      "label": "Modelo de Nomeação de Subtópicos",
+      "modelDesc": "Modelo designado para a renomeação automática de subtópicos",
+      "title": "Nomeação Automática de Subtópicos"
+    },
     "title": "Assistente do Sistema",
     "topic": {
       "label": "Modelo de Nomeação de Tópicos",
@@ -382,7 +490,10 @@
     "agent": "Assistente Padrão",
     "common": "Configurações Comuns",
     "experiment": "Experimento",
+    "hotkey": "Atalhos",
     "llm": "Modelo de Linguagem",
+    "provider": "Fornecedor de IA",
+    "storage": "Armazenamento de Dados",
     "sync": "Sincronização na nuvem",
     "system-agent": "Assistente do Sistema",
     "tts": "Serviço de Voz"

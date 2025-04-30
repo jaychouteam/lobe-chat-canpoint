@@ -1,72 +1,47 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { memo, useEffect, useLayoutEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { pwaInstallHandler } from 'pwa-install-handler';
+import { memo, useEffect, useState } from 'react';
 
-import { PWA_INSTALL_ID } from '@/const/layoutTokens';
-import { usePWAInstall } from '@/hooks/usePWAInstall';
 import { usePlatform } from '@/hooks/usePlatform';
 import { useGlobalStore } from '@/store/global';
 import { systemStatusSelectors } from '@/store/global/selectors';
 import { useUserStore } from '@/store/user';
 
-// @ts-ignore
-const PWA: any = dynamic(() => import('@khmyznikov/pwa-install/dist/pwa-install.react.js'), {
+const Install: any = dynamic(() => import('./Install'), {
   ssr: false,
 });
 
 const PWAInstall = memo(() => {
-  const { t } = useTranslation('metadata');
-  const { isPWA } = usePlatform();
-
-  const { install, canInstall } = usePWAInstall();
-
+  const { isPWA, isSupportInstallPWA } = usePlatform();
   const isShowPWAGuide = useUserStore((s) => s.isShowPWAGuide);
-  const [hidePWAInstaller, updateSystemStatus] = useGlobalStore((s) => [
-    systemStatusSelectors.hidePWAInstaller(s),
-    s.updateSystemStatus,
-  ]);
+  const hidePWAInstaller = useGlobalStore((s) => systemStatusSelectors.hidePWAInstaller(s));
+  const [canInstallFromPWAInstallHandler, setCanInstallFromPWAInstallHandler] = useState<
+    boolean | undefined
+  >();
 
-  // we need to make the pwa installer hidden by default
-  useLayoutEffect(() => {
-    sessionStorage.setItem('pwa-hide-install', 'true');
+  useEffect(() => {
+    pwaInstallHandler.addListener((canInstall) => {
+      setCanInstallFromPWAInstallHandler(canInstall);
+    });
+    return () => {
+      pwaInstallHandler.removeListener(setCanInstallFromPWAInstallHandler);
+    };
   }, []);
 
-  const pwaInstall =
-    // eslint-disable-next-line unicorn/prefer-query-selector
-    typeof window === 'undefined' ? undefined : document.getElementById(PWA_INSTALL_ID);
+  if (
+    isPWA ||
+    !isShowPWAGuide ||
+    !isSupportInstallPWA ||
+    hidePWAInstaller ||
+    canInstallFromPWAInstallHandler === false
+  )
+    return null;
 
-  // add an event listener to control the user close installer action
-  useEffect(() => {
-    if (!pwaInstall) return;
-
-    const handler = (e: Event) => {
-      const event = e as CustomEvent;
-
-      // it means user hide installer
-      if (event.detail.message === 'dismissed') {
-        updateSystemStatus({ hidePWAInstaller: true });
-      }
-    };
-
-    pwaInstall.addEventListener('pwa-user-choice-result-event', handler);
-    return () => {
-      pwaInstall.removeEventListener('pwa-user-choice-result-event', handler);
-    };
-  }, [pwaInstall]);
-
-  // trigger the PWA guide on demand
-  useEffect(() => {
-    if (!canInstall || hidePWAInstaller) return;
-
-    if (isShowPWAGuide) {
-      install();
-    }
-  }, [canInstall, hidePWAInstaller, isShowPWAGuide]);
-
-  if (isPWA) return null;
-  return <PWA description={t('chat.description')} id={PWA_INSTALL_ID} />;
+  // only when the user is suitable for the pwa install and not install the pwa
+  // then show the installation guide
+  return <Install />;
 });
 
 export default PWAInstall;

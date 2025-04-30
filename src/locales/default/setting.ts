@@ -6,13 +6,14 @@ export default {
     chat: '聊天偏好',
     meta: '助手信息',
     modal: '模型设置',
+    opening: '开场设置',
     plugin: '插件设置',
     prompt: '角色设定',
     tts: '语音服务',
   },
   analytics: {
     telemetry: {
-      desc: '通过选择发送遥测数据，你可以帮助我们改善 LobeChat 整体用户体验',
+      desc: '通过选择发送遥测数据，你可以帮助我们改善 {{appName}} 整体用户体验',
       title: '发送匿名使用数据',
     },
     title: '数据统计',
@@ -42,6 +43,17 @@ export default {
     sessionWithName: '会话设置 · {{name}}',
     title: '设置',
   },
+  hotkey: {
+    conflicts: '与现有快捷键冲突',
+    group: {
+      conversation: '会话',
+      essential: '基础',
+    },
+    invalidCombination: '快捷键需要至少包含一个修饰键 (Ctrl, Alt, Shift) 和一个常规键',
+    record: '按下按键以录制快捷键',
+    reset: '重置为默认快捷键',
+    title: '快捷键',
+  },
   llm: {
     aesGcm: '您的秘钥与代理地址等将使用 <1>AES-GCM</1> 加密算法进行加密',
     apiKey: {
@@ -70,13 +82,12 @@ export default {
           title: '模型展示名称',
         },
         files: {
-          extra:
-            '当前 LobeChat 的文件上传实现仅为一种 Hack 方案，仅限自行尝试。完整文件上传能力请等待后续实现',
+          extra: '当前文件上传实现仅为一种 Hack 方案，仅限自行尝试。完整文件上传能力请等待后续实现',
           title: '支持文件上传',
         },
         functionCall: {
           extra:
-            '此配置将仅开启 LobeChat 中的函数调用能力，是否支持函数调用完全取决于模型本身，请自行测试该模型的函数调用能力可用性',
+            '此配置将仅开启应用中的函数调用能力，是否支持函数调用完全取决于模型本身，请自行测试该模型的函数调用能力可用性',
           title: '支持函数调用',
         },
         id: {
@@ -87,11 +98,10 @@ export default {
         modalTitle: '自定义模型配置',
         tokens: {
           title: '最大 token 数',
-          unlimited: '无限制',
         },
         vision: {
           extra:
-            '此配置将仅开启 LobeChat 中的图片上传配置，是否支持识别完全取决于模型本身，请自行测试该模型的视觉识别能力可用性',
+            '此配置将仅开启应用中的图片上传配置，是否支持识别完全取决于模型本身，请自行测试该模型的视觉识别能力可用性',
           title: '支持视觉识别',
         },
       },
@@ -101,6 +111,7 @@ export default {
       title: '使用客户端请求模式',
     },
     fetcher: {
+      clear: '清除获取的模型',
       fetch: '获取模型列表',
       fetching: '正在获取模型列表...',
       latestTime: '上次更新时间：{{time}}',
@@ -135,12 +146,13 @@ export default {
   },
   settingAgent: {
     avatar: {
-      title: '头像',
+      title: '助手头像',
     },
     backgroundColor: {
-      title: '背景色',
+      title: '头像背景色',
     },
     description: {
+      desc: '简单介绍你的助手，不作为角色设定',
       placeholder: '请输入助手描述',
       title: '助手描述',
     },
@@ -152,7 +164,9 @@ export default {
       placeholder: '请输入角色 Prompt 提示词',
       title: '角色设定',
     },
+    submit: '更新助手信息',
     tag: {
+      desc: '助手标签将在助手市场中展示',
       placeholder: '请输入标签',
       title: '标签',
     },
@@ -178,8 +192,8 @@ export default {
       desc: '会话过程中是否自动创建话题，仅在临时话题中生效',
       title: '自动创建话题',
     },
-    enableCompressThreshold: {
-      title: '是否开启历史消息长度压缩阈值',
+    enableCompressHistory: {
+      title: '开启历史消息自动总结',
     },
     enableHistoryCount: {
       alias: '不限制',
@@ -197,15 +211,19 @@ export default {
       placeholder: '预处理模版 {{text}} 将替换为实时输入信息',
       title: '用户输入预处理',
     },
+    submit: '更新聊天偏好',
     title: '聊天设置',
   },
   settingModel: {
     enableMaxTokens: {
       title: '开启单次回复限制',
     },
+    enableReasoningEffort: {
+      title: '开启推理强度调整',
+    },
     frequencyPenalty: {
-      desc: '值越大，越有可能降低重复字词',
-      title: '频率惩罚度',
+      desc: '值越大，用词越丰富多样；值越低，用词更朴实简单',
+      title: '词汇丰富度',
     },
     maxTokens: {
       desc: '单次交互所用的最大 Token 数',
@@ -215,20 +233,48 @@ export default {
       desc: '{{provider}} 模型',
       title: '模型',
     },
-    presencePenalty: {
-      desc: '值越大，越有可能扩展到新话题',
-      title: '话题新鲜度',
+    params: {
+      title: '高级参数',
     },
+    presencePenalty: {
+      desc: '值越大，越倾向不同的表达方式，避免概念重复；值越小，越倾向使用重复的概念或叙述，表达更具一致性',
+      title: '表述发散度',
+    },
+    reasoningEffort: {
+      desc: '值越大，推理能力越强，但可能会增加响应时间和 Token 消耗',
+      options: {
+        high: '高',
+        low: '低',
+        medium: '中',
+      },
+      title: '推理强度',
+    },
+    submit: '更新模型设置',
     temperature: {
-      desc: '值越大，回复越随机',
-      title: '随机性',
-      titleWithValue: '随机性 {{value}}',
+      desc: '数值越大，回答越有创意和想象力；数值越小，回答越严谨',
+      title: '创意活跃度',
+      warning: '创意活跃度数值过大，输出可能会产生乱码',
     },
     title: '模型设置',
     topP: {
-      desc: '与随机性类似，但不要和随机性一起更改',
-      title: '核采样',
+      desc: '考虑多少种可能性，值越大，接受更多可能的回答；值越小，倾向选择最可能的回答。不推荐和创意活跃度一起更改',
+      title: '思维开放度',
     },
+  },
+  settingOpening: {
+    openingMessage: {
+      desc: '打开会话时的开场消息，用来介绍助手的功能',
+      placeholder: '你好，我是自定义助手。你可以立即与我开始对话，也可以前往助手设置完善我的信息。',
+      title: '开场消息',
+    },
+    openingQuestions: {
+      desc: '会话开始时展示的引导性问题',
+      empty: '暂无问题',
+      placeholder: '请输入问题',
+      repeat: '问题已存在',
+      title: '开场问题',
+    },
+    title: '开场设置',
   },
   settingPlugin: {
     title: '插件列表',
@@ -277,9 +323,10 @@ export default {
       title: '语音识别语种',
     },
     sttService: {
-      desc: '其中 broswer 为浏览器原生的语音识别服务',
+      desc: '其中 browser 为浏览器原生的语音识别服务',
       title: '语音识别服务',
     },
+    submit: '更新语音服务',
     title: '语音服务',
     tts: '语音合成设置',
     ttsService: {
@@ -323,12 +370,45 @@ export default {
     },
     title: '主题设置',
   },
+  storage: {
+    actions: {
+      export: {
+        button: '导出',
+        exportType: {
+          agent: '导出助手设定',
+          agentWithMessage: '导出助手和消息',
+          all: '导出全局设置和所有助手数据',
+          allAgent: '导出所有助手设定',
+          allAgentWithMessage: '导出所有助手和消息',
+          globalSetting: '导出全局设置',
+        },
+        title: '导出数据',
+      },
+      import: {
+        button: '导入',
+        title: '导入数据',
+      },
+      title: '高级操作',
+    },
+    desc: '当前浏览器中的存储用量',
+    embeddings: {
+      used: '向量存储',
+    },
+    title: '数据存储',
+    used: '存储用量',
+  },
   submitAgentModal: {
     button: '提交助手',
     identifier: 'identifier 助手标识符',
     metaMiss: '请补全助手信息后提交，需要包含名称、描述和标签',
     placeholder: '请输入助手的标识符，需要是唯一的，比如 web-development',
     tooltips: '分享到助手市场',
+  },
+  submitFooter: {
+    reset: '重置',
+    submit: '保存',
+    unSaved: '未保存更改',
+    unSavedWarning: '当前有未保存的更改',
   },
   sync: {
     device: {
@@ -375,6 +455,28 @@ export default {
       modelDesc: '指定用于生成助理名称、描述、头像、标签的模型',
       title: '自动生成助理信息',
     },
+    customPrompt: {
+      addPrompt: '添加自定义提示',
+      desc: '填写后，系统助理将在生成内容时使用自定义提示',
+      placeholder: '请输入自定义提示词',
+      title: '自定义提示词',
+    },
+    helpInfo: '当创建新助手时，将以默认助手设置作为预设值。',
+    historyCompress: {
+      label: '会话历史模型',
+      modelDesc: '指定用于压缩会话历史的模型',
+      title: '自动总结会话历史',
+    },
+    queryRewrite: {
+      label: '提问重写模型',
+      modelDesc: '指定用于优化用户提问的模型',
+      title: '知识库提问重写',
+    },
+    thread: {
+      label: '子话题命名模型',
+      modelDesc: '指定用于子话题自动重命名的模型',
+      title: '子话题自动命名',
+    },
     title: '系统助手',
     topic: {
       label: '话题命名模型',
@@ -392,7 +494,10 @@ export default {
     'agent': '默认助手',
     'common': '通用设置',
     'experiment': '实验',
+    'hotkey': '快捷键',
     'llm': '语言模型',
+    'provider': 'AI 服务商',
+    'storage': '数据存储',
     'sync': '云端同步',
     'system-agent': '系统助手',
     'tts': '语音服务',

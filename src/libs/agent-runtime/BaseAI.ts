@@ -1,18 +1,40 @@
 import OpenAI from 'openai';
 
-import { TextToImagePayload } from '@/libs/agent-runtime/types/textToImage';
 import { ChatModelCard } from '@/types/llm';
 
-import { ChatCompetitionOptions, ChatStreamPayload } from './types';
+import {
+  ChatCompetitionOptions,
+  ChatStreamPayload,
+  Embeddings,
+  EmbeddingsOptions,
+  EmbeddingsPayload,
+  ModelRequestOptions,
+  PullModelParams,
+  TextToImagePayload,
+  TextToSpeechOptions,
+  TextToSpeechPayload,
+} from './types';
 
+/* eslint-disable sort-keys-fix/sort-keys-fix , typescript-sort-keys/interface */
 export interface LobeRuntimeAI {
   baseURL?: string;
   chat(payload: ChatStreamPayload, options?: ChatCompetitionOptions): Promise<Response>;
 
+  embeddings?(payload: EmbeddingsPayload, options?: EmbeddingsOptions): Promise<Embeddings[]>;
+
   models?(): Promise<any>;
 
   textToImage?: (payload: TextToImagePayload) => Promise<string[]>;
+
+  textToSpeech?: (
+    payload: TextToSpeechPayload,
+    options?: TextToSpeechOptions,
+  ) => Promise<ArrayBuffer>;
+
+  // 模型管理相关接口
+  pullModel?(params: PullModelParams, options?: ModelRequestOptions): Promise<Response>;
 }
+/* eslint-enabled */
 
 export abstract class LobeOpenAICompatibleRuntime {
   abstract baseURL: string;
@@ -21,4 +43,9 @@ export abstract class LobeOpenAICompatibleRuntime {
   abstract chat(payload: ChatStreamPayload, options?: ChatCompetitionOptions): Promise<Response>;
 
   abstract models(): Promise<ChatModelCard[]>;
+
+  abstract embeddings(
+    payload: EmbeddingsPayload,
+    options?: EmbeddingsOptions,
+  ): Promise<Embeddings[]>;
 }

@@ -1,4 +1,3 @@
-import { readableFromAsyncIterable } from 'ai';
 import { ChatCompletionContentPartText } from 'ai/prompts';
 import OpenAI from 'openai';
 import { ChatCompletionContentPart } from 'openai/resources/index.mjs';
@@ -9,7 +8,7 @@ import {
   StreamProtocolChunk,
   StreamProtocolToolCallChunk,
   StreamToolCallChunkData,
-  chatStreamable,
+  convertIterableToStream,
   createCallbacksTransformer,
   createSSEProtocolTransformer,
   generateToolCallId,
@@ -62,12 +61,22 @@ export const transformQwenStream = (chunk: OpenAI.ChatCompletionChunk): StreamPr
     } as StreamProtocolToolCallChunk;
   }
 
-  if (item.finish_reason) {
-    return { data: item.finish_reason, id: chunk.id, type: 'stop' };
+  // DeepSeek reasoner will put thinking in the reasoning_content field
+  if (
+    item.delta &&
+    'reasoning_content' in item.delta &&
+    typeof item.delta.reasoning_content === 'string' &&
+    item.delta.reasoning_content !== ''
+  ) {
+    return { data: item.delta.reasoning_content, id: chunk.id, type: 'reasoning' };
   }
 
   if (typeof item.delta?.content === 'string') {
     return { data: item.delta.content, id: chunk.id, type: 'text' };
+  }
+
+  if (item.finish_reason) {
+    return { data: item.finish_reason, id: chunk.id, type: 'stop' };
   }
 
   if (item.delta?.content === null) {
@@ -86,7 +95,7 @@ export const QwenAIStream = (
   callbacks?: ChatStreamCallbacks,
 ) => {
   const readableStream =
-    stream instanceof ReadableStream ? stream : readableFromAsyncIterable(chatStreamable(stream));
+    stream instanceof ReadableStream ? stream : convertIterableToStream(stream);
 
   return readableStream
     .pipeThrough(createSSEProtocolTransformer(transformQwenStream))

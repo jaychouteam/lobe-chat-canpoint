@@ -4,15 +4,20 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 /**
  * This file contains the root router of your tRPC-backend
  */
-import { createCallerFactory } from '@/libs/trpc';
-import { AuthContext, createContextInner } from '@/server/context';
-import { GlobalServerConfig } from '@/types/serverConfig';
+import { createCallerFactory } from '@/libs/trpc/edge';
+import { AuthContext, createContextInner } from '@/libs/trpc/edge/context';
 
 import { configRouter } from './index';
 
 const createCaller = createCallerFactory(configRouter);
 let ctx: AuthContext;
 let router: ReturnType<typeof createCaller>;
+
+vi.mock('@/libs/next-auth/edge', () => {
+  return {
+    auth: vi.fn().mockResolvedValue(undefined),
+  };
+});
 
 beforeEach(async () => {
   vi.resetAllMocks();
@@ -31,7 +36,7 @@ describe('configRouter', () => {
           const response = await router.getGlobalConfig();
 
           // Assert
-          const result = response.languageModel?.openai;
+          const result = response.serverConfig.languageModel?.openai;
 
           expect(result).toMatchSnapshot();
           process.env.OPENAI_MODEL_LIST = '';
@@ -39,11 +44,11 @@ describe('configRouter', () => {
 
         it('should work correct with gpt-4', async () => {
           process.env.OPENAI_MODEL_LIST =
-            '-all,+gpt-3.5-turbo-1106,+gpt-3.5-turbo,+gpt-3.5-turbo-16k,+gpt-4,+gpt-4-32k,+gpt-4-1106-preview,+gpt-4-vision-preview';
+            '-all,+gpt-3.5-turbo-1106,+gpt-3.5-turbo,+gpt-4,+gpt-4-32k,+gpt-4-1106-preview,+gpt-4-vision';
 
           const response = await router.getGlobalConfig();
 
-          const result = response.languageModel?.openai?.serverModelCards;
+          const result = response.serverConfig.languageModel?.openai?.serverModelCards;
 
           expect(result).toMatchSnapshot();
 
@@ -56,7 +61,7 @@ describe('configRouter', () => {
 
           const response = await router.getGlobalConfig();
 
-          const result = response.languageModel?.openai?.serverModelCards;
+          const result = response.serverConfig.languageModel?.openai?.serverModelCards;
 
           expect(result?.find((s) => s.id === 'gpt-4-0125-preview')?.displayName).toEqual(
             'gpt-4-32k',
@@ -70,7 +75,7 @@ describe('configRouter', () => {
 
           const response = await router.getGlobalConfig();
 
-          const result = response.languageModel?.openai?.serverModelCards;
+          const result = response.serverConfig.languageModel?.openai?.serverModelCards;
 
           expect(result?.find((r) => r.id === 'gpt-4')).toBeUndefined();
 
@@ -82,15 +87,11 @@ describe('configRouter', () => {
 
           const response = await router.getGlobalConfig();
 
-          const result = response.languageModel?.openai?.serverModelCards;
+          const result = response.serverConfig.languageModel?.openai?.serverModelCards;
 
-          expect(result?.find((o) => o.id === 'gpt-4-1106-preview')).toEqual({
-            displayName: 'GPT-4 Turbo Preview (1106)',
-            functionCall: true,
-            enabled: true,
-            id: 'gpt-4-1106-preview',
-            tokens: 128000,
-          });
+          const model = result?.find((o) => o.id === 'gpt-4-1106-preview');
+
+          expect(model).toMatchSnapshot();
 
           process.env.OPENAI_MODEL_LIST = '';
         });
@@ -100,7 +101,7 @@ describe('configRouter', () => {
 
           const response = await router.getGlobalConfig();
 
-          const result = response.languageModel?.openai?.serverModelCards;
+          const result = response.serverConfig.languageModel?.openai?.serverModelCards;
 
           expect(result).toContainEqual({
             displayName: 'model1',
@@ -130,12 +131,12 @@ describe('configRouter', () => {
       describe('OPENROUTER_MODEL_LIST', () => {
         it('custom deletion, addition, and renaming of models', async () => {
           process.env.OPENROUTER_MODEL_LIST =
-            '-all,+google/gemma-7b-it,+mistralai/mistral-7b-instruct=Mistral-7B-Instruct';
+            '-all,+meta-llama/llama-3.1-8b-instruct:free,+google/gemma-2-9b-it:free';
 
           const response = await router.getGlobalConfig();
 
           // Assert
-          const result = response.languageModel?.openrouter;
+          const result = response.serverConfig.languageModel?.openrouter;
 
           expect(result).toMatchSnapshot();
 

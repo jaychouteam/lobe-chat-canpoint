@@ -9,13 +9,130 @@
       "title": "{{name}}'i Denemek İçin Hoş Geldiniz"
     }
   },
-  "appInitializing": "Uygulama başlatılıyor, lütfen bekleyin...",
+  "appLoading": {
+    "appIdle": "Başlatılıyor",
+    "appInitializing": "Uygulama başlatılıyor...",
+    "failed": "Üzgünüz, uygulama başlatılırken bir hata oluştu, lütfen ayrıntıları kontrol edin ve sorunu giderin.",
+    "finished": "Veritabanı başlatma tamamlandı",
+    "goToChat": "Sohbet sayfası yükleniyor...",
+    "initAuth": "Kimlik doğrulama servisi başlatılıyor...",
+    "initUser": "Kullanıcı durumu başlatılıyor...",
+    "initializing": "PGlite veritabanı başlatılıyor...",
+    "loadingDependencies": "Bağımlılıklar yükleniyor...",
+    "loadingWasm": "WASM modülü yükleniyor...",
+    "migrating": "Veri tablosu taşınıyor...",
+    "ready": "Veritabanı hazır",
+    "showDetail": "Detayları Görüntüle"
+  },
   "autoGenerate": "Otomatik Oluştur",
   "autoGenerateTooltip": "Auto-generate agent description based on prompts",
   "autoGenerateTooltipDisabled": "Otomatik tamamlama işlevini kullanmadan önce ipucu kelimesini girin",
+  "back": "Geri",
+  "batchDelete": "Toplu Sil",
   "blog": "Ürün Blogu",
+  "branching": "Alt konu oluştur",
+  "branchingDisable": "«Alt konu» özelliği yalnızca sunucu sürümünde mevcuttur. Bu özelliği kullanmak için lütfen sunucu dağıtım moduna geçin veya LobeChat Cloud'u kullanın.",
   "cancel": "İptal",
   "changelog": "Changelog",
+  "clientDB": {
+    "autoInit": {
+      "title": "PGlite veritabanı başlatılıyor"
+    },
+    "error": {
+      "desc": "Üzgünüz, Pglite veritabanı başlatma sırasında bir hata oluştu. Lütfen düğmeye tıklayarak tekrar deneyin. Eğer birden fazla denemeden sonra hala hata alıyorsanız, lütfen <1>bir sorun bildirin</1>, size en kısa sürede yardımcı olacağız.",
+      "detail": "Hata Nedeni: [{{type}}] {{message}}. Ayrıntılar aşağıda:",
+      "detailTitle": "Hata Nedeni",
+      "report": "Sorunu Bildir",
+      "retry": "Tekrar Dene",
+      "selfSolve": "Kendin Çöz",
+      "title": "Veritabanı başlatma hatası"
+    },
+    "initing": {
+      "error": "Hata oluştu, lütfen tekrar deneyin",
+      "idle": "Başlatma bekleniyor...",
+      "initializing": "Başlatılıyor...",
+      "loadingDependencies": "Bağlantılar yükleniyor...",
+      "loadingWasmModule": "WASM modülü yükleniyor...",
+      "migrating": "Veri tablosu taşınıyor...",
+      "ready": "Veritabanı hazır"
+    },
+    "modal": {
+      "desc": "PGlite istemci veritabanını etkinleştirerek, tarayıcınızda sohbet verilerini kalıcı olarak depolayın ve bilgi bankası gibi gelişmiş özellikleri kullanın.",
+      "enable": "Hemen Etkinleştir",
+      "features": {
+        "knowledgeBase": {
+          "desc": "Kişisel bilgi havuzunuzu oluşturun ve asistanınızla kolayca bilgi havuzu sohbetine başlayın (yakında gelecek)",
+          "title": "Bilgi havuzu sohbetini destekleyin, ikinci beyninizi açın"
+        },
+        "localFirst": {
+          "desc": "Sohbet verileri tamamen tarayıcıda saklanır, verileriniz her zaman sizin kontrolünüzde.",
+          "title": "Yerel öncelik, gizlilik öncelikli"
+        },
+        "pglite": {
+          "desc": "PGlite tabanlı, AI Native yüksek düzey özellikleri (vektör arama) yerel olarak destekler",
+          "title": "Yeni nesil istemci depolama mimarisi"
+        }
+      },
+      "init": {
+        "desc": "Veritabanı başlatılıyor, ağ farklılıklarına bağlı olarak 5-30 saniye sürebilir.",
+        "title": "PGlite veritabanı başlatılıyor"
+      },
+      "title": "İstemci veritabanını aç"
+    },
+    "ready": {
+      "button": "Hemen Kullan",
+      "desc": "Hemen kullanmak istiyorum",
+      "title": "PGlite veritabanı hazır"
+    },
+    "solve": {
+      "backup": {
+        "backup": "Yedekle",
+        "backupSuccess": "Yedekleme Başarılı",
+        "desc": "Mevcut veritabanındaki kritik verileri dışa aktar",
+        "export": "Tüm Verileri Dışa Aktar",
+        "exportDesc": "Dışa aktarılan veriler JSON formatında kaydedilecektir, sonraki kurtarma veya analiz için kullanılabilir.",
+        "reset": {
+          "alert": "Uyarı",
+          "alertDesc": "Aşağıdaki işlemler veri kaybına neden olabilir. Devam etmeden önce önemli verilerinizi yedeklediğinizden emin olun.",
+          "button": "Veritabanını Tamamen Sıfırla (Tüm Verileri Sil)",
+          "confirm": {
+            "desc": "Bu işlem tüm verileri silecektir ve geri alınamaz, devam etmek istediğinizi onaylıyor musunuz?",
+            "title": "Veritabanını Sıfırlamayı Onayla"
+          },
+          "desc": "Geri alınamaz bir durumda veritabanını sıfırla",
+          "title": "Veritabanı Sıfırlama"
+        },
+        "restore": "Geri Yükle",
+        "restoreSuccess": "Geri Yükleme Başarılı",
+        "title": "Veri Yedekleme"
+      },
+      "diagnosis": {
+        "createdAt": "Oluşturulma Zamanı",
+        "migratedAt": "Göç Tamamlanma Zamanı",
+        "sql": "Göç SQL",
+        "title": "Göç Durumu"
+      },
+      "repair": {
+        "desc": "Göç durumunu manuel olarak yönet",
+        "runSQL": "Özel Çalıştır",
+        "sql": {
+          "clear": "Temizle",
+          "desc": "Veritabanı sorunlarını düzeltmek için özel SQL ifadelerini çalıştır",
+          "markFinished": "Tamamlandı Olarak İşaretle",
+          "placeholder": "SQL ifadesini girin...",
+          "result": "Çalıştırma Sonucu",
+          "run": "Çalıştır",
+          "title": "SQL Çalıştırıcı"
+        },
+        "title": "Göç Kontrolü"
+      },
+      "tabs": {
+        "backup": "Yedekleme ve Geri Yükleme",
+        "diagnosis": "Tanı",
+        "repair": "Onarım"
+      }
+    }
+  },
   "close": "Kapat",
   "contact": "Bize Ulaşın",
   "copy": "Kopyala",
@@ -31,6 +148,7 @@
   "defaultSession": "Varsayılan Asistan",
   "delete": "Sil",
   "document": "Belge",
+  "download": "İndir",
   "duplicate": "Kopya oluştur",
   "edit": "Düzenle",
   "export": "Dışa Aktar",
@@ -65,7 +183,7 @@
   },
   "fullscreen": "Tam Ekran Modu",
   "historyRange": "Geçmiş Aralığı",
-  "import": "İçe Aktar",
+  "importData": "Veri İçe Aktar",
   "importModal": {
     "error": {
       "desc": "Üzgünüz, veri aktarımı sırasında bir hata oluştu. Lütfen tekrar deneyin veya <1>bir sorun bildirin</1>, sorunu çözmek için elimizden geleni yapacağız.",
@@ -87,7 +205,8 @@
       "sessions": "Asistanlar",
       "skips": "Geç",
       "topics": "Konular",
-      "type": "Tip"
+      "type": "Tip",
+      "update": "Kayıt güncellendi"
     },
     "title": "Veri İçe Aktar",
     "uploading": {
@@ -95,6 +214,16 @@
       "restTime": "Kalan Zaman",
       "speed": "Yükleme Hızı"
     }
+  },
+  "importPreview": {
+    "confirmImport": "İçe Aktarmayı Onayla",
+    "tables": {
+      "count": "Kayıt Sayısı",
+      "name": "Tablo Adı"
+    },
+    "title": "Veri İçe Aktarma Önizlemesi",
+    "totalRecords": "Toplam {{count}} kayıt içe aktarılacak",
+    "totalTables": "{{count}} tablo"
   },
   "information": "Topluluk ve Bilgi",
   "installPWA": "Tarayıcı Uygulamasını Yükle",
@@ -109,6 +238,7 @@
     "en": "İngilizce",
     "en-US": "İngilizce",
     "es-ES": "İspanyolca",
+    "fa-IR": "Farsça",
     "fi-FI": "Fince",
     "fr-FR": "Fransızca",
     "hi-IN": "Hintçe",
@@ -149,9 +279,12 @@
   "pinOff": "Unpin",
   "privacy": "Gizlilik Politikası",
   "regenerate": "Tekrarla",
+  "releaseNotes": "Sürüm Detayları",
   "rename": "Yeniden İsimlendir",
   "reset": "Reset",
   "retry": "Yeniden Dene",
+  "run": "Çalıştır",
+  "save": "Kaydet",
   "send": "Gönder",
   "setting": "Ayarlar",
   "share": "Paylaş",
@@ -191,7 +324,8 @@
   },
   "tab": {
     "chat": "Chat",
-    "market": "Keşfet",
+    "discover": "Keşfet",
+    "files": "Dosyalar",
     "me": "ben",
     "setting": "Ayarlar"
   },
@@ -204,6 +338,7 @@
   },
   "temp": "Geçici",
   "terms": "Hizmet Koşulları",
+  "update": "Güncelle",
   "updateAgent": "Asistan Bilgilerini Güncelle",
   "upgradeVersion": {
     "action": "Güncelle",
@@ -214,6 +349,7 @@
     "anonymousNickName": "Anonim Kullanıcı",
     "billing": "Fatura Yönetimi",
     "cloud": "{{name}}'i Deneyin",
+    "community": "Topluluk Sürümü",
     "data": "Veri Depolama",
     "defaultNickname": "Topluluk Kullanıcısı",
     "discord": "Topluluk Destek",
@@ -223,7 +359,6 @@
     "help": "Yardım Merkezi",
     "moveGuide": "Ayarlar düğmesini buraya taşıyın",
     "plans": "Planlar",
-    "preview": "Önizleme",
     "profile": "Hesap Yönetimi",
     "setting": "Uygulama Ayarları",
     "usages": "Kullanım İstatistikleri"

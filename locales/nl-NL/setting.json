@@ -6,13 +6,14 @@
     "chat": "Chatvoorkeur",
     "meta": "Assistentinformatie",
     "modal": "Modelinstellingen",
+    "opening": "Openingsinstellingen",
     "plugin": "Plugin-instellingen",
     "prompt": "Rolinstelling",
     "tts": "Tekst-naar-spraakdienst"
   },
   "analytics": {
     "telemetry": {
-      "desc": "Door te kiezen om telemetrische gegevens te verzenden, kun je ons helpen om de algehele gebruikerservaring van LobeChat te verbeteren",
+      "desc": "Door te kiezen voor het verzenden van telemetriegegevens, kun je ons helpen de algehele gebruikerservaring van {{appName}} te verbeteren.",
       "title": "Anonieme gebruiksgegevens verzenden"
     },
     "title": "Analytics"
@@ -42,6 +43,17 @@
     "sessionWithName": "Sessie-instellingen · {{name}}",
     "title": "Instellingen"
   },
+  "hotkey": {
+    "conflicts": "Conflict met bestaande sneltoetsen",
+    "group": {
+      "conversation": "Gesprek",
+      "essential": "Essentieel"
+    },
+    "invalidCombination": "Sneltoets moet ten minste één modifier-toets (Ctrl, Alt, Shift) en één reguliere toets bevatten",
+    "record": "Druk op een toets om de sneltoets op te nemen",
+    "reset": "Reset naar standaard sneltoetsen",
+    "title": "Sneltoetsen"
+  },
   "llm": {
     "apiKey": {
       "desc": "Vul je {{name}} API-sleutel in",
@@ -69,11 +81,11 @@
           "title": "Model weergavenaam"
         },
         "files": {
-          "extra": "Currently, the file upload implementation in LobeChat is just a temporary solution and is for self-exploration only. Please wait for the full file upload capability in the future.",
+          "extra": "De huidige implementatie van het uploaden van bestanden is slechts een hackoplossing en is alleen bedoeld voor eigen gebruik. Volledige bestandsuploadmogelijkheden zijn in de toekomst te verwachten.",
           "title": "Ondersteuning voor het uploaden van bestanden"
         },
         "functionCall": {
-          "extra": "Deze configuratie schakelt alleen de functieaanroepmogelijkheid in LobeChat in. Of functieaanroepen worden ondersteund, hangt volledig af van het model zelf. Test zelf de beschikbaarheid van functieaanroepen van dit model.",
+          "extra": "Deze configuratie zal alleen de functie-aanroepmogelijkheden in de applicatie inschakelen. Of functie-aanroepen worden ondersteund, hangt volledig af van het model zelf. Test de beschikbaarheid van functie-aanroepen van dit model zelf.",
           "title": "Ondersteuningsfunctie Oproep"
         },
         "id": {
@@ -83,11 +95,10 @@
         },
         "modalTitle": "Aangepaste modelconfiguratie",
         "tokens": {
-          "title": "Maximaal tokenaantal",
-          "unlimited": "onbeperkt"
+          "title": "Maximaal tokenaantal"
         },
         "vision": {
-          "extra": "Deze configuratie schakelt alleen de configuratie voor het uploaden van afbeeldingen in LobeChat in. Of herkenning wordt ondersteund, hangt volledig af van het model zelf. Test zelf de beschikbaarheid van visuele herkenning in dit model.",
+          "extra": "Deze configuratie zal alleen de mogelijkheid voor het uploaden van afbeeldingen in de applicatie inschakelen. Of herkenning wordt ondersteund, hangt volledig af van het model zelf. Test de beschikbaarheid van visuele herkenning van dit model zelf.",
           "title": "Ondersteuning van visuele herkenning"
         }
       }
@@ -97,6 +108,7 @@
       "title": "Gebruik de ophaalmodus aan de clientzijde"
     },
     "fetcher": {
+      "clear": "Verwijder opgehaalde model",
       "fetch": "Haal model lijst op",
       "fetching": "Model lijst wordt opgehaald...",
       "latestTime": "Laatst bijgewerkt: {{time}}",
@@ -136,6 +148,7 @@
       "title": "Achtergrondkleur"
     },
     "description": {
+      "desc": "Een korte introductie van je assistent, niet als karakterinstelling",
       "placeholder": "Voer assistentbeschrijving in",
       "title": "Assistentbeschrijving"
     },
@@ -147,7 +160,9 @@
       "placeholder": "Voer rol Prompt-woord in",
       "title": "Rolinstelling"
     },
+    "submit": "Assistentinformatie bijwerken",
     "tag": {
+      "desc": "Assistentlabels worden weergegeven in de assistentmarkt",
       "placeholder": "Voer tag in",
       "title": "Tag"
     },
@@ -173,8 +188,8 @@
       "desc": "Automatisch een onderwerp maken tijdens het gesprek, alleen van toepassing op tijdelijke onderwerpen",
       "title": "Automatisch onderwerp maken"
     },
-    "enableCompressThreshold": {
-      "title": "Compressiedrempel voor berichtlengte inschakelen"
+    "enableCompressHistory": {
+      "title": "Automatisch samenvatten van historische berichten inschakelen"
     },
     "enableHistoryCount": {
       "alias": "Onbeperkt",
@@ -192,15 +207,19 @@
       "placeholder": "Voorbewerkingssjabloon {{text}} wordt vervangen door realtime invoer",
       "title": "Voorbewerking van gebruikersinvoer"
     },
+    "submit": "Chatvoorkeuren bijwerken",
     "title": "Chatinstellingen"
   },
   "settingModel": {
     "enableMaxTokens": {
       "title": "Limiet voor enkele reacties inschakelen"
     },
+    "enableReasoningEffort": {
+      "title": "Inschakelen van redeneringsinspanningsaanpassing"
+    },
     "frequencyPenalty": {
-      "desc": "Hoe hoger de waarde, hoe waarschijnlijker het is dat herhaalde woorden worden verminderd",
-      "title": "Frequentieboete"
+      "desc": "Hoe hoger de waarde, hoe rijker en gevarieerder de woordkeuze; hoe lager de waarde, hoe eenvoudiger en directer de woordkeuze",
+      "title": "Woordenschat diversiteit"
     },
     "maxTokens": {
       "desc": "Het maximale aantal tokens dat wordt gebruikt voor een enkele interactie",
@@ -210,20 +229,48 @@
       "desc": "{{provider}} model",
       "title": "Model"
     },
-    "presencePenalty": {
-      "desc": "Hoe hoger de waarde, hoe waarschijnlijker het is dat het gesprek naar nieuwe onderwerpen wordt uitgebreid",
-      "title": "Onderwerpnieuwheid"
+    "params": {
+      "title": "Geavanceerde parameters"
     },
+    "presencePenalty": {
+      "desc": "Hoe hoger de waarde, hoe meer de neiging om verschillende uitdrukkingen te gebruiken en herhaling van concepten te vermijden; hoe lager de waarde, hoe meer de neiging om herhalende concepten of verhalen te gebruiken, wat zorgt voor meer consistentie in de uitdrukking",
+      "title": "Uitdrukkingsdiversiteit"
+    },
+    "reasoningEffort": {
+      "desc": "Hoe hoger de waarde, hoe sterker de redeneringscapaciteit, maar dit kan de responstijd en het tokenverbruik verhogen",
+      "options": {
+        "high": "Hoog",
+        "low": "Laag",
+        "medium": "Gemiddeld"
+      },
+      "title": "Redeneringsinspanningsniveau"
+    },
+    "submit": "Modelinstellingen bijwerken",
     "temperature": {
-      "desc": "Hoe hoger de waarde, hoe willekeuriger de reactie",
-      "title": "Willekeurigheid",
-      "titleWithValue": "Willekeurigheid {{value}}"
+      "desc": "Hoe hoger de waarde, hoe creatiever en fantasierijker het antwoord; hoe lager de waarde, hoe strikter het antwoord.",
+      "title": "Creativiteit Activiteit",
+      "warning": "Een te hoge waarde voor creativiteit activiteit kan leiden tot onleesbare output."
     },
     "title": "Modelinstellingen",
     "topP": {
-      "desc": "Vergelijkbaar met willekeurigheid, maar verander dit niet samen met willekeurigheid",
-      "title": "Top-P-monstername"
+      "desc": "Hoeveel mogelijkheden er in overweging worden genomen; hoe hoger de waarde, hoe meer mogelijke antwoorden worden geaccepteerd; hoe lager de waarde, hoe meer de voorkeur uitgaat naar het meest waarschijnlijke antwoord. Het wordt niet aanbevolen om dit samen met creativiteit activiteit te wijzigen.",
+      "title": "Openheid van Denken"
     }
+  },
+  "settingOpening": {
+    "openingMessage": {
+      "desc": "De openingsboodschap bij het starten van een gesprek, bedoeld om de functies van de assistent voor te stellen",
+      "placeholder": "Hallo, ik ben de aangepaste assistent. Je kunt direct met me beginnen praten of naar de assistentinstellingen gaan om mijn informatie aan te vullen.",
+      "title": "Openingsboodschap"
+    },
+    "openingQuestions": {
+      "desc": "Leidende vragen die worden weergegeven aan het begin van het gesprek",
+      "empty": "Geen vragen beschikbaar",
+      "placeholder": "Voer een vraag in",
+      "repeat": "Vraag bestaat al",
+      "title": "Openingsvragen"
+    },
+    "title": "Openingsinstellingen"
   },
   "settingPlugin": {
     "title": "Plugin-lijst"
@@ -275,6 +322,7 @@
       "desc": "Browser staat voor de native spraakherkenningsservice van de browser",
       "title": "Spraakherkenningsservice"
     },
+    "submit": "Spraakdienst bijwerken",
     "title": "Spraakdienst",
     "tts": "Spraaksynthese-instellingen",
     "ttsService": {
@@ -318,12 +366,45 @@
     },
     "title": "Thema-instellingen"
   },
+  "storage": {
+    "actions": {
+      "export": {
+        "button": "Exporteren",
+        "exportType": {
+          "agent": "Exporteren assistentinstellingen",
+          "agentWithMessage": "Exporteren assistent en berichten",
+          "all": "Exporteren globale instellingen en alle assistentgegevens",
+          "allAgent": "Exporteren alle assistentinstellingen",
+          "allAgentWithMessage": "Exporteren alle assistenten en berichten",
+          "globalSetting": "Exporteren globale instellingen"
+        },
+        "title": "Gegevens exporteren"
+      },
+      "import": {
+        "button": "Importeren",
+        "title": "Gegevens importeren"
+      },
+      "title": "Geavanceerde acties"
+    },
+    "desc": "Huidig opslaggebruik in de browser",
+    "embeddings": {
+      "used": "Vectoropslag"
+    },
+    "title": "Gegevensopslag",
+    "used": "Opslaggebruik"
+  },
   "submitAgentModal": {
     "button": "Assistent indienen",
     "identifier": "Assistent-identificatie",
     "metaMiss": "Vul alstublieft de assistentinformatie in voordat u deze indient. Dit moet de naam, beschrijving en labels bevatten",
     "placeholder": "Voer de identificatie van de assistent in, deze moet uniek zijn, bijvoorbeeld web-ontwikkeling",
     "tooltips": "Delen op de assistentenmarkt"
+  },
+  "submitFooter": {
+    "reset": "Resetten",
+    "submit": "Opslaan",
+    "unSaved": "Onopgeslagen wijzigingen",
+    "unSavedWarning": "Er zijn momenteel onopgeslagen wijzigingen"
   },
   "sync": {
     "device": {
@@ -365,6 +446,33 @@
     }
   },
   "systemAgent": {
+    "agentMeta": {
+      "label": "Assistentmetadata-generatiemodel",
+      "modelDesc": "Model voor het genereren van assistentnaam, beschrijving, profielfoto en labels",
+      "title": "Automatisch assistentinformatie genereren"
+    },
+    "customPrompt": {
+      "addPrompt": "Voeg aangepaste prompt toe",
+      "desc": "Vul dit in, zodat de systeemassistent de aangepaste prompt gebruikt bij het genereren van inhoud",
+      "placeholder": "Voer aangepaste prompt in",
+      "title": "Aangepaste prompt"
+    },
+    "helpInfo": "Wanneer je een nieuwe assistent maakt, worden de standaard assistentinstellingen als standaardwaarden gebruikt.",
+    "historyCompress": {
+      "label": "Gespreksgeschiedenismodel",
+      "modelDesc": "Specificeer het model dat wordt gebruikt voor het comprimeren van gespreksgeschiedenis",
+      "title": "Automatisch samenvatten van gespreksgeschiedenis"
+    },
+    "queryRewrite": {
+      "label": "Vraag herschrijvingsmodel",
+      "modelDesc": "Model dat is opgegeven voor het optimaliseren van gebruikersvragen",
+      "title": "Herformuleren van vragen in de kennisbank"
+    },
+    "thread": {
+      "label": "Subtopic Naamgevingsmodel",
+      "modelDesc": "Model dat wordt gebruikt voor het automatisch hernoemen van subonderwerpen",
+      "title": "Automatische naamgeving van subonderwerpen"
+    },
     "title": "Systeemassistent",
     "topic": {
       "label": "Onderwerp Naamgevingsmodel",
@@ -382,7 +490,10 @@
     "agent": "Standaardassistent",
     "common": "Algemene instellingen",
     "experiment": "Experiment",
+    "hotkey": "Sneltoetsen",
     "llm": "Taalmodel",
+    "provider": "AI-dienstverlener",
+    "storage": "Gegevensopslag",
     "sync": "Cloudsynchronisatie",
     "system-agent": "Systeemassistent",
     "tts": "Spraakdienst"

@@ -5,17 +5,14 @@ import type { StateCreator } from 'zustand/vanilla';
 import { DEFAULT_PREFERENCE } from '@/const/user';
 import { useOnlyFetchOnceSWR } from '@/libs/swr';
 import { userService } from '@/services/user';
-import { ClientService } from '@/services/user/client';
 import type { UserStore } from '@/store/user';
 import type { GlobalServerConfig } from '@/types/serverConfig';
-import { UserInitializationState } from '@/types/user';
+import { LobeUser, UserInitializationState } from '@/types/user';
 import type { UserSettings } from '@/types/user/settings';
-import { switchLang } from '@/utils/client/switchLang';
 import { merge } from '@/utils/merge';
 import { setNamespace } from '@/utils/storeDebug';
 
 import { preferenceSelectors } from '../preference/selectors';
-import { userGeneralSettingsSelectors } from '../settings/selectors';
 
 const n = setNamespace('common');
 
@@ -47,9 +44,9 @@ export const createCommonSlice: StateCreator<
     await mutate(GET_USER_STATE_KEY);
   },
   updateAvatar: async (avatar) => {
-    const clientService = new ClientService();
+    // 1. 更新服务端/数据库中的头像
+    await userService.updateAvatar(avatar);
 
-    await clientService.updateAvatar(avatar);
     await get().refreshUserState();
   },
 
@@ -94,13 +91,19 @@ export const createCommonSlice: StateCreator<
             // if there is avatar or userId (from client DB), update it into user
             const user =
               data.avatar || data.userId
-                ? merge(get().user, { avatar: data.avatar, id: data.userId })
+                ? merge(get().user, {
+                    avatar: data.avatar,
+                    firstName: data.firstName,
+                    fullName: data.fullName,
+                    id: data.userId,
+                    latestName: data.lastName,
+                    username: data.username,
+                  } as LobeUser)
                 : get().user;
 
             set(
               {
                 defaultSettings,
-                enabledNextAuth: serverConfig.enabledOAuthSSO,
                 isOnboard: data.isOnboard,
                 isShowPWAGuide: data.canEnablePWAGuide,
                 isUserCanEnableTrace: data.canEnableTrace,
@@ -116,12 +119,6 @@ export const createCommonSlice: StateCreator<
             );
 
             get().refreshDefaultModelProviderList({ trigger: 'fetchUserState' });
-
-            // auto switch language
-            const language = userGeneralSettingsSelectors.config(get()).language;
-            if (language === 'auto') {
-              switchLang('auto');
-            }
           }
         },
       },

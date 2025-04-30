@@ -1,81 +1,75 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`LobeOpenRouterAI > models > should get models 1`] = `
+exports[`LobeOpenRouterAI > models > should get models with frontend models data 1`] = `
 [
   {
-    "description": "LLaVA is a large multimodal model that combines a vision encoder and Vicuna for general-purpose visual and language understanding, achieving impressive chat capabilities mimicking [GPT-4](/models/openai/gpt-4-vision-preview) and setting a new state-of-the-art accuracy on Science QA
+    "contextWindowTokens": 131072,
+    "description": "Reflection Llama-3.1 70B is trained with a new technique called Reflection-Tuning that teaches a LLM to detect mistakes in its reasoning and correct course.
 
-#multimodal",
-    "displayName": "Llava 13B",
-    "enabled": false,
-    "functionCall": false,
-    "id": "haotian-liu/llava-13b",
-    "maxTokens": undefined,
-    "tokens": 2048,
-    "vision": true,
-  },
-  {
-    "description": "This vision-language model builds on innovations from the popular [OpenHermes-2.5](/models/teknium/openhermes-2.5-mistral-7b) model, by Teknium. It adds vision support, and is trained on a custom dataset enriched with function calling
+The model was trained on synthetic data.
 
-This project is led by [qnguyen3](https://twitter.com/stablequan) and [teknium](https://twitter.com/Teknium1).
-
-#multimodal",
-    "displayName": "Nous: Hermes 2 Vision 7B (alpha)",
+_These are free, rate-limited endpoints for [Reflection 70B](/models/mattshumer/reflection-70b). Outputs may be cached. Read about rate limits [here](/docs/limits)._",
+    "displayName": "Reflection 70B (free)",
     "enabled": false,
     "functionCall": true,
-    "id": "nousresearch/nous-hermes-2-vision-7b",
-    "maxTokens": undefined,
-    "tokens": 4096,
-    "vision": true,
-  },
-  {
-    "description": "GPT-3.5 Turbo is OpenAI's fastest model. It can understand and generate natural language or code, and is optimized for chat and traditional completion tasks.
-
-Updated by OpenAI to point to the [latest version of GPT-3.5](/models?q=openai/gpt-3.5). Training data up to Sep 2021.",
-    "displayName": "OpenAI: GPT-3.5 Turbo",
-    "enabled": false,
-    "functionCall": false,
-    "id": "openai/gpt-3.5-turbo",
+    "id": "mattshumer/reflection-70b:free",
     "maxTokens": 4096,
-    "tokens": 16385,
+    "pricing": {
+      "input": 0,
+      "output": 0,
+    },
+    "reasoning": true,
+    "releasedAt": "2024-09-06",
     "vision": false,
   },
+]
+`;
+
+exports[`LobeOpenRouterAI > models > should handle fetch error gracefully 1`] = `
+[
   {
-    "description": "Ability to understand images, in addition to all other [GPT-4 Turbo capabilties](/models/openai/gpt-4-turbo). Training data: up to Apr 2023.
+    "contextWindowTokens": 131072,
+    "description": "Reflection Llama-3.1 70B is trained with a new technique called Reflection-Tuning that teaches a LLM to detect mistakes in its reasoning and correct course.
 
-**Note:** heavily rate limited by OpenAI while in preview.
+The model was trained on synthetic data.
 
-#multimodal",
-    "displayName": "OpenAI: GPT-4 Vision",
+_These are free, rate-limited endpoints for [Reflection 70B](/models/mattshumer/reflection-70b). Outputs may be cached. Read about rate limits [here](/docs/limits)._",
+    "displayName": "Reflection 70B (free)",
     "enabled": false,
     "functionCall": false,
-    "id": "openai/gpt-4-vision-preview",
+    "id": "mattshumer/reflection-70b:free",
     "maxTokens": 4096,
-    "tokens": 128000,
-    "vision": true,
-  },
-  {
-    "description": "Gemma by Google is an advanced, open-source language model family, leveraging the latest in decoder-only, text-to-text technology. It offers English language capabilities across text generation tasks like question answering, summarization, and reasoning. The Gemma 7B variant is comparable in performance to leading open source models.
-
-Usage of Gemma is subject to Google's [Gemma Terms of Use](https://ai.google.dev/gemma/terms).",
-    "displayName": "Google: Gemma 7B",
-    "enabled": true,
-    "functionCall": false,
-    "id": "google/gemma-7b-it",
-    "maxTokens": undefined,
-    "tokens": 8192,
+    "pricing": {
+      "input": 0,
+      "output": 0,
+    },
+    "reasoning": false,
+    "releasedAt": "2024-09-06",
     "vision": false,
   },
-  {
-    "description": "One of the highest performing and most popular fine-tunes of Llama 2 13B, with rich descriptions and roleplay. #merge
+]
+`;
 
-Note: this is a higher-throughput version of [this model](/models/gryphe/mythomax-l2-13b), and may have higher prices and slightly different outputs.",
-    "displayName": "MythoMax 13B (nitro)",
+exports[`LobeOpenRouterAI > models > should handle fetch failure gracefully 1`] = `
+[
+  {
+    "contextWindowTokens": 131072,
+    "description": "Reflection Llama-3.1 70B is trained with a new technique called Reflection-Tuning that teaches a LLM to detect mistakes in its reasoning and correct course.
+
+The model was trained on synthetic data.
+
+_These are free, rate-limited endpoints for [Reflection 70B](/models/mattshumer/reflection-70b). Outputs may be cached. Read about rate limits [here](/docs/limits)._",
+    "displayName": "Reflection 70B (free)",
     "enabled": false,
     "functionCall": false,
-    "id": "gryphe/mythomax-l2-13b:nitro",
-    "maxTokens": undefined,
-    "tokens": 4096,
+    "id": "mattshumer/reflection-70b:free",
+    "maxTokens": 4096,
+    "pricing": {
+      "input": 0,
+      "output": 0,
+    },
+    "reasoning": false,
+    "releasedAt": "2024-09-06",
     "vision": false,
   },
 ]

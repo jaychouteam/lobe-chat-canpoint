@@ -4,30 +4,32 @@ import { Eraser } from 'lucide-react';
 import { memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import HotKeys from '@/components/HotKeys';
-import { ALT_KEY, CLEAN_MESSAGE_KEY, META_KEY } from '@/const/hotkeys';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { useChatStore } from '@/store/chat';
 import { useFileStore } from '@/store/file';
+import { useUserStore } from '@/store/user';
+import { settingsSelectors } from '@/store/user/selectors';
+import { HotkeyEnum } from '@/types/hotkey';
+
+export const useClearCurrentMessages = () => {
+  const clearMessage = useChatStore((s) => s.clearMessage);
+  const clearImageList = useFileStore((s) => s.clearChatUploadFileList);
+
+  return useCallback(async () => {
+    await clearMessage();
+    clearImageList();
+  }, [clearImageList, clearMessage]);
+};
 
 const Clear = memo(() => {
   const { t } = useTranslation('setting');
-  const [clearMessage] = useChatStore((s) => [s.clearMessage]);
-  const [clearImageList] = useFileStore((s) => [s.clearImageList]);
-  const hotkeys = [META_KEY, ALT_KEY, CLEAN_MESSAGE_KEY].join('+');
+  const hotkey = useUserStore(settingsSelectors.getHotkeyById(HotkeyEnum.ClearCurrentMessages));
+
+  const clearCurrentMessages = useClearCurrentMessages();
   const [confirmOpened, updateConfirmOpened] = useState(false);
   const mobile = useIsMobile();
 
-  const resetConversation = useCallback(async () => {
-    await clearMessage();
-    clearImageList();
-  }, []);
-
-  const actionTitle: any = confirmOpened ? (
-    void 0
-  ) : (
-    <HotKeys desc={t('clearCurrentMessages', { ns: 'chat' })} inverseTheme keys={hotkeys} />
-  );
+  const actionTitle: any = confirmOpened ? void 0 : t('clearCurrentMessages', { ns: 'chat' });
 
   const popconfirmPlacement = mobile ? 'top' : 'topRight';
 
@@ -35,7 +37,7 @@ const Clear = memo(() => {
     <Popconfirm
       arrow={false}
       okButtonProps={{ danger: true, type: 'primary' }}
-      onConfirm={resetConversation}
+      onConfirm={clearCurrentMessages}
       onOpenChange={updateConfirmOpened}
       open={confirmOpened}
       placement={popconfirmPlacement}
@@ -47,9 +49,14 @@ const Clear = memo(() => {
     >
       <ActionIcon
         icon={Eraser}
-        overlayStyle={{ maxWidth: 'none' }}
-        placement={'bottom'}
         title={actionTitle}
+        tooltipProps={{
+          hotkey,
+          placement: 'bottom',
+          styles: {
+            root: { maxWidth: 'none' },
+          },
+        }}
       />
     </Popconfirm>
   );
