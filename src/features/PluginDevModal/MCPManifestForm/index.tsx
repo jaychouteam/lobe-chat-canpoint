@@ -134,13 +134,10 @@ const MCPManifestForm = ({ form, isEditMode }: MCPManifestFormProps) => {
 
     // Manually trigger validation for fields needed for the test
     let isValid = false;
-    try {
-      await form.validateFields([
-        ...(mcpType === 'http' ? [HTTP_URL_KEY] : [STDIO_COMMAND, STDIO_ARGS]),
-      ]);
-      isValid = true;
-    } catch {}
-
+    await form.validateFields([
+      ...(mcpType === 'http' ? [HTTP_URL_KEY] : [STDIO_COMMAND, STDIO_ARGS]),
+    ]);
+    isValid = true;
     if (!isValid) {
       setIsTesting(false);
       return;

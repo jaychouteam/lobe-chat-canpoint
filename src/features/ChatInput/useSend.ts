@@ -4,7 +4,7 @@ import { useChatStore } from '@/store/chat';
 import { chatSelectors } from '@/store/chat/selectors';
 import { fileChatSelectors, useFileStore } from '@/store/file';
 import { SendMessageParams } from '@/types/message';
-import { getAuth } from '@/app/api/request'
+// import { getAuth } from '@/app/api/request'
 
 export type UseSendMessageParams = Pick<
   SendMessageParams,

@@ -11,7 +11,7 @@ import { memo } from 'react';
 const Footer = memo(() => {
   // const theme = useTheme();
   return (
-    <div></div>
+    <div />
 
     // <Center
     //   style={{

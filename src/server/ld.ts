@@ -281,7 +281,8 @@ export class Ld {
     return title.includes('LobeChat') ? title : `${title}`;
   }
 
-  private fixUrl(url: string) {
+  private fixUrl() {
+    // url: string
     // return  '' //urlJoin(SITE_URL, url);
 
     return  'Lobe chat' //title.includes(BRANDING_NAME) ? title : `${title} · ${BRANDING_NAME}`;

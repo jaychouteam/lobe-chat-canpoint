@@ -2,10 +2,6 @@ import {
   // Book,
   CircleUserRound,
   Cloudy,
-  // Database,
-  Download,
-  Feather,
-  FileClockIcon,
   Settings2,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';

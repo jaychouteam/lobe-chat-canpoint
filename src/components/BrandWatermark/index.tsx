@@ -26,7 +26,7 @@ import {
 const BrandWatermark = memo<Omit<FlexboxProps, 'children'>>(() => {
   // const { styles, theme } = useStyles();
   return (
-    <div></div>
+    <div />
     // <Flexbox
     //   align={'center'}
     //   dir={'ltr'}

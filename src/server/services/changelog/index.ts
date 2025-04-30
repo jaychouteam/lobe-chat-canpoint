@@ -48,32 +48,33 @@ export class ChangelogService {
   }
 
   async getChangelogIndex(): Promise<ChangelogIndexItem[]> {
-    try {
-      // const url = this.genUrl(urlJoin(this.config.docsPath, 'index.json'));
+    return [];
+    // try {
+    //   const url = this.genUrl(urlJoin(this.config.docsPath, 'index.json'));
 
-      // const res = await fetch(url, {
-      //   next: { revalidate: 3600, tags: [FetchCacheTag.Changelog] },
-      // });
+    //   const res = await fetch(url, {
+    //     next: { revalidate: 3600, tags: [FetchCacheTag.Changelog] },
+    //   });
 
-      // if (res.ok) {
-      //   const data = await res.json();
+    //   if (res.ok) {
+    //     const data = await res.json();
 
-      //   return this.mergeChangelogs(data.cloud, data.community).slice(0, 5);
-      // }
+    //     return this.mergeChangelogs(data.cloud, data.community).slice(0, 5);
+    //   }
 
-      return [];
-    } catch (e) {
-      const cause = (e as Error).cause as { code: string };
-      if (cause?.code.includes('ETIMEDOUT')) {
-        console.warn(
-          '[ChangelogFetchTimeout] fail to fetch changelog lists due to network timeout. Please check your network connection.',
-        );
-      } else {
-        console.error('Error getting changelog lists:', e);
-      }
+    //   return [];
+    // } catch (e) {
+    //   const cause = (e as Error).cause as { code: string };
+    //   if (cause?.code.includes('ETIMEDOUT')) {
+    //     console.warn(
+    //       '[ChangelogFetchTimeout] fail to fetch changelog lists due to network timeout. Please check your network connection.',
+    //     );
+    //   } else {
+    //     console.error('Error getting changelog lists:', e);
+    //   }
 
-      return [];
-    }
+    //   return [];
+    // }
   }
 
   async getIndexItemById(id: string) {

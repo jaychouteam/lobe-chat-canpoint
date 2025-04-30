@@ -18,7 +18,7 @@ const Header = memo(() => {
       center={<ChatHeader.Title title={t('header.session')} />}
       onBackClick={() => router.push('/chat')}
       // right={<HeaderContent />}
-      right={<div></div>}
+      right={<div />}
       showBackButton
       style={mobileHeaderSticky}
     />

@@ -52,7 +52,7 @@ const Header = memo(() => {
           }}
         >
           {/* <ProductLogo className={styles.logo} size={36} type={'text'} /> */}
-          <Logo width={120}></Logo>
+          <Logo width={120} />
           {enableWebrtc && <SyncStatusTag />}
         </Flexbox>
         <Flexbox align={'center'} gap={4} horizontal>

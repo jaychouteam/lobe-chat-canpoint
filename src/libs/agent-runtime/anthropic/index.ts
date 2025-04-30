@@ -152,88 +152,88 @@ export class LobeAnthropicAI implements LobeRuntimeAI {
     } //satisfies Anthropic.MessageCreateParams;
   }
 
-  async models() {
-    const { LOBE_DEFAULT_MODEL_LIST } = await import('@/config/aiModels');
+  // async models() {
+  //   const { LOBE_DEFAULT_MODEL_LIST } = await import('@/config/aiModels');
 
-    const url = `${this.baseURL}/v1/models`;
-    const response = await fetch(url, {
-      headers: {
-        'anthropic-version': '2023-06-01',
-        'x-api-key': `${this.apiKey}`,
-      },
-      method: 'GET',
-    });
-    const json = await response.json();
+  //   const url = `${this.baseURL}/v1/models`;
+  //   const response = await fetch(url, {
+  //     headers: {
+  //       'anthropic-version': '2023-06-01',
+  //       'x-api-key': `${this.apiKey}`,
+  //     },
+  //     method: 'GET',
+  //   });
+  //   const json = await response.json();
 
-    const modelList: AnthropicModelCard[] = json['data'];
+  //   const modelList: AnthropicModelCard[] = json['data'];
 
-    return modelList
-      .map((model) => {
-        const knownModel = LOBE_DEFAULT_MODEL_LIST.find(
-          (m) => model.id.toLowerCase() === m.id.toLowerCase(),
-        );
+  //   return modelList
+  //     .map((model) => {
+  //       const knownModel = LOBE_DEFAULT_MODEL_LIST.find(
+  //         (m) => model.id.toLowerCase() === m.id.toLowerCase(),
+  //       );
 
-        return {
-          contextWindowTokens: knownModel?.contextWindowTokens ?? undefined,
-          displayName: model.display_name,
-          enabled: knownModel?.enabled || false,
-          functionCall:
-            model.id.toLowerCase().includes('claude-3') ||
-            knownModel?.abilities?.functionCall ||
-            false,
-          id: model.id,
-          reasoning: knownModel?.abilities?.reasoning || false,
-          vision:
-            (model.id.toLowerCase().includes('claude-3') &&
-              !model.id.toLowerCase().includes('claude-3-5-haiku')) ||
-            knownModel?.abilities?.vision ||
-            false,
-        };
-      })
-      .filter(Boolean) as ChatModelCard[];
-  }
+  //       return {
+  //         contextWindowTokens: knownModel?.contextWindowTokens ?? undefined,
+  //         displayName: model.display_name,
+  //         enabled: knownModel?.enabled || false,
+  //         functionCall:
+  //           model.id.toLowerCase().includes('claude-3') ||
+  //           knownModel?.abilities?.functionCall ||
+  //           false,
+  //         id: model.id,
+  //         reasoning: knownModel?.abilities?.reasoning || false,
+  //         vision:
+  //           (model.id.toLowerCase().includes('claude-3') &&
+  //             !model.id.toLowerCase().includes('claude-3-5-haiku')) ||
+  //           knownModel?.abilities?.vision ||
+  //           false,
+  //       };
+  //     })
+  //     .filter(Boolean) as ChatModelCard[];
+  // }
 
-  private handleError(error: any): ChatCompletionErrorPayload {
-    let desensitizedEndpoint = this.baseURL;
+  // private handleError(error: any): ChatCompletionErrorPayload {
+  //   let desensitizedEndpoint = this.baseURL;
 
-    if (this.baseURL !== DEFAULT_BASE_URL) {
-      desensitizedEndpoint = desensitizeUrl(this.baseURL);
-    }
+  //   if (this.baseURL !== DEFAULT_BASE_URL) {
+  //     desensitizedEndpoint = desensitizeUrl(this.baseURL);
+  //   }
 
-    if ('status' in (error as any)) {
-      switch ((error as Response).status) {
-        case 401: {
-          throw AgentRuntimeError.chat({
-            endpoint: desensitizedEndpoint,
-            error: error as any,
-            errorType: AgentRuntimeErrorType.InvalidProviderAPIKey,
-            provider: this.id,
-          });
-        }
+  //   if ('status' in (error as any)) {
+  //     switch ((error as Response).status) {
+  //       case 401: {
+  //         throw AgentRuntimeError.chat({
+  //           endpoint: desensitizedEndpoint,
+  //           error: error as any,
+  //           errorType: AgentRuntimeErrorType.InvalidProviderAPIKey,
+  //           provider: this.id,
+  //         });
+  //       }
 
-        case 403: {
-          throw AgentRuntimeError.chat({
-            endpoint: desensitizedEndpoint,
-            error: error as any,
-            errorType: AgentRuntimeErrorType.LocationNotSupportError,
-            provider: this.id,
-          });
-        }
-        default: {
-          break;
-        }
-      }
-    }
+  //       case 403: {
+  //         throw AgentRuntimeError.chat({
+  //           endpoint: desensitizedEndpoint,
+  //           error: error as any,
+  //           errorType: AgentRuntimeErrorType.LocationNotSupportError,
+  //           provider: this.id,
+  //         });
+  //       }
+  //       default: {
+  //         break;
+  //       }
+  //     }
+  //   }
 
-    const { errorResult } = handleAnthropicError(error);
+  //   const { errorResult } = handleAnthropicError(error);
 
-    throw AgentRuntimeError.chat({
-      endpoint: desensitizedEndpoint,
-      error: errorResult,
-      errorType: AgentRuntimeErrorType.ProviderBizError,
-      provider: this.id,
-    });
-  }
+  //   throw AgentRuntimeError.chat({
+  //     endpoint: desensitizedEndpoint,
+  //     error: errorResult,
+  //     errorType: AgentRuntimeErrorType.ProviderBizError,
+  //     provider: this.id,
+  //   });
+  // }
 
   async models() {
     const { LOBE_DEFAULT_MODEL_LIST } = await import('@/config/aiModels');

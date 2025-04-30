@@ -43,7 +43,7 @@ const menuKey = (provider: string, model: string) => `${provider}-${model}`;
 const ModelSwitchPanel = memo<PropsWithChildren>(({ children }) => {
   const { t } = useTranslation('components');
   const { styles, 
-    // theme
+    theme
    } = useStyles();
   const [model, provider, updateAgentConfig] = useAgentStore((s) => [
     agentSelectors.currentAgentModel(s),

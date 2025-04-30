@@ -15,7 +15,7 @@ import {
   // Mail,
   Settings2,
 } from 'lucide-react';
-// import Link from 'next/link';
+import Link from 'next/link';
 import { PropsWithChildren, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';

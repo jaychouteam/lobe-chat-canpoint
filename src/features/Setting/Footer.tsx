@@ -41,7 +41,7 @@ const Footer = memo<PropsWithChildren>(() => {
           padding={16}
           width={'100%'}
         >
-          <div></div>
+          <div />
           {/* <div style={{ textAlign: 'center' }}>
             <Icon icon={MessageSquareHeart} /> {`${t('footer.title')} `}
             <Link
