@@ -3,6 +3,7 @@
 1、 pnpm run dev 启动
 2、pnpm  install 安装依赖
 3、node -v 要在18.18.0以上 
+4、pnpm run lint -- --fix 本地检查代码是否符合规范，不然打包通过不了
 
 [![][image-banner]][vercel-link]
 2

@@ -1,6 +1,6 @@
 'use client';
 
-import { Form, type ItemGroup } from '@lobehub/ui';
+import { Form, type Group  } from '@lobehub/ui';
 import { Form as AntForm } from 'antd';
 import isEqual from 'fast-deep-equal';
 import { memo } from 'react';
@@ -13,7 +13,7 @@ import { settingsSelectors } from '@/store/user/selectors';
 
 import { useSyncSystemAgent } from './useSync';
 
-type SettingItemGroup = ItemGroup;
+type SettingItemGroup = Group;
 
 const Topic = memo(() => {
   const { t } = useTranslation('setting');

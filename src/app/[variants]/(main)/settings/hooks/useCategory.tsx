@@ -23,7 +23,9 @@ import { featureFlagsSelectors, useServerConfigStore } from '@/store/serverConfi
 export const useCategory = () => {
   const { t } = useTranslation('setting');
   const mobile = useServerConfigStore((s) => s.isMobile);
-  const { enableWebrtc, showLLM, enableSTT, hideDocs } =
+  const { enableWebrtc, showLLM, enableSTT, 
+    // hideDocs 
+  } =
     useServerConfigStore(featureFlagsSelectors);
 
   const cateItems: MenuProps['items'] = useMemo(
