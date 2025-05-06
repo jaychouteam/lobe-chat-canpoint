@@ -33,7 +33,7 @@ import OpenAIProvider from './openai';
 // import OpenRouterProvider from './openrouter';
 // import PerplexityProvider from './perplexity';
 // import PPIOProvider from './ppio';
-// import QwenProvider from './qwen';
+import QwenProvider from './qwen';
 // import SambaNovaProvider from './sambanova';
 // import Search1APIProvider from './search1api';
 // import SenseNovaProvider from './sensenova';
@@ -58,7 +58,7 @@ import OpenAIProvider from './openai';
  */
 export const LOBE_DEFAULT_MODEL_LIST: ChatModelCard[] = [
   OpenAIProvider.chatModels,
-  // QwenProvider.chatModels,
+  QwenProvider.chatModels,
   // ZhiPuProvider.chatModels,
   // BedrockProvider.chatModels,
   // DeepSeekProvider.chatModels,
@@ -135,7 +135,7 @@ export const DEFAULT_MODEL_PROVIDER_LIST = [
   // JinaProvider,
   // SambaNovaProvider,
   // CohereProvider,
-  // QwenProvider,
+  QwenProvider,
   // WenxinProvider,
   // TencentcloudProvider,
   // HunyuanProvider,
